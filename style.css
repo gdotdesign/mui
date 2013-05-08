@@ -1,0 +1,91 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Lato;
+}
+
+ui\:dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	display: block;
+	background: #7F8C8D;
+	display: none;
+	border-radius: 0 0 3px 3px;
+}
+ui\:dropdown > *:last-child{
+	border-radius: 0 0 3px 3px;
+}
+
+ui\:select {
+	background: #2980B9;
+	padding: 0 10px;
+	height: 40px;
+	position: relative;
+	line-height: 40px;
+	display: inline-block;
+	min-width: 200px;
+	color: #ECF0F1;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 3px 3px 0 0;
+}
+ui\:select:hover {
+	background: #3498DB;
+}
+ui\:select:before {
+	border-bottom: 3px solid rgba(0,0,0,0.1);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: "";
+}
+ui\:select:after {
+	content: "\f078";
+	font-family: FontAwesome;
+	float: right;
+}
+
+ui\:option {
+	display: block;
+	padding: 0 10px;
+	height: 40px;
+	line-height: 40px;
+	background: #2980B9;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: no-wrap;
+}
+ui\:option:hover {
+	background: #3498DB;
+}
+
+ui\:checkbox {
+	background: #2980B9;
+	width: 40px;
+	display: inline-block;
+	height: 40px;
+	cursor: pointer;
+	text-align: center;
+	border-radius: 3px;
+}
+ui\:checkbox:hover {
+	background: #3498DB;
+}
+ui\:checkbox:after{
+	content: " ";
+	line-height: 40px;
+	color: #2980B9;
+	content: "\f00c";
+	font-family: FontAwesome;
+}
+ui\:checkbox[checked]:after{
+	color: #ECF0F1;
+}
