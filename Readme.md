@@ -1,0 +1,1 @@
+The aim of this repository is to recreate HTML Form Controls (http://www.w3.org/TR/REC-html40/interact/forms.html) in JavaScript under namespaced elements.

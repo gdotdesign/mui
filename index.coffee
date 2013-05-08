@@ -73,6 +73,13 @@ class UI.Dropdown extends UI.Abstract
 				@style.display = 'none'
 		, true
 
+class UI.Input extends UI.Abstract
+	@TAGNAME: 'input'
+	@SELECTOR: NS+"\\:"+@TAGNAME
+
+	initialize: ->
+		@setAttribute('contenteditable',true)
+
 for tag, cls of UI
 	if cls::initialize
 		for el in document.querySelectorAll(cls.SELECTOR)

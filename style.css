@@ -9,6 +9,16 @@ body {
 	font-family: Lato;
 }
 
+ui\:input {
+	background: #ECF0F1;
+	padding: 10px 10px;
+	width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 16px;
+	display: inline-block;
+	border-radius: 3px;
+}
 ui\:dropdown {
 	position: absolute;
 	top: 100%;
