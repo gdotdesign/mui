@@ -1,24 +1,8 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="style.css">
-
-<script type="text/javascript">
-this.Element && function(ElementPrototype) {
-  ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||
-  ElementPrototype.mozMatchesSelector ||
-  ElementPrototype.msMatchesSelector ||
-  ElementPrototype.oMatchesSelector ||
-  ElementPrototype.webkitMatchesSelector ||
-  function (selector) {
-    var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
-
-    while (nodes[++i] && nodes[i] != node);
-
-    return !!nodes[i];
-  }
-}(Element.prototype);
-</script>
-
+<link rel="stylesheet" href="themes/flat/theme.css">
+<script type="text/javascript" src="vendor/shims.js"></script>
 <script type="text/javascript" src="log.coffee"></script>
+<script type="text/javascript" src="index.coffee"></script>
 
 <style type="text/css">
 #form {
@@ -50,7 +34,6 @@ this.Element && function(ElementPrototype) {
   <ui:submit>Submit</ui:submit>
 </ui:form>
 
-<script type="text/javascript" src="index.coffee"></script>
 <script type="text/javascript">
   form = document.body.querySelector('ui\\:form')
   form.addEventListener('complete',function(e){

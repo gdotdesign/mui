@@ -3,6 +3,8 @@ qs = (args...)-> document.querySelector.apply document, args
 UI = {
   verbose: true
   ns: 'ui'
+  warn: (text)->
+    console.warn text
   log: (args...)->
     if @verbose
       log.apply window, args
@@ -29,21 +31,38 @@ class UI.Select extends UI.Abstract
   @TAGNAME: 'select'
 
   initialize: ->
+    @dropdown = @querySelector(UI.Dropdown.SELECTOR())
+    @label = @querySelector(UI.Label.SELECTOR())
+
+    UI.warn('SELECT: No dropdown found...') unless @dropdown
+    UI.warn('SELECT: No label found...') unless @label
+
+    @addEventListener 'DOMNodeRemoved', (e)=>
+      setTimeout =>
+        if e.target is @selectedOption
+          @selectDefault()
+    @addEventListener 'DOMNodeInserted', (e)=>
+      if e.target.nodeType is 1
+        @selectDefault()
+
     @addEventListener 'click', (e)=>
+      return if @getAttribute('disabled')
       if e.target.matchesSelector(UI.Option.SELECTOR())
         @select(e.target)
-        @querySelector(UI.Dropdown.SELECTOR()).style.display = 'none'
+        @dropdown.style.display = 'none'
       else
-        @querySelector(UI.Dropdown.SELECTOR()).style.display = 'block'
+        @dropdown.style.display = 'block'
     @selectDefault()
 
   selectDefault: ->
+    UI.log 'SELECT: selectDefault'
     selected = @querySelector(UI.Option.SELECTOR()+"[selected]")
     selected ?= @querySelector(UI.Option.SELECTOR()+":first-of-type")
-    if selected
-      @select(selected)
+    @select(selected)
 
   select: (value)->
+    UI.log 'SELECT: select', value
+    return if @selectedOption is value
     if value instanceof HTMLElement
       @selectedOption = value
     else
@@ -52,11 +71,19 @@ class UI.Select extends UI.Abstract
     @_setValue()
 
   _setValue: ->
+    UI.log('SELECT: setValue')
+    lastValue = @value
     if @selectedOption
       @querySelector('[selected]')?.removeAttribute('selected')
       @selectedOption.setAttribute('selected',true)
       @value = @selectedOption.getAttribute('value')
-      @querySelector(UI.Label.SELECTOR())?.textContent = @selectedOption.textContent
+      @label?.textContent = @selectedOption.textContent
+    else
+      @label?.textContent = ""
+      @value = null
+    if @value isnt lastValue
+      UI.log 'SELECT: change'
+      @fireEvent('change')
 
 class UI.Option extends UI.Abstract
   @TAGNAME: 'option'
@@ -175,7 +202,8 @@ init = (e)->
 
 document.addEventListener 'DOMNodeInserted', init
 
-for key, value of UI
-  if value.SELECTOR
-    for el in document.querySelectorAll(value.SELECTOR())
-      value.wrap el
+window.addEventListener 'load', ->
+  for key, value of UI
+    if value.SELECTOR
+      for el in document.querySelectorAll(value.SELECTOR())
+        value.wrap el
