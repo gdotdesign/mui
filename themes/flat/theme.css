@@ -161,6 +161,7 @@ ui\:submit {
 	border-radius: 3px;
 	background: #2C3E50;
 	cursor: pointer;
+	font-weight: bold;
 }
 
 ui\:submit:hover {
@@ -173,4 +174,50 @@ ui\:markup {
 	padding: 20px;
 	background: #ECF0F1;
 	border-radius: 3px;
+}
+
+ui\:pager {
+	display: block;
+	width: 320px;
+	height: 480px;
+	position: relative;
+	overflow: hidden;
+	background: #333;
+}
+
+@keyframes in {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+@keyframes out {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100%);
+	}
+}
+ui\:pager ui\:page {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	transform: translateX(100%);
+	transition: 320ms;
+	animation: out 600ms both;
+}
+ui\:pager ui\:page[active] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	animation: in 600ms both;
 }

@@ -191,6 +191,19 @@ class UI.Submit extends UI.Abstract
       if form
         form.submit()
 
+class UI.Pager extends UI.Abstract
+  @TAGNAME: 'pager'
+  select: (value)->
+    UI.log 'PAGER: select', value
+    return if @selectedPage is value
+    if value instanceof HTMLElement
+      @selectedPage = value
+    else
+      @selectedPage = @querySelector("[name=#{value}]")
+    return unless @selectedPage
+    @querySelector('[active]')?.removeAttribute('active')
+    @selectedPage.setAttribute('active',true)
+
 init = (e)->
   return unless e.target.tagName
   return if e.target._processed
