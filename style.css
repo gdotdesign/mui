@@ -1,15 +1,22 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
-* {
+body * {
 	box-sizing: border-box;
+	animation: nodeInserted 0.001s;
 }
 
 body {
 	font-family: Lato;
 }
 
-ui\:input {
+@keyframes nodeInserted {
+	from { clip: rect(1px, auto, auto, auto); }
+	to { clip: rect(0px, auto, auto, auto); }
+}
+
+
+ui\:text, ui\:email,ui\:password, ui\:textarea {
 	background: #ECF0F1;
 	padding: 10px 10px;
 	width: 200px;
@@ -18,21 +25,71 @@ ui\:input {
 	font-size: 16px;
 	display: inline-block;
 	border-radius: 3px;
+	position: relative;
 }
+
+ui\:textarea {
+	height:  200px;
+	resize: both;
+	overflow: auto;
+}
+
+ui\:password {
+	color: transparent;
+}
+ui\:password::selection {
+	color: #ccc;
+	background: #ccc;
+}
+ui\:password:before {
+	content: attr(mask);
+	padding: 10px 10px;
+	position: absolute;
+	font-size: 20px;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #333;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+ui\:text:empty:after, ui\:email:empty:after, ui\:password:empty:after, ui\:textarea:empty:after {
+	content: attr(placeholder);
+	color: #ccc;
+}
+
+ui\:text:focus, ui\:email:focus, ui:\password:focus {
+	content: attr(placeholder);
+	color: #ccc;
+}
+
 ui\:dropdown {
 	position: absolute;
 	top: 100%;
 	left: 0;
 	right: 0;
 	display: block;
-	background: #7F8C8D;
+	background: #2980B9;
+	overflow: auto;
+	max-height: 200px;
 	display: none;
 	border-radius: 0 0 3px 3px;
+	z-index: 10;
 }
 ui\:dropdown > *:last-child{
 	border-radius: 0 0 3px 3px;
 }
 
+ui\:dropdown ui\:text {
+	background: rgba(255,255,255,0.6);
+	color: #333;
+	width: 100%;
+	border-radius: 0;
+	padding: 0 10px;
+	position: sticky;
+}
 ui\:select {
 	background: #2980B9;
 	padding: 0 10px;
@@ -98,4 +155,17 @@ ui\:checkbox:after{
 }
 ui\:checkbox[checked]:after{
 	color: #ECF0F1;
+}
+
+ui\:submit {
+	padding: 7px 20px;
+	display: inline-block;
+	color: #ECF0F1;
+	border-radius: 3px;
+	background: #2C3E50;
+	cursor: pointer;
+}
+
+ui\:submit:hover {
+	background: #34495E;
 }

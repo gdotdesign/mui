@@ -1,21 +1,43 @@
 <link rel="stylesheet" type="text/css" href="style.css">
-<select>
-	<option>asd</option>
-</select>
 
-
-<ui:select>
-	<span></span>
-	<ui:dropdown>
-		<ui:option value="option1">Option 1</ui:option>
-		<ui:option value="option2" selected>Option 2</ui:option>
-	</ui:dropdown>
-</ui:select>
-<ui:label for="xx">asd</ui:label>
-<input name="xx"></input>
-<ui:checkbox name="asd" checked></ui:checkbox>
-<ui:label for="asd1">asd</ui:label>
-<ui:checkbox name="asd1"></ui:checkbox>
-<ui:input></ui:input>
-
+<script type="text/javascript" src="log.coffee"></script>
 <script type="text/javascript" src="index.coffee"></script>
+
+<style type="text/css">
+#form {
+
+}
+#form ui\:textarea, #form ui\:email, #form > ui\:text, #form ui\:select {
+  display:block;
+  margin-bottom: 10px;
+  width: 300px;
+}
+
+#form ui\:textarea {
+  resize: vertical;
+}
+</style>
+
+<ui:form id="form" action="/contact" method="PUT">
+  <ui:text placeholder="Name" name="name"></ui:text>
+  <ui:email placeholder="Email" name="email"></ui:email>
+  <ui:select name="type">
+    <ui:label></ui:label>
+    <ui:dropdown>
+      <ui:option>N/A</ui:option>
+      <ui:option value="inquiry">Inquiry</ui:option>
+      <ui:option value="support">Support</ui:option>
+    </ui:dropdown>
+  </ui:select>
+  <ui:textarea placeholder="Message" name="message"></ui:textarea>
+  <ui:submit>Submit</ui:submit>
+</ui:form>
+
+<script type="text/javascript">
+  form = document.querySelector('ui\\:form')
+  form.addEventListener('complete',function(e){
+    console.log(e.response)
+  })
+
+
+</script>

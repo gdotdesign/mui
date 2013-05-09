@@ -1,86 +1,171 @@
 qs = (args...)-> document.querySelector.apply document, args
 
-NS = 'ui'
-UI = {}
+UI = {
+  verbose: true
+  ns: 'ui'
+  log: (args...)->
+    if @verbose
+      log.apply window, args
+}
+
 class UI.Abstract
-	@wrap: (el)->
-		for own key, fn of @::
-			if key isnt 'initialize'
-				el[key] = fn.bind(el)
-		@::initialize?.call el
+  @SELECTOR: -> UI.ns+"\\:"+@TAGNAME
+  @wrap: (el)->
+    for key, fn of @::
+      if key isnt 'initialize'
+        el[key] = fn.bind(el)
+    @::initialize?.call el
+
+  fireEvent: (type,data)->
+    event = document.createEvent("HTMLEvents")
+    event.initEvent(type, true, true)
+    for key, value of data
+      event[key] = value
+    @dispatchEvent(event)
+    event
 
 class UI.Select extends UI.Abstract
-	@TAGNAME: 'select'
-	@SELECTOR: NS+"\\:"+@TAGNAME
+  @TAGNAME: 'select'
 
-	initialize: ->
-		@addEventListener 'click', (e)=>
-			if e.target.webkitMatchesSelector(UI.Option.SELECTOR)
-				@select(e.target.getAttribute('value'))
-				@querySelector(UI.Dropdown.SELECTOR).style.display = 'none'
-			else
-				@querySelector(UI.Dropdown.SELECTOR).style.display = 'block'
-		@selectDefault()
+  initialize: ->
+    @addEventListener 'click', (e)=>
+      if e.target.webkitMatchesSelector(UI.Option.SELECTOR())
+        @select(e.target)
+        @querySelector(UI.Dropdown.SELECTOR()).style.display = 'none'
+      else
+        @querySelector(UI.Dropdown.SELECTOR()).style.display = 'block'
+    @selectDefault()
 
-	selectDefault: ->
-		selected = @querySelector(UI.Option.SELECTOR+"[selected]")
-		selected ?= @querySelector(UI.Option.SELECTOR+":first-child")
-		if selected
-			@select(selected.getAttribute('value'))
+  selectDefault: ->
+    selected = @querySelector(UI.Option.SELECTOR()+"[selected]")
+    selected ?= @querySelector(UI.Option.SELECTOR()+":first-of-type")
+    if selected
+      @select(selected)
 
-	select: (value)->
-		option = @querySelector(UI.Option.SELECTOR+"[value='#{value}']")
-		@selectedOption = option or null
-		@_setValue()
+  select: (value)->
+    if value instanceof HTMLElement
+      @selectedOption = value
+    else
+      option = @querySelector(UI.Option.SELECTOR()+"[value='#{value}']")
+      @selectedOption = option or null
+    @_setValue()
 
-	_setValue: ->
-		if @selectedOption
-			@value = @selectedOption.getAttribute('value')
-			@querySelector('span').textContent = @selectedOption.textContent
+  _setValue: ->
+    if @selectedOption
+      @querySelector('[selected]')?.removeAttribute('selected')
+      @selectedOption.setAttribute('selected',true)
+      @value = @selectedOption.getAttribute('value')
+      @querySelector(UI.Label.SELECTOR())?.textContent = @selectedOption.textContent
 
 class UI.Option extends UI.Abstract
-	@TAGNAME: 'option'
-	@SELECTOR: NS+"\\:"+@TAGNAME
+  @TAGNAME: 'option'
 
 class UI.Label extends UI.Abstract
-	@TAGNAME: 'label'
-	@SELECTOR: NS+"\\:"+@TAGNAME
-	initialize: ->
-		@addEventListener 'click', =>
-			name = @getAttribute('for')
-			el = document.querySelector("[name=#{name}]")
-			el?.focus()
-			el?.click()
+  @TAGNAME: 'label'
+  initialize: ->
+    @addEventListener 'click', =>
+      name = @getAttribute('for')
+      el = document.querySelector("[name=#{name}]")
+      el?.focus()
+      el?.click()
 
 class UI.Checkbox extends UI.Abstract
-	@TAGNAME: 'checkbox'
-	@SELECTOR: NS+"\\:"+@TAGNAME
+  @TAGNAME: 'checkbox'
 
-	initialize: ->
-		@addEventListener 'click', =>
-			if @getAttribute('checked') isnt null
-				@removeAttribute('checked')
-			else
-				@setAttribute('checked',true)
+  initialize: ->
+    @addEventListener 'click', =>
+      if @getAttribute('checked') isnt null
+        @removeAttribute('checked')
+      else
+        @setAttribute('checked',true)
 
 class UI.Dropdown extends UI.Abstract
-	@TAGNAME: 'dropdown'
-	@SELECTOR: NS+"\\:"+@TAGNAME
+  @TAGNAME: 'dropdown'
 
-	initialize: ->
-		document.addEventListener 'click', (e)=>
-			if e.target isnt @
-				@style.display = 'none'
-		, true
+  initialize: ->
+    document.addEventListener 'click', (e)=>
+      if e.target isnt @
+        @style.display = 'none'
+    , true
 
 class UI.Input extends UI.Abstract
-	@TAGNAME: 'input'
-	@SELECTOR: NS+"\\:"+@TAGNAME
+  @TAGNAME: 'input'
+  initialize: ->
+    @setAttribute('contenteditable',true)
+    @_input = document.createElement('input')
+    @addEventListener 'input', (e) ->
+      @value = @textContent
+    @addEventListener 'blur', (e) ->
+      if @childNodes.length is 1
+        if @childNodes[0].tagName is 'BR'
+          @removeChild @childNodes[0]
 
-	initialize: ->
-		@setAttribute('contenteditable',true)
+class UI.Textarea extends UI.Input
+  @TAGNAME: 'textarea'
 
-for tag, cls of UI
-	if cls::initialize
-		for el in document.querySelectorAll(cls.SELECTOR)
-			cls.wrap el
+class UI.Text extends UI.Input
+  @TAGNAME: 'text'
+  initialize: ->
+    super
+    @addEventListener 'keydown', (e) ->
+      e.preventDefault() if e.keyCode is 13
+
+class UI.Email extends UI.Text
+  @TAGNAME: 'email'
+
+class UI.Password extends UI.Text
+  @TAGNAME: 'password'
+  initialize: ->
+    super
+    @addEventListener 'input', (e) ->
+      @setAttribute 'mask', @textContent.replace(/./g,'*')
+
+class UI.Form extends UI.Abstract
+  @TAGNAME: 'form'
+  submit: ->
+    event = @fireEvent('submit')
+    unless event.defaultPrevented
+      formData = new FormData()
+      data = {}
+      for el in @querySelectorAll('[name]')
+        if el.value
+          formData.append(el.getAttribute('name'), el.value)
+          data[el.getAttribute('name')] = el.value
+      UI.log('Sending request to: *'+@getAttribute('method').toUpperCase()+"* - _"+@getAttribute('action')+"_", data)
+      oReq = new XMLHttpRequest()
+      oReq.open("POST", "submitform.php")
+      oReq.send(new FormData(formData))
+      oReq.onreadystatechange = =>
+        if oReq.readyState is 4
+          headers = {}
+          oReq.getAllResponseHeaders().split("\n").map (item) ->
+            [key,value] = item.split(": ")
+            if key and value
+              headers[key] = value
+          body = oReq.response
+          status = oReq.status
+          @fireEvent 'complete', {response: {headers: headers, body: body, status: status}}
+
+getParent = (el,tagName)->
+  if el.parentNode
+    if el.parentNode.tagName is tagName.toUpperCase()
+      el.parentNode
+    else
+      getParent(el.parentNode,tagName)
+  else
+    null
+
+class UI.Submit extends UI.Abstract
+  @TAGNAME: 'submit'
+  initialize: ->
+    @addEventListener 'click', ->
+      form = getParent(@,'ui:form')
+      if form
+        form.submit()
+
+document.addEventListener 'webkitAnimationStart', (e)->
+  tagName = e.target.tagName
+  if tagName.match /^UI:/
+    tag = tagName.split(":").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
+    if UI[tag]
+      UI[tag].wrap e.target
