@@ -3,18 +3,11 @@
 
 body * {
 	box-sizing: border-box;
-	animation: nodeInserted 0.001s;
 }
 
 body {
 	font-family: Lato;
 }
-
-@keyframes nodeInserted {
-	from { clip: rect(1px, auto, auto, auto); }
-	to { clip: rect(0px, auto, auto, auto); }
-}
-
 
 ui\:text, ui\:email,ui\:password, ui\:textarea {
 	background: #ECF0F1;

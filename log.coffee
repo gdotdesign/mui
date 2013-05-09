@@ -1,5 +1,3 @@
-return unless window.console and window.console.log
-
 log = ->
     args = []
 

@@ -15,6 +15,7 @@ class UI.Abstract
       if key isnt 'initialize'
         el[key] = fn.bind(el)
     @::initialize?.call el
+    @_processed = true
 
   fireEvent: (type,data)->
     event = document.createEvent("HTMLEvents")
@@ -29,7 +30,7 @@ class UI.Select extends UI.Abstract
 
   initialize: ->
     @addEventListener 'click', (e)=>
-      if e.target.webkitMatchesSelector(UI.Option.SELECTOR())
+      if e.target.matchesSelector(UI.Option.SELECTOR())
         @select(e.target)
         @querySelector(UI.Dropdown.SELECTOR()).style.display = 'none'
       else
@@ -163,9 +164,18 @@ class UI.Submit extends UI.Abstract
       if form
         form.submit()
 
-document.addEventListener 'webkitAnimationStart', (e)->
+init = (e)->
+  return unless e.target.tagName
+  return if e.target._processed
   tagName = e.target.tagName
   if tagName.match /^UI:/
     tag = tagName.split(":").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     if UI[tag]
       UI[tag].wrap e.target
+
+document.addEventListener 'DOMNodeInserted', init
+
+for key, value of UI
+  if value.SELECTOR
+    for el in document.querySelectorAll(value.SELECTOR())
+      value.wrap el
