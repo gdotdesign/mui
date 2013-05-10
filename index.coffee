@@ -19,6 +19,12 @@ class UI.Abstract
     @::initialize?.call el
     @_processed = true
 
+  @create: ->
+    base = document.createElement(UI.ns+":"+@TAGNAME)
+    if @::initialize
+      @wrap base
+    base
+
   fireEvent: (type,data)->
     event = document.createEvent("HTMLEvents")
     event.initEvent(type, true, true)
@@ -49,9 +55,6 @@ class UI.Select extends UI.Abstract
       return if @getAttribute('disabled')
       if e.target.matchesSelector(UI.Option.SELECTOR())
         @select(e.target)
-        @dropdown.style.display = 'none'
-      else
-        @dropdown.style.display = 'block'
     @selectDefault()
 
   selectDefault: ->
@@ -99,30 +102,58 @@ class UI.Label extends UI.Abstract
 
 class UI.Checkbox extends UI.Abstract
   @TAGNAME: 'checkbox'
+  @wrap: (el)->
+    super
+    Object.defineProperty el, 'checked',
+      get: ->  @hasAttribute('checked')
+      set: (value)->
+        if value
+          @setAttribute('checked',true)
+        else
+          @removeAttribute('checked')
+        @fireEvent('change')
 
   initialize: ->
     @addEventListener 'click', =>
-      if @getAttribute('checked') isnt null
+      if @hasAttribute('checked')
         @removeAttribute('checked')
       else
         @setAttribute('checked',true)
+      @fireEvent('change')
 
 class UI.Dropdown extends UI.Abstract
   @TAGNAME: 'dropdown'
 
+  onAdded: ->
+    console.log('onAdded')
+    @parentNode.addEventListener 'click', @toggle
+
+  toggle: ->
+    @_open = !@_open
+    if @_open
+      @removeAttribute('open')
+    else
+      @setAttribute('open',true)
+
   initialize: ->
+    @_open = true
+    @onAdded() if @parentNode
     document.addEventListener 'click', (e)=>
       if e.target isnt @
-        @style.display = 'none'
+        @removeAttribute('open')
     , true
 
 class UI.Input extends UI.Abstract
   @TAGNAME: 'input'
+  @wrap: (el)->
+    super
+    Object.defineProperty el, 'value',
+      get: ->  @textContent
+      set: (value)-> @textContent = value
+
   initialize: ->
     @setAttribute('contenteditable',true)
     @_input = document.createElement('input')
-    @addEventListener 'input', (e) ->
-      @value = @textContent
     @addEventListener 'blur', (e) ->
       if @childNodes.length is 1
         if @childNodes[0].tagName is 'BR'
@@ -204,6 +235,38 @@ class UI.Pager extends UI.Abstract
     @querySelector('[active]')?.removeAttribute('active')
     @selectedPage.setAttribute('active',true)
 
+Element::toggleAttribute = (attr) ->
+  if @hasAttribute(attr)
+    @removeAttribute(attr)
+  else
+    @setAttribute(attr,'true')
+
+
+# CUSTOM ELEMENTS
+#################
+class UI.ListItem extends UI.Abstract
+  @TAGNAME: 'listitem'
+
+  initialize: ->
+    @addEventListener 'change', (e)->
+      @toggleAttribute('done')
+
+  @create: (options)->
+    base = super
+    label = UI.Text.create()
+    checkbox = UI.Checkbox.create()
+
+    base.appendChild(label)
+    base.appendChild(checkbox)
+
+    if options.label
+      label.textContent = options.label
+    if options.done
+      checkbox.checked = true
+      base.setAttribute('done', true)
+
+    base
+
 init = (e)->
   return unless e.target.tagName
   return if e.target._processed
@@ -212,6 +275,7 @@ init = (e)->
     tag = tagName.split(":").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     if UI[tag]
       UI[tag].wrap e.target
+      e.target.onAdded?()
 
 document.addEventListener 'DOMNodeInserted', init
 

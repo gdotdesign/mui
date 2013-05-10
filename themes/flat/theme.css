@@ -3,6 +3,7 @@
 
 body * {
 	box-sizing: border-box;
+	-webkit-backface-visibility: hidden;
 }
 
 body {
@@ -67,10 +68,13 @@ ui\:dropdown {
 	right: 0;
 	background: #2980B9;
 	overflow: auto;
-	max-height: 200px;
-	display: none;
+	max-height: 0;
+	transition: 120ms;
 	border-radius: 0 0 3px 3px;
 	z-index: 10;
+}
+ui\:dropdown[open] {
+	max-height: 200px;
 }
 ui\:dropdown > *:last-child{
 	border-radius: 0 0 3px 3px;
@@ -161,6 +165,7 @@ ui\:submit {
 	border-radius: 3px;
 	background: #2C3E50;
 	cursor: pointer;
+	position: relative;
 	font-weight: bold;
 }
 
@@ -187,10 +192,12 @@ ui\:pager {
 
 @keyframes in {
 	from {
-		transform: translateX(100%);
+		transform: scale(0.5);
+		opacity: 0;
 	}
 	to {
-		transform: translateX(0);
+		transform: scale(1);
+		opacity: 1;
 	}
 }
 @keyframes out {
@@ -198,7 +205,8 @@ ui\:pager {
 		transform: translateX(0);
 	}
 	to {
-		transform: translateX(-100%);
+		transform: scale(0.5);
+		opacity: 0;
 	}
 }
 ui\:pager ui\:page {
@@ -208,7 +216,6 @@ ui\:pager ui\:page {
 	right: 0;
 	bottom: 0;
 	display: block;
-	transform: translateX(100%);
 	transition: 320ms;
 	animation: out 600ms both;
 }
@@ -219,5 +226,29 @@ ui\:pager ui\:page[active] {
 	right: 0;
 	bottom: 0;
 	display: block;
-	animation: in 600ms both;
+	animation: in 600ms 600ms both;
+}
+
+/* CUSTOM */
+ui\:listitem {
+	display: block;
+	background: #eee;
+	width: 100%;
+	height: 40px;
+	position: relative;
+	margin-top: 1px;
+}
+ui\:listitem[done] ui\:text{
+	text-decoration: line-through;
+}
+ui\:listitem ui\:text{
+	padding-right: 50px;
+	width: 100%;
+	text-align: left;
+}
+ui\:listitem ui\:checkbox{
+	position: absolute;
+	right: 0;
+	top: 0;
+	border-radius: 0;
 }

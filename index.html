@@ -5,93 +5,53 @@
 <script type="text/javascript" src="index.coffee"></script>
 
 <style type="text/css">
-[name=first] {
-  background: #E67E22
+h1 {
+  color: #333;
 }
-[name=second] {
-  background: #2980B9
+ui\:page {
+  text-align: center;
+  background: #fff;
+  overflow-y: scroll;
 }
-[name=third] {
-  background: #27AE60
-}
-header {
-  padding: 10px;
-  background: #95A5A6;
-  height: 53px;
+ui\:pager {
+  width: auto;
+  height: auto;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-}
-.right {
-  float: right;
-}
-h1 {
-  text-align: center;
-  color: #fff;
+  bottom: 0;
 }
 </style>
 
 <ui:pager>
-  <ui:page name="first">
-    <h1>First Page</h1>
-    <header>
-      <ui:submit class="right">Next</ui:submit>
-    </header>
+  <ui:page name="login" active="true">
+    <h1>Login</h1>
+    <ui:submit id="login">ToDos</ui:submit>
   </ui:page>
-  <ui:page active="true" name="second">
-    <h1>Second Page</h1>
-    <header>
-      <ui:submit class="right">Next</ui:submit>
-      <ui:submit>Prev</ui:submit>
-    </header>
-  </ui:page>
-  <ui:page name="third">
-    <h1>Third Page</h1>
-    <header>
-      <ui:submit>Prev</ui:submit>
-    </header>
+  <ui:page name="todo">
+    <h1>ToDos</h1>
+    <ui:submit id="add">Add Item</ui:submit>
+    <ui:submit id="logout">Logout</ui:submit>
+    <div id="todos">
+    </div>
   </ui:page>
 </ui:pager>
 
-<ui:submit>Go to First Page</ui:submit>
-<ui:submit>Go to Second Page</ui:submit>
-<ui:submit>Go to Third Page</ui:submit>
-
 <script type="text/javascript">
+
   pager = document.querySelector('ui\\:pager')
-
-  submit1 = document.querySelector('body > ui\\:submit:nth-of-type(1)')
-  submit1.addEventListener('click',function(){
-    pager.select('first')
+  todos = document.querySelector("#todos")
+  document.querySelector('#login').addEventListener('click',function(){
+    pager.select('todo')
+  })
+  document.querySelector('#logout').addEventListener('click',function(){
+    pager.select('login')
   })
 
-  submit2 = document.querySelector('body > ui\\:submit:nth-of-type(2)')
-  submit2.addEventListener('click',function(){
-    pager.select('second')
-  })
-  submit3 = document.querySelector('body > ui\\:submit:nth-of-type(3)')
-  submit3.addEventListener('click',function(){
-    pager.select('third')
+  document.querySelector('#add').addEventListener('click',function(){
+    li = UI.ListItem.create({})
+    todos.appendChild(li)
   })
 
-  btn1 = document.querySelector('[name=first] ui\\:submit:first-child')
-  btn1.addEventListener('click',function(){
-    pager.select('second')
-  })
-
-  btn2 = document.querySelector('[name=second] ui\\:submit:first-child')
-  btn2.addEventListener('click',function(){
-    pager.select('third')
-  })
-
-  btn3 = document.querySelector('[name=second] ui\\:submit:last-child')
-  btn3.addEventListener('click',function(){
-    pager.select('first')
-  })
-
-  btn4 = document.querySelector('[name=third] ui\\:submit:first-child')
-  btn4.addEventListener('click',function(){
-    pager.select('second')
-  })
 </script>
