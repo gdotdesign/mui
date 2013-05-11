@@ -3,25 +3,25 @@ ui\:button {
   display: inline-block;
   color: #ECF0F1;
   border-radius: 3px;
-  background: #2C3E50;
+  background-color: #2C3E50;
   cursor: pointer;
   position: relative;
   font-weight: bold;
 }
 ui\:button:hover {
-  background: #34495E;
+  background-color: #34495E;
 }
 
 ui\:button[type=info] {
-  background: #2980B9;
+  background-color: #2980B9;
 }
 ui\:button[type=info]:hover {
-  background: #3498DB;
+  background-color: #3498DB;
 }
 
 ui\:button[type=danger] {
-  background: #C0392B;
+  background-color: #C0392B;
 }
 ui\:button[type=danger]:hover {
-  background: #E74C3C;
+  background-color: #E74C3C;
 }

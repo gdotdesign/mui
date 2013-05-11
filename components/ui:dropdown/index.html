@@ -11,16 +11,31 @@
 <link rel="stylesheet" href="style.css">
 
 <style type="text/css">
-  ui\:modal > * {
-    padding: 20px;
-    text-align: center;
+  .dp i {
+    float: right;
   }
-  ui\:modal h1{
-    margin: 0;
-    margin-bottom: 20px;
+  .dp {
+    max-width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .dp.mini {
+    width: 100px;
+  }
+  .dp.limit ui\:dropdown {
+    max-width: 100px;
+    min-width: 50%;
+  }
+  .dp.transition ui\:dropdown {
+    opacity: 0;
+    transition: opacity 320ms, max-height 1ms 320ms;
+  }
+  .dp.transition ui\:dropdown[open] {
+    opacity: 1;
+    transition: opacity 320ms;
+    max-height: 200px;
   }
 </style>
-
 <div class="container">
   <h1>UI:Dropdown</h1>
   <p>Dropdown component for everything.</p>
@@ -31,6 +46,42 @@
       <ui:option>Item 2</ui:option>
     </ui:dropdown>
   </ui:button>
+  <p>Custom element:</p>
+  <div class="dp">
+    I have a dropdown!
+    <i class="icon-chevron-down"></i>
+    <ui:dropdown>
+      <ui:option>Item 1</ui:option>
+      <ui:option>Item 2</ui:option>
+    </ui:dropdown>
+  </div>
+  <p>Long text:</p>
+  <div class="dp mini">
+    Mini
+    <i class="icon-chevron-down"></i>
+    <ui:dropdown>
+      <ui:option>This is some ass long text!</ui:option>
+      <ui:option>Item 2</ui:option>
+    </ui:dropdown>
+  </div>
+  <p>Limited width:</p>
+  <div class="dp limit">
+    So small...
+    <i class="icon-chevron-down"></i>
+    <ui:dropdown>
+      <ui:option>This is some ass long text!</ui:option>
+      <ui:option>Item 2</ui:option>
+    </ui:dropdown>
+  </div>
+  <p>Custom transition:</p>
+  <div class="dp transition">
+    Here I cooome...
+    <i class="icon-chevron-down"></i>
+    <ui:dropdown>
+      <ui:option>This is some ass long text!</ui:option>
+      <ui:option>Item 2</ui:option>
+    </ui:dropdown>
+  </div>
   <h2>Markup</h2>
   <p>The dropdown can be appended into any element.</p>
   <ui:markup></ui:markup>

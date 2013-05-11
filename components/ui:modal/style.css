@@ -1,19 +1,19 @@
 ui\:modal {
   position: absolute;
   opacity: 0;
-  z-index: 9999;
+  z-index: -1;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.7);
   text-align: center;
-  transition: opacity 600ms;
-  pointer-events: none;
+  transition: opacity 600ms, z-index 1ms 600ms;
 }
 ui\:modal[open] {
   opacity: 1;
-  pointer-events: auto;
+  z-index: 9999;
+  transition: opacity 600ms;
 }
 ui\:modal[open] > *{
   opacity: 1;

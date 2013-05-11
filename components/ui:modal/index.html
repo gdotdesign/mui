@@ -19,18 +19,41 @@
     margin: 0;
     margin-bottom: 20px;
   }
+
+  ui\:modal[name=modal2] > * {
+    -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+  }
+
+  ui\:modal[name=modal2][open] > *{
+    opacity: 1;
+    -webkit-transform: perspective(1000px);
+    -moz-transform: perspective(1000px);
+    -ms-transform: perspective(1000px);
+    -o-transform: perspective(1000px);
+  }
 </style>
 
 <div class="container">
   <h1>UI:Modal</h1>
   <p>Simple modal dialog.</p>
-  <ui:button type="info">Open Modal</ui:button>
+  <ui:button type="info" name="modal1">Open Modal</ui:button>
+  <p>Custom transition.</p>
+  <ui:button type="info" name="modal2">Open Modal</ui:button>
   <h2>Markup</h2>
   <p>Any immediate children is positioned center via text-align and inline-block, this allows us to create a modal dialog with only CSS.</p>
-  <ui:modal>
+  <ui:modal name="modal2">
     <div>
       <h1>Modal</h1><p>This is a modal dialog.</p>
-      <ui:button type="danger">Close Modal</ui:button>
+      <ui:button type="danger" name="modal2">Close Modal</ui:button>
+    </div>
+  </ui:modal>
+  <ui:modal name="modal1">
+    <div>
+      <h1>Modal</h1><p>This is a modal dialog.</p>
+      <ui:button type="danger" name="modal1">Close Modal</ui:button>
     </div>
   </ui:modal>
   <ui:markup></ui:markup>
@@ -42,7 +65,7 @@
 </div>
 <script type="text/javascript">
 
-  Array.prototype.slice.call(document.querySelectorAll('ui\\:modal')).forEach( function(select){
+  Array.prototype.slice.call(document.querySelectorAll('ui\\:modal:nth-of-type(2)')).forEach( function(select){
     markup = select.nextElementSibling
     markup.textContent = html_beautify(select.outerHTML,{indent_size: 1, indent_char: '\t'})
     select.addEventListener('change',function(e){
@@ -50,10 +73,11 @@
     })
   })
 
-  modal = document.querySelector('ui\\:modal')
   document.addEventListener('click',function(e){
-    if(e.target.tagName === 'UI:BUTTON')
+    if(e.target.tagName === 'UI:BUTTON'){
+      modal = document.querySelector('ui\\:modal[name='+e.target.getAttribute('name')+']')
       modal.toggle()
+    }
   })
 
 </script>

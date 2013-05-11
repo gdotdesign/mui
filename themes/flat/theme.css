@@ -80,6 +80,7 @@ ui\:option {
 	background: #2980B9;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	color: #ECF0F1;
 	white-space: nowrap;
 }
 ui\:option:hover {

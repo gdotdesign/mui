@@ -2,7 +2,10 @@ class UI.Dropdown extends UI.Abstract
   @TAGNAME: 'dropdown'
 
   onAdded: ->
-    @parentNode.addEventListener 'click', @toggle
+    if @parentNode
+      @parentNode.addEventListener 'click', @toggle
+      if @parentNode.style.position is ''
+        @parentNode.style.position = 'relative'
 
   toggle: ->
     return if @parentNode.hasAttribute('disabled')
@@ -14,7 +17,6 @@ class UI.Dropdown extends UI.Abstract
 
   initialize: ->
     @_open = true
-    @onAdded() if @parentNode
     document.addEventListener 'click', (e)=>
       if e.target isnt @
         @removeAttribute('open')

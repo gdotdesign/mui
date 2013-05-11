@@ -138,6 +138,7 @@ class UI.Form extends UI.Abstract
           @fireEvent 'complete', {response: {headers: headers, body: body, status: status}}
 
 getParent = (el,tagName)->
+  return el if el.tagName is tagName.toUpperCase()
   if el.parentNode
     if el.parentNode.tagName is tagName.toUpperCase()
       el.parentNode
@@ -166,6 +167,7 @@ class UI.Pager extends UI.Abstract
     return unless @selectedPage
     @querySelector('[active]')?.removeAttribute('active')
     @selectedPage.setAttribute('active',true)
+
 
 # CUSTOM ELEMENTS
 #################
@@ -209,3 +211,4 @@ window.addEventListener 'load', ->
     if value.SELECTOR
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
+        el.onAdded?()
