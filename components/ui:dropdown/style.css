@@ -1,0 +1,22 @@
+ui\:dropdown {
+  position: absolute;
+  top: 100%;
+  margin-top: 3px;
+  left: 0;
+  min-width: 100%;
+  background: #2980B9;
+  overflow: auto;
+  max-height: 0;
+  transition: 120ms;
+  border-radius: 3px;
+  z-index: 10;
+}
+ui\:dropdown[open] {
+  max-height: 200px;
+}
+ui\:dropdown > *:first-child{
+  border-radius: 3px 3px  0 0;
+}
+ui\:dropdown > *:last-child{
+  border-radius: 0 0 3px 3px;
+}

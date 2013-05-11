@@ -9,9 +9,19 @@ body * {
 body {
 	color: #333;
 	font-family: Lato;
+	padding: 30px;
 }
 
-ui\:text, ui\:email,ui\:password, ui\:textarea {
+.container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.container > ui\:markup {
+	width: 100%
+}
+
+ui\:text, ui\:email, ui\:password, ui\:textarea {
 	background: #ECF0F1;
 	padding: 10px 10px;
 	width: 200px;
@@ -61,66 +71,6 @@ ui\:text:focus, ui\:email:focus, ui:\password:focus {
 	color: #ccc;
 }
 
-ui\:dropdown {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	background: #2980B9;
-	overflow: auto;
-	max-height: 0;
-	transition: 120ms;
-	border-radius: 0 0 3px 3px;
-	z-index: 10;
-}
-ui\:dropdown[open] {
-	max-height: 200px;
-}
-ui\:dropdown > *:last-child{
-	border-radius: 0 0 3px 3px;
-}
-
-ui\:dropdown ui\:text {
-	background: rgba(255,255,255,0.6);
-	color: #333;
-	width: 100%;
-	border-radius: 0;
-	padding: 0 10px;
-}
-ui\:select {
-	background: #2980B9;
-	padding: 0 10px;
-	height: 40px;
-	position: relative;
-	line-height: 40px;
-	display: inline-block;
-	min-width: 200px;
-	color: #ECF0F1;
-	font-weight: bold;
-	cursor: pointer;
-	border-radius: 3px 3px 0 0;
-	vertical-align: top;
-}
-ui\:select:not([disabled]):hover {
-	background: #3498DB;
-}
-ui\:select:before {
-	border-bottom: 3px solid rgba(0,0,0,0.1);
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	content: "";
-}
-ui\:select:after {
-	content: "\f078";
-	font-family: FontAwesome;
-	float: right;
-}
-ui\:select[disabled] {
-	opacity: 0.4;
-	cursor: auto;
-}
 
 ui\:option {
 	display: block;
@@ -168,7 +118,6 @@ ui\:submit {
 	position: relative;
 	font-weight: bold;
 }
-
 ui\:submit:hover {
 	background: #34495E;
 }
@@ -192,12 +141,10 @@ ui\:pager {
 
 @keyframes in {
 	from {
-		transform: scale(0.5);
-		opacity: 0;
+		transform: translateX(100%);
 	}
 	to {
-		transform: scale(1);
-		opacity: 1;
+		transform: translateX(0);
 	}
 }
 @keyframes out {
@@ -205,8 +152,7 @@ ui\:pager {
 		transform: translateX(0);
 	}
 	to {
-		transform: scale(0.5);
-		opacity: 0;
+		transform: translateX(-100%);
 	}
 }
 ui\:pager ui\:page {
@@ -226,7 +172,7 @@ ui\:pager ui\:page[active] {
 	right: 0;
 	bottom: 0;
 	display: block;
-	animation: in 600ms 600ms both;
+	animation: in 600ms both;
 }
 
 /* CUSTOM */

@@ -1,0 +1,27 @@
+ui\:button {
+  padding: 7px 20px;
+  display: inline-block;
+  color: #ECF0F1;
+  border-radius: 3px;
+  background: #2C3E50;
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+}
+ui\:button:hover {
+  background: #34495E;
+}
+
+ui\:button[type=info] {
+  background: #2980B9;
+}
+ui\:button[type=info]:hover {
+  background: #3498DB;
+}
+
+ui\:button[type=danger] {
+  background: #C0392B;
+}
+ui\:button[type=danger]:hover {
+  background: #E74C3C;
+}

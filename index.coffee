@@ -1,14 +1,22 @@
 qs = (args...)-> document.querySelector.apply document, args
 
 UI = {
-  verbose: true
+  verbose: false
   ns: 'ui'
   warn: (text)->
-    console.warn text
+    if UI.verbose
+      console.warn text
   log: (args...)->
-    if @verbose
-      log.apply window, args
+    if UI.verbose
+      console.log.apply console, args
 }
+
+Element::toggleAttribute = (attr) ->
+  if @hasAttribute(attr)
+    @removeAttribute(attr)
+  else
+    @setAttribute(attr,'true')
+
 
 class UI.Abstract
   @SELECTOR: -> UI.ns+"\\:"+@TAGNAME
@@ -32,61 +40,6 @@ class UI.Abstract
       event[key] = value
     @dispatchEvent(event)
     event
-
-class UI.Select extends UI.Abstract
-  @TAGNAME: 'select'
-
-  initialize: ->
-    @dropdown = @querySelector(UI.Dropdown.SELECTOR())
-    @label = @querySelector(UI.Label.SELECTOR())
-
-    UI.warn('SELECT: No dropdown found...') unless @dropdown
-    UI.warn('SELECT: No label found...') unless @label
-
-    @addEventListener 'DOMNodeRemoved', (e)=>
-      setTimeout =>
-        if e.target is @selectedOption
-          @selectDefault()
-    @addEventListener 'DOMNodeInserted', (e)=>
-      if e.target.nodeType is 1
-        @selectDefault()
-
-    @addEventListener 'click', (e)=>
-      return if @getAttribute('disabled')
-      if e.target.matchesSelector(UI.Option.SELECTOR())
-        @select(e.target)
-    @selectDefault()
-
-  selectDefault: ->
-    UI.log 'SELECT: selectDefault'
-    selected = @querySelector(UI.Option.SELECTOR()+"[selected]")
-    selected ?= @querySelector(UI.Option.SELECTOR()+":first-of-type")
-    @select(selected)
-
-  select: (value)->
-    UI.log 'SELECT: select', value
-    return if @selectedOption is value
-    if value instanceof HTMLElement
-      @selectedOption = value
-    else
-      option = @querySelector(UI.Option.SELECTOR()+"[value='#{value}']")
-      @selectedOption = option or null
-    @_setValue()
-
-  _setValue: ->
-    UI.log('SELECT: setValue')
-    lastValue = @value
-    if @selectedOption
-      @querySelector('[selected]')?.removeAttribute('selected')
-      @selectedOption.setAttribute('selected',true)
-      @value = @selectedOption.getAttribute('value')
-      @label?.textContent = @selectedOption.textContent
-    else
-      @label?.textContent = ""
-      @value = null
-    if @value isnt lastValue
-      UI.log 'SELECT: change'
-      @fireEvent('change')
 
 class UI.Option extends UI.Abstract
   @TAGNAME: 'option'
@@ -121,27 +74,6 @@ class UI.Checkbox extends UI.Abstract
         @setAttribute('checked',true)
       @fireEvent('change')
 
-class UI.Dropdown extends UI.Abstract
-  @TAGNAME: 'dropdown'
-
-  onAdded: ->
-    console.log('onAdded')
-    @parentNode.addEventListener 'click', @toggle
-
-  toggle: ->
-    @_open = !@_open
-    if @_open
-      @removeAttribute('open')
-    else
-      @setAttribute('open',true)
-
-  initialize: ->
-    @_open = true
-    @onAdded() if @parentNode
-    document.addEventListener 'click', (e)=>
-      if e.target isnt @
-        @removeAttribute('open')
-    , true
 
 class UI.Input extends UI.Abstract
   @TAGNAME: 'input'
@@ -234,13 +166,6 @@ class UI.Pager extends UI.Abstract
     return unless @selectedPage
     @querySelector('[active]')?.removeAttribute('active')
     @selectedPage.setAttribute('active',true)
-
-Element::toggleAttribute = (attr) ->
-  if @hasAttribute(attr)
-    @removeAttribute(attr)
-  else
-    @setAttribute(attr,'true')
-
 
 # CUSTOM ELEMENTS
 #################
