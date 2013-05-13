@@ -27,7 +27,7 @@ a {
 </style>
 <nav>
 	<a href="">Home</a>
-	<a href="">Components</a>
+	<a href="/components">Components</a>
 	<a href="">Extending</a>
 </nav>
 <div class="intro">
@@ -57,10 +57,13 @@ a {
 	</div>
 </div>
 <div class="container">
-	<h2>What?</h2>
+	<h2>What is this?</h2>
 	<p>MUI is a full featured User Interface library that works and looks the same in every browser, fully skinnable and customizeble to the bone!</p>
+	<p>It was created because skinning native controls, and using jquery plugins is a pain. Never again!</p>
+	<h2>How is it work?</h2>
+	<p>You create markup:</p>
 	<ui:markup></ui:markup>
-	<br><br>
+	<p>Then just use the api:</p>
 	<ui:markup>select = document.querySelector('ui\\:select')
 select.select('option1') // Select by value
 select.select('Select')  // Select by label</ui:markup>
@@ -87,9 +90,4 @@ select.select('Select')  // Select by label</ui:markup>
 	markup2 = document.querySelector('ui\\:markup[name=tasks]')
 	markup2.textContent = html_beautify(markup2.innerHTML,{indent_size: 1, indent_char: '\t'})
 	</script>
-	<a href="/components/ui:button">UI:Button</a>
-	<a href="/components/ui:dropdown">UI:Dropdown</a>
-	<a href="/components/ui:modal">UI:Modal</a>
-	<a href="/components/ui:select">UI:Select</a>
-	<a href="/components/ui:tooltip">UI:Tooltip</a>
 </div>
