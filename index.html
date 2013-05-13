@@ -3,23 +3,93 @@
 <script type="text/javascript" src="/index.coffee"></script>
 <script type="text/javascript" src="/vendor/style-html.js"></script>
 <link rel="stylesheet" type="text/css" href="/themes/flat/theme.css">
+<link rel="stylesheet" type="text/css" href="index.css">
+
+<script type="text/javascript" src="components/ui:tooltip/component.coffee"></script>
+<link rel="stylesheet" href="components/ui:tooltip/style.css">
+
+<script type="text/javascript" src="components/ui:button/component.coffee"></script>
+<link rel="stylesheet" href="components/ui:button/style.css">
+
+<script type="text/javascript" src="components/ui:dropdown/component.coffee"></script>
+<link rel="stylesheet" href="components/ui:dropdown/style.css">
+
+<script type="text/javascript" src="components/ui:select/component.coffee"></script>
+<link rel="stylesheet" href="components/ui:select/style.css">
 
 <style type="text/css">
 a {
-  display: block;
-  color: #3498DB;
-  text-decoration: none;
-  padding: 10px;
-}
-a:hover {
-  text-decoration: underline;
+	display: block;
+	color: #3498DB;
+	text-decoration: none;
+	padding: 10px 0;
 }
 </style>
+<nav>
+	<a href="">Home</a>
+	<a href="">Components</a>
+	<a href="">Extending</a>
+</nav>
+<div class="intro">
+	<h1>MUI</h1>
+	<h2>Modern Interfaces for the Modern Web</h2>
+	<div class="container">
+		<span name="button">
+			<ui:button type="danger">Button</ui:button>
+		</span>
+		<span name="tooltip">
+			<ui:tooltip open="true" direction="top">
+				<div>Tooltip</div>
+			</ui:tooltip>
+		</span>
+		<span name="checkbox">
+			<ui:checkbox checked="true"></ui:checkbox>
+		</span>
+		<span name="select">
+			<ui:select>
+				<ui:label></ui:label>
+				<ui:dropdown>
+					<ui:option>Select</ui:option>
+					<ui:option value="option1">Option 1</ui:option>
+				</ui:dropdown>
+			</ui:select>
+		</span>
+	</div>
+</div>
 <div class="container">
-  <h1>UI:Modern Interfaces</h1>
-  <a href="/components/ui:button">UI:Button</a>
-  <a href="/components/ui:dropdown">UI:Dropdown</a>
-  <a href="/components/ui:modal">UI:Modal</a>
-  <a href="/components/ui:select">UI:Select</a>
-  <a href="/components/ui:tooltip">UI:Tooltip</a>
+	<h2>What?</h2>
+	<p>MUI is a full featured User Interface library that works and looks the same in every browser, fully skinnable and customizeble to the bone!</p>
+	<ui:markup></ui:markup>
+	<br><br>
+	<ui:markup>select = document.querySelector('ui\\:select')
+select.select('option1') // Select by value
+select.select('Select')  // Select by label</ui:markup>
+	<h2>Extend:</h2>
+	<ui:markup name="tasks">
+		<ui:task finished="true">My Task</ui:task>
+	</ui:markup>
+	<br><br>
+	<ui:markup>class UI.Task extends UI.Abstract
+	@TAGNAME: 'task'
+	intialize: ->
+		# Setup defaults and eventListeners
+	toggle: ->
+		# This will be available on the element
+		@toggleAttribute('finished')</ui:markup>
+	<br><br>
+	<ui:markup>ui\:task[finished] {
+	text-decoration: line-trough
+}</ui:markup>
+	<script type="text/javascript">
+	select = document.querySelector('ui\\:select')
+	markup = document.querySelector('ui\\:markup')
+	markup.textContent = html_beautify(select.outerHTML,{indent_size: 1, indent_char: '\t'})
+	markup2 = document.querySelector('ui\\:markup[name=tasks]')
+	markup2.textContent = html_beautify(markup2.innerHTML,{indent_size: 1, indent_char: '\t'})
+	</script>
+	<a href="/components/ui:button">UI:Button</a>
+	<a href="/components/ui:dropdown">UI:Dropdown</a>
+	<a href="/components/ui:modal">UI:Modal</a>
+	<a href="/components/ui:select">UI:Select</a>
+	<a href="/components/ui:tooltip">UI:Tooltip</a>
 </div>

@@ -4,20 +4,26 @@ class UI.Dropdown extends UI.Abstract
   onAdded: ->
     if @parentNode
       @parentNode.addEventListener 'click', @toggle
-      if @parentNode.style.position is ''
+      if getComputedStyle(@parentNode).position is 'static'
         @parentNode.style.position = 'relative'
 
   toggle: ->
     return if @parentNode.hasAttribute('disabled')
     @_open = !@_open
     if @_open
-      @removeAttribute('open')
+      @open()
     else
-      @setAttribute('open',true)
+      @close()
+
+  open: ->
+    @setAttribute('open',true)
+
+  close: ->
+    @removeAttribute('open')
 
   initialize: ->
-    @_open = true
+    @_open = false
     document.addEventListener 'click', (e)=>
       if e.target isnt @
-        @removeAttribute('open')
+        @close()
     , true

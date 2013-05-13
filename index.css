@@ -1,0 +1,125 @@
+@import url(http://fonts.googleapis.com/css?family=Righteous);
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #ECF0F1;
+}
+
+.intro h2 {
+  text-align: center;
+  color: #ECF0F1;
+  margin-top: 0;
+  animation: show 2s 0.6s both;
+  margin-bottom: 0;
+}
+.intro h1 {
+  text-align: center;
+  color: #ECF0F1;
+  font-family: Righteous;
+  font-size: 100px;
+  margin-top: 60px;
+  margin-bottom: 0;
+  animation: show 2s 0.3s both;
+}
+
+@keyframes animatedBackground {
+  from { background-position: 0 bottom; }
+  to { background-position: 100% bottom; }
+}
+
+@keyframes hover {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(20px);
+  }
+}
+
+@keyframes show {
+  from {
+    transform: translateY(500px)
+  }
+  50% {
+    transform: translateY(-30px)
+  }
+}
+
+nav {
+  text-align: center;
+  background: #5eade2;
+}
+nav a {
+  display: inline-block;
+  color: #ECF0F1;
+  margin: 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.4)
+}
+.intro {
+  position: relative;
+  background: #5eade2;
+  background-image: url(/images/bg-clouds.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  height: 520px;
+  overflow: hidden;
+  animation: animatedBackground 20s linear infinite alternate;
+}
+
+.intro .container {
+  position: relative;
+}
+.intro ui\:select {
+  animation: hover 1s alternate infinite ease-in-out;
+}
+.intro ui\:checkbox {
+  animation: hover 1s 0.6s alternate infinite ease-in-out both;
+}
+.intro ui\:button {
+  animation: hover 1s 0.3s alternate infinite ease-in-out both;
+}
+.intro ui\:tooltip {
+  animation: hover 1s 0.75s alternate infinite ease-in-out both;
+}
+
+
+
+.intro .container span {
+  display: block;
+  position: absolute;
+}
+
+span[name=select] {
+  right: 0;
+  top: 150px;
+  transform: rotate(3deg);
+  animation: show 2s;
+}
+
+span[name=checkbox] {
+  right: 300px;
+  top: 100px;
+  transform: rotate(-3deg);
+  animation: show 2s 0.3s both;
+}
+
+span[name=button] {
+  left: 50px;
+  top: 170px;
+  transform: rotate(-3deg);
+  animation: show 2s 0.3s both;
+}
+
+span[name=tooltip] {
+  left: 300px;
+  width: 0;
+  height: 0;
+  top: 170px;
+  transform: rotate(-3deg);
+  animation: show 2s 0.3s both;
+}
+
+span[name=tooltip] ui\:tooltip {
+  opacity: 1 !important;
+}

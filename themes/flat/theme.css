@@ -77,18 +77,18 @@ ui\:option {
 	padding: 0 10px;
 	height: 40px;
 	line-height: 40px;
-	background: #2980B9;
+	background:#16A085;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	color: #ECF0F1;
 	white-space: nowrap;
 }
 ui\:option:hover {
-	background: #3498DB;
+	background: #1ABC9C;
 }
 
 ui\:checkbox {
-	background: #2980B9;
+	background: #16A085;
 	width: 40px;
 	display: inline-block;
 	height: 40px;
@@ -97,11 +97,11 @@ ui\:checkbox {
 	border-radius: 3px;
 }
 ui\:checkbox:hover {
-	background: #3498DB;
+	background: #1ABC9C;
 }
 ui\:checkbox:after{
 	line-height: 40px;
-	color: #2980B9;
+	color: rgba(255,255,255,0.2);
 	content: "\f00c";
 	font-family: FontAwesome;
 }
@@ -127,7 +127,7 @@ ui\:markup {
 	white-space: pre-wrap;
 	display: inline-block;
 	padding: 20px;
-	background: #ECF0F1;
+	background: #dbe3e5;
 	border-radius: 3px;
 }
 

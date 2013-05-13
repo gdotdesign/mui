@@ -18,6 +18,10 @@
     max-width: 200px;
     border: 1px solid #ccc;
     padding: 10px;
+    cursor: pointer;
+  }
+  .dp:hover {
+    border: 1px solid #3498DB;
   }
   .dp.mini {
     width: 100px;
@@ -27,13 +31,16 @@
     min-width: 50%;
   }
   .dp.transition ui\:dropdown {
-    opacity: 0;
-    transition: opacity 320ms, max-height 1ms 320ms;
+    opacity: 1;
+    transition: 320ms;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
   }
   .dp.transition ui\:dropdown[open] {
-    opacity: 1;
-    transition: opacity 320ms;
     max-height: 200px;
+    transition: 320ms;
   }
 </style>
 <div class="container">
@@ -82,8 +89,22 @@
       <ui:option>Item 2</ui:option>
     </ui:dropdown>
   </div>
+  <p>On top:</p>
+  <div class="dp">
+    Top...
+    <i class="icon-chevron-down"></i>
+    <ui:dropdown direction="top">
+      <ui:option>This is some ass long text!</ui:option>
+      <ui:option>Item 2</ui:option>
+    </ui:dropdown>
+  </div>
+
   <h2>Markup</h2>
-  <p>The dropdown can be appended into any element.</p>
+  <p>
+    The dropdown can be appended into any element, that is not self closing.
+    <br>
+    Any element can be in the dropdown.
+  </p>
   <ui:markup></ui:markup>
 </div>
 <script type="text/javascript">

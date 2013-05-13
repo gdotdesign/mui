@@ -4,8 +4,7 @@ UI = {
   verbose: false
   ns: 'ui'
   warn: (text)->
-    if UI.verbose
-      console.warn text
+    console.warn text
   log: (args...)->
     if UI.verbose
       console.log.apply console, args
@@ -25,6 +24,7 @@ class UI.Abstract
       if key isnt 'initialize'
         el[key] = fn.bind(el)
     @::initialize?.call el
+    @::onAdded?.call el
     @_processed = true
 
   @create: ->
@@ -202,7 +202,6 @@ init = (e)->
     tag = tagName.split(":").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     if UI[tag]
       UI[tag].wrap e.target
-      e.target.onAdded?()
 
 document.addEventListener 'DOMNodeInserted', init
 
@@ -211,4 +210,3 @@ window.addEventListener 'load', ->
     if value.SELECTOR
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
-        el.onAdded?()

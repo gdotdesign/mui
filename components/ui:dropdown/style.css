@@ -4,15 +4,30 @@ ui\:dropdown {
   margin-top: 3px;
   left: 0;
   min-width: 100%;
-  background: #2980B9;
+  background: #16A085;
   overflow: auto;
   max-height: 0;
-  transition: 120ms;
   border-radius: 3px;
   z-index: 10;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
+}
+ui\:dropdown[direction=top] {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 3px;
+  transform: translateY(-20px);
 }
 ui\:dropdown[open] {
   max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 320ms, transform 320ms;
+}
+ui\:dropdown ui\:option {
+  cursor: pointer;
 }
 ui\:dropdown > *:first-child{
   border-radius: 3px 3px  0 0;
