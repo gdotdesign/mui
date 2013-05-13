@@ -1,5 +1,5 @@
 ui\:select {
-  background: #16A085;
+  background: #2C3E50;
   padding: 0 10px;
   height: 40px;
   position: relative;
@@ -13,7 +13,7 @@ ui\:select {
   vertical-align: top;
 }
 ui\:select:not([disabled]):hover {
-  background: #1ABC9C;
+  background: #34495E;
 }
 ui\:select:after {
   content: "\f078";

@@ -1,0 +1,64 @@
+.container
+  p Default select
+  ui:select(name='select_1')
+    ui:label
+    ui:dropdown
+      ui:option(value='option_1') Option 1
+      ui:option(value='option_2') Option 2
+      ui:option(value='option_3') Option 3
+  p Selected Option
+  ui:select(name='select_2')
+    ui:label
+    ui:dropdown
+      ui:option(value='option_1') Option 1
+      ui:option(value='option_2', selected='true') Option 2
+      ui:option(value='option_3') Option 3
+  p Disabled
+  ui:select(name='select_3', disabled='true')
+    ui:label
+    ui:dropdown
+      ui:option(value='option_1') Option 1
+      ui:option(value='option_2', selected='true') Option 2
+      ui:option(value='option_3') Option 3
+  p Dynamic
+  ui:select(name='select_4')
+    ui:label
+    ui:dropdown
+      ui:option(value='option_1') Option 1
+      ui:option(value='option_2', selected='true') Option 2
+      ui:option(value='option_3') Option 3
+  br
+  br
+  ui:button.ex-add(type='info') Add Option
+  h2 Markdown
+  ui:markup
+    ui:select
+      ui:label
+      ui:dropdown
+        ui:option(value='option_1') Option 1
+        ui:option(value='option_2', selected='true') Option 2
+        ui:option(value='option_3') Option 3
+  h2 API
+  dl
+    dt @value
+    dd Get the current value of the component (selected options value)
+    dt @selectedOption
+    dd Get the selected option
+    dt ~ selectDefault()
+    dd
+      | Select option by the default algorithm:
+      ol
+        li First option element with selected attribute
+        li First option element
+    dt ~ select(value=ui:option|string)
+    dd Select by option value / text or by ui:option element directly
+    dt × change
+    dd Fires every time the selected option changes
+script(type='text/javascript')
+  submit = document.querySelector('.ex-add')
+  select4 = document.querySelector('[name=select_4] ui\\:dropdown')
+  submit.addEventListener('click',function(){
+    op = document.createElement('ui:option')
+    op.textContent = "Option..."
+    select4.appendChild(op)
+  })

@@ -159,14 +159,17 @@ class UI.Pager extends UI.Abstract
   @TAGNAME: 'pager'
   select: (value)->
     UI.log 'PAGER: select', value
+    lastPage = @selectedPage
     return if @selectedPage is value
     if value instanceof HTMLElement
       @selectedPage = value
     else
-      @selectedPage = @querySelector("[name=#{value}]")
+      @selectedPage = @querySelector("ui\\:page[name='#{value}']")
     return unless @selectedPage
     @querySelector('[active]')?.removeAttribute('active')
     @selectedPage.setAttribute('active',true)
+    if lastPage isnt @selectedPage
+      @fireEvent('change')
 
 
 # CUSTOM ELEMENTS
@@ -210,3 +213,18 @@ window.addEventListener 'load', ->
     if value.SELECTOR
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
+  pager = document.querySelector('body > ui\\:pager')
+  pager.addEventListener 'change', ->
+    window.location.hash = @selectedPage.getAttribute('name')
+
+  handleHashChange = ->
+    page = window.location.hash[1..] or 'index'
+    pager.select page
+
+  window.addEventListener 'hashchange', handleHashChange
+  handleHashChange()
+  document.addEventListener 'click', (e)->
+    e.preventDefault()
+    if (a = getParent(e.target,'a')) or (a = getParent(e.target,'ui:button'))
+      if (name = a.getAttribute('name')) or (name = a.getAttribute('target'))
+        pager.select(name)

@@ -1,0 +1,28 @@
+header
+  .container
+    h1= title
+    ui:button.icon
+      i.icon-twitter
+    ui:button.icon
+      i.icon-github
+    ui:button.icon(name="index")
+      i.icon-home
+    ui:button.components
+      | Components
+      i.icon-chevron-down
+      ui:dropdown
+        ui:option
+          a(target="ui:button")
+            | Button
+        ui:option
+          a(target="ui:modal")
+            | Modal
+        ui:option
+          a(target="ui:dropdown")
+            | Dropdown
+        ui:option
+          a(target="ui:select")
+            | Select
+        ui:option
+          a(target="ui:tooltip")
+            | Tooltip

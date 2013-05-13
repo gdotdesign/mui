@@ -1,0 +1,85 @@
+style(type='text/css')
+  .dp i {
+  float: right;
+  }
+  .dp {
+  max-width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  }
+  .dp:hover {
+  border: 1px solid #3498DB;
+  }
+  .dp.mini {
+  width: 100px;
+  }
+  .dp.limit ui\:dropdown {
+  max-width: 100px;
+  min-width: 50%;
+  }
+  .dp.transition ui\:dropdown {
+  opacity: 1;
+  transition: 320ms;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  }
+  .dp.transition ui\:dropdown[open] {
+  max-height: 200px;
+  transition: 320ms;
+  }
+.container
+  p Dropdown component for everything.
+  ui:button(type='info')
+    | Open Dropdown
+    ui:dropdown
+      ui:option Item 1
+      ui:option Item 2
+  p Custom element:
+  .dp
+    | I have a dropdown!
+    i.icon-chevron-down
+    ui:dropdown
+      ui:option Item 1
+      ui:option Item 2
+  p Long text:
+  .dp.mini
+    | Mini
+    i.icon-chevron-down
+    ui:dropdown
+      ui:option This is some ass long text!
+      ui:option Item 2
+  p Limited width:
+  .dp.limit
+    | So small...
+    i.icon-chevron-down
+    ui:dropdown
+      ui:option This is some ass long text!
+      ui:option Item 2
+  p Custom transition:
+  .dp.transition
+    | Here I cooome...
+    i.icon-chevron-down
+    ui:dropdown
+      ui:option This is some ass long text!
+      ui:option Item 2
+  p On top:
+  .dp
+    | Top...
+    i.icon-chevron-down
+    ui:dropdown(direction='top')
+      ui:option This is some ass long text!
+      ui:option Item 2
+  h2 Markup
+  p
+    | The dropdown can be appended into any element, that is not self closing.
+    br
+    | Any element can be in the dropdown.
+  ui:markup
+    ui:button(type='info')
+      | Open Dropdown
+      ui:dropdown
+        ui:option Item 1
+        ui:option Item 2

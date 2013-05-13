@@ -5,6 +5,82 @@ body {
   margin: 0;
 }
 
+header {
+  padding: 20px;
+  background: #5eade2;
+  height: 80px;
+}
+header h1 {
+  float: left;
+  color: #ECF0F1;
+  margin: 0;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+header ui\:button {
+  float: right;
+  height: 40px;
+  line-height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 10px;
+}
+
+ui\:button.icon {
+  width: 40px;
+  padding: 0;
+  text-align: center;
+}
+ui\:button.components {
+  padding: 0 30px;
+}
+ui\:button.components i{
+  margin-left: 15px;
+}
+ui\:button.components ui\:option a{
+  padding: 0;
+  font-size: 16px;
+  color: #fff;
+}
+body > ui\:pager {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  background: #ECF0F1;
+}
+
+body > ui\:pager > ui\:page {
+  overflow-y: auto;
+  overflow: touch;
+}
+
+a {
+  display: block;
+  color: #3498DB;
+  text-decoration: none;
+  padding: 10px 0;
+  font-size: 20px;
+}
+a[target] {
+  cursor: pointer;
+}
+a i {
+  margin-right: 10px;
+}
+
+.icon-html5, .icon-css3 {
+  font-size: 50px;
+}
+.icon-html5 {
+  color: #E74C3C;
+}
+.icon-css3 {
+  color: #2980B9;
+}
+
 .intro h2 {
   text-align: center;
   color: #ECF0F1;
@@ -29,10 +105,10 @@ body {
 
 @keyframes hover {
   from {
-    transform: translateY(-20px);
+    transform: translateY(-5px);
   }
   to {
-    transform: translateY(20px);
+    transform: translateY(5px);
   }
 }
 
@@ -53,7 +129,6 @@ nav a {
   display: inline-block;
   color: #ECF0F1;
   margin: 0 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.4)
 }
 .intro {
   position: relative;
