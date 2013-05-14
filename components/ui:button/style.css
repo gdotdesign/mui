@@ -1,5 +1,6 @@
 ui\:button {
   padding: 7px 20px;
+  padding-bottom: 9px;
   display: inline-block;
   color: #ECF0F1;
   border-radius: 3px;
@@ -19,9 +20,31 @@ ui\:button[type=info]:hover {
   background-color: #3498DB;
 }
 
+ui\:button[type=success] {
+  background-color: #27AE60;
+}
+ui\:button[type=success]:hover {
+  background-color: #2ECC71;
+}
+
+ui\:button[type=warning] {
+  background-color: #D35400;
+}
+ui\:button[type=warning]:hover {
+  background-color: #E67E22;
+}
+
 ui\:button[type=danger] {
   background-color: #C0392B;
 }
 ui\:button[type=danger]:hover {
   background-color: #E74C3C;
+}
+
+ui\:button[type=inverse] {
+  background-color: #e1e7e9;
+  color: #333;
+}
+ui\:button[type=inverse]:hover {
+  background-color: #ECF0F1;
 }

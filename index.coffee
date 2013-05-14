@@ -208,13 +208,16 @@ init = (e)->
 document.addEventListener 'DOMNodeInserted', init
 
 window.addEventListener 'load', ->
+
+  Array::slice.call(document.querySelectorAll('ui\\:markup')).forEach (el)->
+    el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
+
   for key, value of UI
     if value.SELECTOR
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
   pager = document.querySelector('body > ui\\:pager')
   window.componentPager =  document.querySelector('[name=components] > ui\\:pager')
-  h1 = document.querySelector('header h1')
 
   setHash = ->
     page = pager.selectedPage.getAttribute('name')
@@ -230,11 +233,6 @@ window.addEventListener 'load', ->
     pager.select page
     componentPager.select component
     component = 'Components' if component is 'index'
-    h1.classList.add 'hide'
-    setTimeout ->
-      h1.textContent = component.replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
-      h1.classList.remove 'hide'
-    , 500
 
   pager.addEventListener 'change', setHash
   componentPager.addEventListener 'change', setHash
@@ -247,5 +245,3 @@ window.addEventListener 'load', ->
       if (name = a.getAttribute('target'))
         changePages(name)
 
-  Array::slice.call(document.querySelectorAll('ui\\:markup')).forEach (el)->
-    el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})

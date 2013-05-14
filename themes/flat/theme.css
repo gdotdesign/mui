@@ -4,6 +4,7 @@
 body * {
 	box-sizing: border-box;
 	-webkit-backface-visibility: hidden;
+	user-select: none;
 }
 
 body {
@@ -130,6 +131,9 @@ ui\:markup {
 	padding: 20px;
 	background: #dbe3e5;
 	border-radius: 3px;
+	color: #333;
+	font-weight: 400;
+	tab-size: 10px;
 }
 
 ui\:pager {

@@ -1,8 +1,14 @@
-@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
+@import url(http://fonts.googleapis.com/css?family=Nova+Round);
 
 body {
   padding: 0;
   margin: 0;
+  color: #666;
+}
+
+b {
+  color: #333;
+  font-weight: 400;
 }
 
 header {
@@ -16,6 +22,11 @@ header h1 {
   text-shadow: 0 2px 0 rgba(0,0,0,0.2);
   transition: 320ms;
   opacity: 1;
+  font-family: 'Nova Round'
+}
+header .brand {
+}
+header h1 span {
 }
 header h1.hide {
   opacity: 0;
@@ -69,6 +80,7 @@ body > ui\:pager > [name=components][active] > header{
 }
 body > ui\:pager > [name=components] > ui\:pager{
   transform: translateY(100%);
+  background: #dbe3e5;
   transition: 500ms;
 }
 body > ui\:pager > [name=components][active] > ui\:pager{
@@ -87,9 +99,10 @@ body > ui\:pager ui\:pager{
   background: #ECF0F1;
 }
 
-body > ui\:pager > ui\:page {
+body > ui\:pager ui\:pager > ui\:page {
   overflow-y: auto;
-  overflow: touch;
+  overflow-x: hidden;
+  overflow-y: touch;
 }
 
 a {
@@ -106,15 +119,6 @@ a i {
   margin-right: 10px;
 }
 
-.icon-html5, .icon-css3 {
-  font-size: 50px;
-}
-.icon-html5 {
-  color: #E74C3C;
-}
-.icon-css3 {
-  color: #2980B9;
-}
 
 .intro h2:nth-child(2) {
   text-align: center;
@@ -127,7 +131,7 @@ a i {
 .intro h1 {
   text-align: center;
   color: #ECF0F1;
-  font-family: 'Kaushan Script';
+  font-family: 'Nova Round';
   font-size: 100px;
   margin-top: 60px;
   margin-bottom: 0;
@@ -162,7 +166,7 @@ a i {
   position: absolute;
   color: #ECF0F1;
   text-align: center;
-  font-family: 'Kaushan Script';
+  font-family: 'Nova Round';
   font-weight: normal;
   text-shadow: 0 3px 0 rgba(0,0,0,0.2);
   font-size: 30px;
@@ -214,6 +218,7 @@ a i {
 .intro .container {
   position: absolute;
   bottom: 300px;
+  height: 0;
   left: 50%;
   margin-left: -480px;
 }
@@ -269,4 +274,53 @@ span[name=tooltip] {
 
 span[name=tooltip] ui\:tooltip {
   opacity: 1 !important;
+}
+
+.markup {
+  position: relative;
+}
+.markup ui\:markup {
+  background: none;
+}
+.col:first-child {
+  width: 40%;
+  float: left;
+  padding: 20px;
+  background: #edf1f2;
+  height: 100%
+}
+.col:last-child {
+  width: 60%;
+  height: 100%;
+  float: left;
+}
+.examples {
+  padding: 20px;
+  border-bottom: 1px solid rgba(0,0,0,.04);
+}
+.markup i {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  font-size: 100px;
+  top: 50px;
+  color: #c3d0d4;
+  left: 0;
+}
+.container {
+  height: 100%;
+}
+
+dl {
+  margin: 0;
+}
+
+.span {
+  float: left;
+  margin: 10px;
+}
+
+.clear {
+  clear:  both;
 }

@@ -1,11 +1,49 @@
-.container
-  p Standard button
-  span
-    ui:button Default button
-  span
-    ui:button(type='danger') Danger button
-  span
-    ui:button(type='info') Info button
-  h2 Markup
-  ui:markup
-    ui:button Default button
+.col
+  h1 Buttons
+  p Buttons are one of the elements that are used in every application.
+  p
+    | The purpose of button can be set with the
+    b  type
+    |  attribute:
+  ul
+    li
+      b default (no type)
+      | - Standard button
+    li
+      b info
+      | - Indicates an action that offers information
+    li
+      b success
+      | - Indicates a successful or positive action
+    li
+      b warning
+      | - Indicates caution should be taken with this action
+    li
+      b danger
+      | - Indicates a dangerous or potentially negative action
+    li
+      b inverse
+      | - Alternate to default button
+.col
+  .examples
+    .span
+      ui:button Default button
+    .span
+      ui:button(type='info') Info button
+    .span
+      ui:button(type='success') Success button
+    .span
+      ui:button(type='warning') Warning button
+    .span
+      ui:button(type='danger') Danger button
+    .span
+      ui:button(type='inverse') Inverse button
+    .clear
+  .markup
+    ui:markup
+      ui:button Default button
+      ui:button(type='info') Info button
+      ui:button(type='success') Success button
+      ui:button(type='warning') Warning button
+      ui:button(type='danger') Danger button
+      ui:button(type='inverse') Inverse button
