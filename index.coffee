@@ -16,7 +16,6 @@ Element::toggleAttribute = (attr) ->
   else
     @setAttribute(attr,'true')
 
-
 class UI.Abstract
   @SELECTOR: -> UI.ns+"\\:"+@TAGNAME
   @wrap: (el)->
@@ -214,17 +213,39 @@ window.addEventListener 'load', ->
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
   pager = document.querySelector('body > ui\\:pager')
-  pager.addEventListener 'change', ->
-    window.location.hash = @selectedPage.getAttribute('name')
+  window.componentPager =  document.querySelector('[name=components] > ui\\:pager')
+  h1 = document.querySelector('header h1')
 
-  handleHashChange = ->
-    page = window.location.hash[1..] or 'index'
+  setHash = ->
+    page = pager.selectedPage.getAttribute('name')
+    if page is 'components' and componentPager.selectedPage
+      page += "/"+componentPager.selectedPage.getAttribute('name')
+    window.location.hash = page
+
+  changePages = (str)->
+    if str instanceof Event or str is undefined
+      str = (window.location.hash[1..] or 'index')
+    [page,component] = str.split('/')
+    component ?= 'index'
     pager.select page
+    componentPager.select component
+    component = 'Components' if component is 'index'
+    h1.classList.add 'hide'
+    setTimeout ->
+      h1.textContent = component.replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
+      h1.classList.remove 'hide'
+    , 500
 
-  window.addEventListener 'hashchange', handleHashChange
-  handleHashChange()
+  pager.addEventListener 'change', setHash
+  componentPager.addEventListener 'change', setHash
+
+  window.addEventListener 'hashchange', changePages
+  changePages()
   document.addEventListener 'click', (e)->
     e.preventDefault()
     if (a = getParent(e.target,'a')) or (a = getParent(e.target,'ui:button'))
-      if (name = a.getAttribute('name')) or (name = a.getAttribute('target'))
-        pager.select(name)
+      if (name = a.getAttribute('target'))
+        changePages(name)
+
+  Array::slice.call(document.querySelectorAll('ui\\:markup')).forEach (el)->
+    el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})

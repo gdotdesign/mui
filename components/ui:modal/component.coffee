@@ -1,3 +1,6 @@
 class UI.Modal extends UI.Abstract
   @TAGNAME: 'modal'
-  toggle: -> @toggleAttribute('open')
+  initialize: ->
+    document.body.appendChild(@)
+  toggle: ->
+    @toggleAttribute('open')

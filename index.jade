@@ -23,63 +23,22 @@ html
     link(rel='stylesheet', href='components/ui:modal/style.css')
 
 body
-  ui:pager
-    ui:page(name="components")
-      - title = 'Components'
-      include partials/header
-      .container
-        a(target="ui:button")
-          i.icon-puzzle-piece
-          | Button
-        a(target="ui:modal")
-          i.icon-puzzle-piece
-          | Modal
-        a(target="ui:dropdown")
-          i.icon-puzzle-piece
-          | Dropdown
-        a(target="ui:select")
-          i.icon-puzzle-piece
-          | Select
-        a(target="ui:tooltip")
-          i.icon-puzzle-piece
-          | Tooltip
-    ui:page(name="ui:button")
-      - title = 'Button'
-      include partials/header
-      include components/ui:button/index
-    ui:page(name="ui:modal")
-      - title = 'Modal'
-      include partials/header
-      include components/ui:modal/index
-    ui:page(name="ui:dropdown")
-      - title = 'Dropdown'
-      include partials/header
-      include components/ui:dropdown/index
-    ui:page(name="ui:select")
-      - title = 'Select'
-      include partials/header
-      include components/ui:select/index
-    ui:page(name="ui:tooltip")
-      - title = 'Tooltip'
-      include partials/header
-      include components/ui:tooltip/index
+  ui:pager(name="main")
     ui:page(name="index")
-      nav
-        a(target='index')
-          i.icon-home
-          | Home
-        a(target='components')
-          i.icon-puzzle-piece
-          | Components
-        a(target='extending')
-          i.icon-code-fork
-          | Extending
       .intro
         h1 MUI
         h2 Modern Interfaces for the Modern Web
+        a(target='components')
+          span
+            i.icon-th
+            | Components
+        a(target='extending')
+          span
+            i.icon-code-fork
+            | Extending
         .container
           span(name='button')
-            ui:button(type='danger') Button
+            ui:button Button
           span(name='tooltip')
             ui:tooltip(open='true', direction='top')
               div Tooltip
@@ -91,48 +50,34 @@ body
               ui:dropdown
                 ui:option Select
                 ui:option(value='option1') Option 1
-      .container
-        h2 What is this?
-        p
-          | MUI is a full featured User Interface library that works and looks the same in every browser, fully skinnable and customizeble to the bone!
-        p
-          | It was created because skinning native controls, and using jquery plugins is a pain. Never again!
-        p
-          i.icon-html5
-          i.icon-css3
-        h2 How is it work?
-        p You create markup:
-        ui:markup
-          ui:select
-            ui:label
-            ui:dropdown
-              ui:option Select
-              ui:option(value='option1') Option 1
-        p Then just use the api:
-        ui:markup
-          | select = document.querySelector('ui\\:select')
-          | select.select('option1') // Select by value
-          | select.select('Select')  // Select by label
-        h2 Extend:
-        ui:markup(name='tasks')
-          ui:task(finished='true') My Task
-        br
-        br
-        ui:markup
-          | class UI.Task extends UI.Abstract
-          |     @TAGNAME: 'task'
-          |     intialize: -
-          |         # Setup defaults and eventListeners
-          |     toggle: -
-          |         # This will be available on the element
-          |         @toggleAttribute('finished')
-        br
-        br
-        ui:markup
-          | ui\:task[finished] {
-          |     text-decoration: line-trough
-          | }
-        script(type='text/javascript')
-          Array.prototype.slice.call(document.querySelectorAll('ui\\:markup')).forEach(function(el){
-            el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
-          })
+    ui:page(name="components")
+      ui:pager
+        ui:page(name="index")
+          .container
+            a(target="components/button")
+              i.icon-puzzle-piece
+              | Button
+            a(target="components/modal")
+              i.icon-puzzle-piece
+              | Modal
+            a(target="components/dropdown")
+              i.icon-puzzle-piece
+              | Dropdown
+            a(target="components/select")
+              i.icon-puzzle-piece
+              | Select
+            a(target="components/tooltip")
+              i.icon-puzzle-piece
+              | Tooltip
+        ui:page(name="button")
+          include components/ui:button/index
+        ui:page(name="modal")
+          include components/ui:modal/index
+        ui:page(name="dropdown")
+          include components/ui:dropdown/index
+        ui:page(name="select")
+          include components/ui:select/index
+        ui:page(name="tooltip")
+          include components/ui:tooltip/index
+      - title = 'Components'
+      include partials/header

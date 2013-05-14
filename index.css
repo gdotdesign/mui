@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Righteous);
+@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
 
 body {
   padding: 0;
@@ -7,7 +7,6 @@ body {
 
 header {
   padding: 20px;
-  background: #5eade2;
   height: 80px;
 }
 header h1 {
@@ -15,6 +14,11 @@ header h1 {
   color: #ECF0F1;
   margin: 0;
   text-shadow: 0 2px 0 rgba(0,0,0,0.2);
+  transition: 320ms;
+  opacity: 1;
+}
+header h1.hide {
+  opacity: 0;
 }
 header ui\:button {
   float: right;
@@ -44,6 +48,37 @@ ui\:button.components ui\:option a{
 body > ui\:pager {
   position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  background: #5eade2;
+}
+body > ui\:pager > [name=components] {
+  overflow: hidden;
+  opacity: 1;
+}
+body > ui\:pager > [name=components] > header{
+  transform: translateY(-100%);
+  transition: 500ms;
+}
+body > ui\:pager > [name=components][active] > header{
+  transform: translateY(0);
+  transition: 500ms 320ms;
+}
+body > ui\:pager > [name=components] > ui\:pager{
+  transform: translateY(100%);
+  transition: 500ms;
+}
+body > ui\:pager > [name=components][active] > ui\:pager{
+  transform: translateY(0);
+  transition: 500ms 320ms;
+}
+
+body > ui\:pager ui\:pager{
+  position: absolute;
+  top: 80px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -81,21 +116,23 @@ a i {
   color: #2980B9;
 }
 
-.intro h2 {
+.intro h2:nth-child(2) {
   text-align: center;
   color: #ECF0F1;
   margin-top: 0;
   animation: show 2s 0.6s both;
   margin-bottom: 0;
+  text-shadow: 0 3px 0 rgba(0,0,0,0.2);
 }
 .intro h1 {
   text-align: center;
   color: #ECF0F1;
-  font-family: Righteous;
+  font-family: 'Kaushan Script';
   font-size: 100px;
   margin-top: 60px;
   margin-bottom: 0;
   animation: show 2s 0.3s both;
+  text-shadow: 0 5px 0 rgba(0,0,0,0.2);
 }
 
 @keyframes animatedBackground {
@@ -121,28 +158,64 @@ a i {
   }
 }
 
-nav {
-  text-align: center;
-  background: #5eade2;
-}
-nav a {
-  display: inline-block;
+.intro a[target] {
+  position: absolute;
   color: #ECF0F1;
-  margin: 0 10px;
+  text-align: center;
+  font-family: 'Kaushan Script';
+  font-weight: normal;
+  text-shadow: 0 3px 0 rgba(0,0,0,0.2);
+  font-size: 30px;
+}
+
+.intro a[target] i {
+  font-size: 100px;
+  display: block;
+}
+.intro a[target=components] {
+  top: 50%;
+  margin-top: -75px;
+  left: 50%;
+  margin-left: -300px;
+  animation: show 2s 1s both;
+  transform: rotate(-3deg);
+}
+.intro a span {
+  display: block;
+}
+.intro a[target=components] span {
+  animation: hover 1s 0.6s alternate infinite ease-in-out both;
+}
+.intro a[target=extending] {
+  top: 50%;
+  margin-top: -75px;
+  left: 50%;
+  margin-left: 160px;
+  animation: show 2s 1.2s both;
+  transform: rotate(3deg);
+}
+.intro a[target=extending] span {
+  animation: hover 1s 0.3s alternate infinite ease-in-out both;
 }
 .intro {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background: #5eade2;
-  background-image: url(/images/bg-clouds.png);
+  background-image: url(/images/bg-clouds.png),linear-gradient(#5eade2,#3498DB);
   background-repeat: no-repeat;
   background-position: center bottom;
-  height: 520px;
   overflow: hidden;
   animation: animatedBackground 20s linear infinite alternate;
 }
 
 .intro .container {
-  position: relative;
+  position: absolute;
+  bottom: 300px;
+  left: 50%;
+  margin-left: -480px;
 }
 .intro ui\:select {
   animation: hover 1s alternate infinite ease-in-out;
@@ -168,21 +241,21 @@ span[name=select] {
   right: 0;
   top: 150px;
   transform: rotate(3deg);
-  animation: show 2s;
+  animation: show 2s 0.5s;
 }
 
 span[name=checkbox] {
   right: 300px;
   top: 100px;
   transform: rotate(-3deg);
-  animation: show 2s 0.3s both;
+  animation: show 2s 0.8s both;
 }
 
 span[name=button] {
   left: 50px;
   top: 170px;
   transform: rotate(-3deg);
-  animation: show 2s 0.3s both;
+  animation: show 2s 0.8s both;
 }
 
 span[name=tooltip] {
@@ -191,7 +264,7 @@ span[name=tooltip] {
   height: 0;
   top: 170px;
   transform: rotate(-3deg);
-  animation: show 2s 0.3s both;
+  animation: show 2s 0.8s both;
 }
 
 span[name=tooltip] ui\:tooltip {

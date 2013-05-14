@@ -1,28 +1,32 @@
 header
   .container
     h1= title
+    ui:button.icon(target="index")
+      i.icon-home
     ui:button.icon
       i.icon-twitter
+      ui:tooltip(direction="bottom")
+        span Tweet
     ui:button.icon
-      i.icon-github
-    ui:button.icon(name="index")
-      i.icon-home
+      i.icon-code-fork
+      ui:tooltip(direction="bottom")
+        span Fork at Github
     ui:button.components
       | Components
       i.icon-chevron-down
       ui:dropdown
         ui:option
-          a(target="ui:button")
+          a(target="components/button")
             | Button
         ui:option
-          a(target="ui:modal")
+          a(target="components/modal")
             | Modal
         ui:option
-          a(target="ui:dropdown")
+          a(target="components/dropdown")
             | Dropdown
         ui:option
-          a(target="ui:select")
+          a(target="components/select")
             | Select
         ui:option
-          a(target="ui:tooltip")
+          a(target="components/tooltip")
             | Tooltip

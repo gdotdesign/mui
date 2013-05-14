@@ -89,7 +89,7 @@ ui\:option:hover {
 }
 
 ui\:checkbox {
-	background: #16A085;
+	background: #2C3E50;
 	width: 40px;
 	display: inline-block;
 	height: 40px;
@@ -98,7 +98,7 @@ ui\:checkbox {
 	border-radius: 3px;
 }
 ui\:checkbox:hover {
-	background: #1ABC9C;
+	background: #34495E;
 }
 ui\:checkbox:after{
 	line-height: 40px;
