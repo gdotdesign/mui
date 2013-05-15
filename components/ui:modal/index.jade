@@ -1,33 +1,40 @@
-style(type='text/css')
-  ui\:modal > * {
-  padding: 20px;
-  text-align: center;
-  }
-  ui\:modal h1{
-  margin: 0;
-  margin-bottom: 20px;
-  }
-  ui\:modal[name=modal2] > * {
-  -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-  -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-  -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-  -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-  }
-  ui\:modal[name=modal2][open] > *{
-  opacity: 1;
-  -webkit-transform: perspective(1000px);
-  -moz-transform: perspective(1000px);
-  -ms-transform: perspective(1000px);
-  -o-transform: perspective(1000px);
-  }
-.container
-  p Simple modal dialog.
-  ui:button.ex(type='info', name='modal1') Open Modal
-  p Custom transition.
-  ui:button.ex(type='info', name='modal2') Open Modal
-  h2 Markup
+.col
+  style(type='text/css')
+    ui\:modal > * {
+    padding: 20px;
+    text-align: center;
+    }
+    ui\:modal h1{
+    margin: 0;
+    margin-bottom: 20px;
+    }
+    ui\:modal[name=modal2] > * {
+    -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+    }
+    ui\:modal[name=modal2][open] > *{
+    opacity: 1;
+    -webkit-transform: perspective(1000px);
+    -moz-transform: perspective(1000px);
+    -ms-transform: perspective(1000px);
+    -o-transform: perspective(1000px);
+    }
+  h1 Modal
   p
     | Any immediate children is positioned center via text-align and inline-block, this allows us to create a modal dialog with only CSS.
+  h2 API
+  dl
+    dt ~ toggle()
+    dd Toggle open / closed state of the modal (toggles attribute "open")
+.col
+  .examples
+    .span
+      ui:button.ex(name='modal1') Simple Modal
+    .span
+      ui:button.ex(name='modal2') Custom Transition
+    .clear
   ui:modal(name='modal2')
     div
       h1 Modal
@@ -38,20 +45,17 @@ style(type='text/css')
       h1 Modal
       p This is a modal dialog.
       ui:button.ex(type='danger', name='modal1') Close Modal
-  ui:markup
-    ui:modal
-      div
-        h1 Modal
-        p This is a modal dialog.
-        ui:button(type='danger') Close Modal
-  h2 API
-  dl
-    dt ~ toggle()
-    dd Toggle open / closed state of the modal (toggles attribute "open")
-script(type='text/javascript')
-  document.addEventListener('click',function(e){
-    if(e.target.tagName === 'UI:BUTTON' && e.target.classList.contains('ex')){
-      modal = document.querySelector('ui\\:modal[name='+e.target.getAttribute('name')+']')
-      modal.toggle()
-    }
-  })
+  .markup
+    ui:markup
+      ui:modal
+        div
+          h1 Modal
+          p This is a modal dialog.
+          ui:button(type='danger') Close Modal
+  script(type='text/javascript')
+    document.addEventListener('click',function(e){
+      if(e.target.tagName === 'UI:BUTTON' && e.target.classList.contains('ex')){
+        modal = document.querySelector('ui\\:modal[name='+e.target.getAttribute('name')+']')
+        modal.toggle()
+      }
+    })

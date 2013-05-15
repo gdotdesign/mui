@@ -1,46 +1,49 @@
-style(type='text/css')
-  .ex-tooltip span {
-    display: inline-block;
-    width: 200px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-    position: relative;
-  }
-  .ex-tooltip i {
-    margin-right: 10px;
-  }
-.examples.ex-tooltip
-  .span
-    span
-      | Tooltip on top
-      ui:tooltip(direction='top')
+.col
+  style(type='text/css')
+    .ex-tooltip span {
+      display: inline-block;
+      width: 200px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+    .ex-tooltip i {
+      margin-right: 10px;
+    }
+  h1 Tooltip
+.col
+  .examples.ex-tooltip
+    .span
+      span
+        | Tooltip on top
+        ui:tooltip(direction='top')
+          div
+            i.icon-ok
+            | You have done well!
+    .span
+      span
+        | Tooltip on left
+        ui:tooltip(direction='left')
+          div
+            i.icon-remove
+            | Are your sure?
+    .span
+      span
+        | Tooltip on right
+        ui:tooltip(direction='right')
+          div
+           i.icon-lightbulb
+            | Any ideas?
+    .span
+      span
+        | Tooltip on bottom
+        ui:tooltip(direction='bottom')
+          div Here is the sample of talltooltip that contains three lines or more. More.
+    .clear
+  .markup
+    ui:markup
+      i:tooltip(direction='top')
         div
           i.icon-ok
           | You have done well!
-  .span
-    span
-      | Tooltip on left
-      ui:tooltip(direction='left')
-        div
-          i.icon-remove
-          | Are your sure?
-  .span
-    span
-      | Tooltip on right
-      ui:tooltip(direction='right')
-        div
-         i.icon-lightbulb
-          | Any ideas?
-  .span
-    span
-      | Tooltip on bottom
-      ui:tooltip(direction='bottom')
-        div Here is the sample of talltooltip that contains three lines or more. More.
-  .clear
-.markup
-  ui:markup
-    i:tooltip(direction='top')
-      div
-        i.icon-ok
-        | You have done well!
