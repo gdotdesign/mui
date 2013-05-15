@@ -88,6 +88,26 @@ body > ui\:pager > [name=components][active] > ui\:pager{
   transition: 500ms 320ms;
 }
 
+body > ui\:pager > [name=components] > ui\:pager > ui\:page{
+  transition: 500ms;
+  opacity: 1;
+}
+body > ui\:pager > [name=components] > ui\:pager > ui\:page > .col:first-child{
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: 500ms;
+}
+body > ui\:pager > [name=components] > ui\:pager > ui\:page > .col:last-child{
+  opacity: 0;
+  transform: translateX(50%);
+  transition: 500ms;
+}
+body > ui\:pager > [name=components][active] > ui\:pager > ui\:page[active] > .col{
+  opacity: 1;
+  transform: translateX(0);
+  transition: 500ms 500ms;
+}
+
 body > ui\:pager ui\:pager{
   position: absolute;
   top: 80px;
