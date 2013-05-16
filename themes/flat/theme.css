@@ -19,11 +19,11 @@ body {
 	margin: 0 auto;
 }
 
-.container > ui\:markup {
+.container > ui-markup {
 	width: 100%
 }
 
-ui\:text, ui\:email, ui\:password, ui\:textarea {
+ui-text, ui-email, ui-password, ui-textarea {
 	background: #ECF0F1;
 	padding: 10px 10px;
 	width: 200px;
@@ -36,20 +36,20 @@ ui\:text, ui\:email, ui\:password, ui\:textarea {
 	vertical-align: top;
 }
 
-ui\:textarea {
+ui-textarea {
 	height:  200px;
 	resize: both;
 	overflow: auto;
 }
 
-ui\:password {
+ui-password {
 	color: transparent;
 }
-ui\:password::selection {
+ui-password::selection {
 	color: #ccc;
 	background: #ccc;
 }
-ui\:password:before {
+ui-password:before {
 	content: attr(mask);
 	padding: 10px 10px;
 	position: absolute;
@@ -63,18 +63,18 @@ ui\:password:before {
 	bottom: 0;
 }
 
-ui\:text:empty:after, ui\:email:empty:after, ui\:password:empty:after, ui\:textarea:empty:after {
+ui-text:empty:after, ui-email:empty:after, ui-password:empty:after, ui-textarea:empty:after {
 	content: attr(placeholder);
 	color: #ccc;
 }
 
-ui\:text:focus, ui\:email:focus, ui:\password:focus {
+ui-text:focus, ui-email:focus, ui-\password:focus {
 	content: attr(placeholder);
 	color: #ccc;
 }
 
 
-ui\:option {
+ui-option {
 	display: block;
 	padding: 0 10px;
 	height: 40px;
@@ -85,11 +85,11 @@ ui\:option {
 	color: #ECF0F1;
 	white-space: nowrap;
 }
-ui\:option:hover {
+ui-option:hover {
 	background: #34495E;
 }
 
-ui\:checkbox {
+ui-checkbox {
 	background: #2C3E50;
 	width: 40px;
 	display: inline-block;
@@ -98,20 +98,20 @@ ui\:checkbox {
 	text-align: center;
 	border-radius: 3px;
 }
-ui\:checkbox:hover {
+ui-checkbox:hover {
 	background: #34495E;
 }
-ui\:checkbox:after{
+ui-checkbox:after{
 	line-height: 40px;
 	color: rgba(255,255,255,0.2);
 	content: "\f00c";
 	font-family: FontAwesome;
 }
-ui\:checkbox[checked]:after{
+ui-checkbox[checked]:after{
 	color: #ECF0F1;
 }
 
-ui\:submit {
+ui-submit {
 	padding: 7px 20px;
 	display: inline-block;
 	color: #ECF0F1;
@@ -121,11 +121,11 @@ ui\:submit {
 	position: relative;
 	font-weight: bold;
 }
-ui\:submit:hover {
+ui-submit:hover {
 	background: #34495E;
 }
 
-ui\:markup {
+ui-markup {
 	white-space: pre-wrap;
 	display: inline-block;
 	padding: 20px;
@@ -136,7 +136,7 @@ ui\:markup {
 	tab-size: 10px;
 }
 
-ui\:pager {
+ui-pager {
 	display: block;
 	width: 320px;
 	height: 480px;
@@ -145,7 +145,7 @@ ui\:pager {
 	background: #333;
 }
 
-ui\:pager ui\:page {
+ui-pager ui-page {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -156,7 +156,7 @@ ui\:pager ui\:page {
 	z-index: -1;
 	opacity: 0;
 }
-ui\:pager ui\:page[active] {
+ui-pager ui-page[active] {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -169,7 +169,7 @@ ui\:pager ui\:page[active] {
 }
 
 /* CUSTOM */
-ui\:listitem {
+ui-listitem {
 	display: block;
 	background: #eee;
 	width: 100%;
@@ -177,15 +177,15 @@ ui\:listitem {
 	position: relative;
 	margin-top: 1px;
 }
-ui\:listitem[done] ui\:text{
+ui-listitem[done] ui-text{
 	text-decoration: line-through;
 }
-ui\:listitem ui\:text{
+ui-listitem ui-text{
 	padding-right: 50px;
 	width: 100%;
 	text-align: left;
 }
-ui\:listitem ui\:checkbox{
+ui-listitem ui-checkbox{
 	position: absolute;
 	right: 0;
 	top: 0;

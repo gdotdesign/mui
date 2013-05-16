@@ -16,11 +16,11 @@
     .dp.mini {
       width: 100px;
     }
-    .dp.limit ui\:dropdown {
+    .dp.limit ui-dropdown {
       max-width: 100px;
       min-width: 50%;
     }
-    .dp.transition ui\:dropdown {
+    .dp.transition ui-dropdown {
       opacity: 1;
       transition: 320ms;
       -webkit-transform: translateY(0);
@@ -28,7 +28,7 @@
       -ms-transform: translateY(0);
       -o-transform: translateY(0);
     }
-    .dp.transition ui\:dropdown[open] {
+    .dp.transition ui-dropdown[open] {
       max-height: 200px;
       transition: 320ms;
     }
@@ -41,51 +41,51 @@
 .col
   .examples
     .span
-      ui:button
+      ui-button
         | Simple Dropdown
-        ui:dropdown
-          ui:option Item 1
-          ui:option Item 2
+        ui-dropdown
+          ui-option Item 1
+          ui-option Item 2
     .span
       .dp
         | Custom element
         i.icon-chevron-down
-        ui:dropdown
-          ui:option Item 1
-          ui:option Item 2
+        ui-dropdown
+          ui-option Item 1
+          ui-option Item 2
     .span
       .dp.mini
         | Long...
         i.icon-chevron-down
-        ui:dropdown
-          ui:option This is some ass long text!
-          ui:option Item 2
+        ui-dropdown
+          ui-option This is some ass long text!
+          ui-option Item 2
     .span
       .dp.limit
         | Limited width
         i.icon-chevron-down
-        ui:dropdown
-          ui:option This is some ass long text!
-          ui:option Item 2
+        ui-dropdown
+          ui-option This is some ass long text!
+          ui-option Item 2
     .span
       .dp.transition
         | Custom transition
         i.icon-chevron-down
-        ui:dropdown
-          ui:option This is some ass long text!
-          ui:option Item 2
+        ui-dropdown
+          ui-option This is some ass long text!
+          ui-option Item 2
     .span
       .dp
         | Top...
         i.icon-chevron-down
-        ui:dropdown(direction='top')
-          ui:option This is some ass long text!
-          ui:option Item 2
+        ui-dropdown(direction='top')
+          ui-option This is some ass long text!
+          ui-option Item 2
     .clear
   .markup
-    ui:markup
-      ui:button(type='info')
+    ui-markup
+      ui-button(type='info')
         | Open Dropdown
-        ui:dropdown
-          ui:option Item 1
-          ui:option Item 2
+        ui-dropdown
+          ui-option Item 1
+          ui-option Item 2

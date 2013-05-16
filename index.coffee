@@ -10,6 +10,39 @@ UI = {
       console.log.apply console, args
 }
 
+Test =
+  tests: {}
+  assert: (condition)->
+    Test.results.steps++
+    @steps++
+    if !!condition
+      @passes++
+      Test.results.passed++
+    else
+      @fails++
+      Test.results.failed++
+      console.warn(@name+":"+@steps  )
+
+  case: (name, fn)->
+    context = {name: name, passes: 0, fails: 0, steps: 0, assert: @assert}
+    fn.call context
+    if context.fails is 0
+      console.log "✔ #{name}"
+    else
+      console.log "✖ #{name}"
+    context
+
+  run: ->
+    @results = {passed: 0, failed: 0, steps: 0}
+    for name, test of @tests
+      console.group(name)
+      test.call @
+      console.groupEnd()
+    console.log JSON.stringify @results
+
+  add: (name, fn)->
+    @tests[name] = fn
+
 Element::toggleAttribute = (attr) ->
   if @hasAttribute(attr)
     @removeAttribute(attr)
@@ -17,17 +50,17 @@ Element::toggleAttribute = (attr) ->
     @setAttribute(attr,'true')
 
 class UI.Abstract
-  @SELECTOR: -> UI.ns+"\\:"+@TAGNAME
+  @SELECTOR: -> UI.ns+"-"+@TAGNAME
   @wrap: (el)->
     for key, fn of @::
       if key isnt 'initialize'
         el[key] = fn.bind(el)
     @::initialize?.call el
     @::onAdded?.call el
-    @_processed = true
+    el._processed = true
 
   @create: ->
-    base = document.createElement(UI.ns+":"+@TAGNAME)
+    base = document.createElement(UI.ns+"-"+@TAGNAME)
     if @::initialize
       @wrap base
     base
@@ -150,10 +183,12 @@ class UI.Submit extends UI.Abstract
   @TAGNAME: 'submit'
   initialize: ->
     @addEventListener 'click', ->
-      form = getParent(@,'ui:form')
+      form = getParent(@,'ui-form')
       if form
         form.submit()
 
+class UI.Page extends UI.Abstract
+  @TAGNAME: 'page'
 class UI.Pager extends UI.Abstract
   @TAGNAME: 'pager'
   select: (value)->
@@ -163,7 +198,7 @@ class UI.Pager extends UI.Abstract
     if value instanceof HTMLElement
       @selectedPage = value
     else
-      @selectedPage = @querySelector("ui\\:page[name='#{value}']")
+      @selectedPage = @querySelector(UI.Page.SELECTOR()+"[name='#{value}']")
     return unless @selectedPage
     @querySelector('[active]')?.removeAttribute('active')
     @selectedPage.setAttribute('active',true)
@@ -200,8 +235,8 @@ init = (e)->
   return unless e.target.tagName
   return if e.target._processed
   tagName = e.target.tagName
-  if tagName.match /^UI:/
-    tag = tagName.split(":").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
+  if tagName.match /^UI-/
+    tag = tagName.split("-").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     if UI[tag]
       UI[tag].wrap e.target
 
@@ -209,39 +244,10 @@ document.addEventListener 'DOMNodeInserted', init
 
 window.addEventListener 'load', ->
 
-  Array::slice.call(document.querySelectorAll('ui\\:markup')).forEach (el)->
+  Array::slice.call(document.querySelectorAll('ui-markup')).forEach (el)->
     el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
 
   for key, value of UI
     if value.SELECTOR
       for el in document.querySelectorAll(value.SELECTOR())
         value.wrap el
-  pager = document.querySelector('body > ui\\:pager')
-  window.componentPager =  document.querySelector('[name=components] > ui\\:pager')
-
-  setHash = ->
-    page = pager.selectedPage.getAttribute('name')
-    if page is 'components' and componentPager.selectedPage
-      page += "/"+componentPager.selectedPage.getAttribute('name')
-    window.location.hash = page
-
-  changePages = (str)->
-    if str instanceof Event or str is undefined
-      str = (window.location.hash[1..] or 'index')
-    [page,component] = str.split('/')
-    component ?= 'index'
-    pager.select page
-    componentPager.select component
-    component = 'Components' if component is 'index'
-
-  pager.addEventListener 'change', setHash
-  componentPager.addEventListener 'change', setHash
-
-  window.addEventListener 'hashchange', changePages
-  changePages()
-  document.addEventListener 'click', (e)->
-    e.preventDefault()
-    if (a = getParent(e.target,'a')) or (a = getParent(e.target,'ui:button'))
-      if (name = a.getAttribute('target'))
-        changePages(name)
-
