@@ -35,9 +35,13 @@ Test =
   run: ->
     @results = {passed: 0, failed: 0, total: 0, runtime: 0}
     for name, test of @tests
-      console.group(name)
+      if console.group
+        console.group(name)
+      else
+        console.log(name)
       test.call @
-      console.groupEnd()
+      if console.group
+        console.groupEnd()
     window.results = @results
 
   add: (name, fn)->
