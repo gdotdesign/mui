@@ -8,6 +8,7 @@
     "q"                   : "*",
     "coffee-script"       : "*",
     "request"             : "*",
+    "async"               : "*",
     "dry"                 : "git://github.com/gdotdesign/dry.git"
   },
   "license": "MIT",

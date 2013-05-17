@@ -1,3 +1,8 @@
+window.console ?= {
+  log: ->
+  warn: ->
+}
+
 qs = (args...)-> document.querySelector.apply document, args
 
 UI = {
