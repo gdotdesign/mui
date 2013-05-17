@@ -13,7 +13,7 @@ UI = {
 Test =
   tests: {}
   assert: (condition)->
-    Test.results.steps++
+    Test.results.total++
     @steps++
     if !!condition
       @passes++
@@ -33,12 +33,12 @@ Test =
     context
 
   run: ->
-    @results = {passed: 0, failed: 0, steps: 0}
+    @results = {passed: 0, failed: 0, total: 0, runtime: 0}
     for name, test of @tests
       console.group(name)
       test.call @
       console.groupEnd()
-    console.log JSON.stringify @results
+    window.results = @results
 
   add: (name, fn)->
     @tests[name] = fn

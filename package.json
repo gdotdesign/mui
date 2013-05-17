@@ -1,10 +1,13 @@
 {
-  "name": "",
+  "name": "asd",
   "version": "0.1.0",
   "author": "",
   "description": "",
   "dependencies" : {
+    "wd"                  : "*",
+    "q"                   : "*",
     "coffee-script"       : "*",
+    "request"             : "*",
     "dry"                 : "git://github.com/gdotdesign/dry.git"
   },
   "license": "MIT",
