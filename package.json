@@ -12,6 +12,9 @@
     "dry"                 : "git://github.com/gdotdesign/dry.git"
   },
   "license": "MIT",
+  "scripts": {
+    "test": "coffee spec.coffee"
+  },
   "engines": {
     "node": ">=0.8"
   }
