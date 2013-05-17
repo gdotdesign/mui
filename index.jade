@@ -1,30 +1,12 @@
 !!! 5
 html
   head
-    script(type='text/javascript', src='/vendor/shims.js')
-    script(type='text/javascript', src='/vendor/style-html.js')
-    link(rel='stylesheet', type='text/css', href='/themes/flat/theme.css')
-    link(rel='stylesheet', type='text/css', href='/index.css')
-    script(type='text/javascript', src='/index.coffee')
-
-    script(type='text/javascript', src='components/ui:tooltip/component.coffee')
-    link(rel='stylesheet', href='components/ui:tooltip/style.css')
-
-    script(type='text/javascript', src='components/ui:button/component.coffee')
-    link(rel='stylesheet', href='components/ui:button/style.css')
-
-    script(type='text/javascript', src='components/ui:dropdown/component.coffee')
-    link(rel='stylesheet', href='components/ui:dropdown/style.css')
-
-    script(type='text/javascript', src='components/ui:select/component.coffee')
-    link(rel='stylesheet', href='components/ui:select/style.css')
-
-    script(type='text/javascript', src='components/ui:modal/component.coffee')
-    link(rel='stylesheet', href='components/ui:modal/style.css')
+    include partials/includes
+    script(type='text/javascript', src='/site.coffee')
 
 body
-  ui:pager(name="main")
-    ui:page(name="index")
+  ui-pager(name="main")
+    ui-page(name="index")
       .intro
         h1 mui
         h2 Modern Interfaces for the Modern Web
@@ -38,21 +20,21 @@ body
             | Extending
         .container
           span(name='button')
-            ui:button Button
+            ui-button Button
           span(name='tooltip')
-            ui:tooltip(open='true', direction='top')
+            ui-tooltip(open='true', direction='top')
               div Tooltip
           span(name='checkbox')
-            ui:checkbox(checked='true')
+            ui-checkbox(checked='true')
           span(name='select')
-            ui:select
-              ui:label
-              ui:dropdown
-                ui:option Select
-                ui:option(value='option1') Option 1
-    ui:page(name="components")
-      ui:pager
-        ui:page(name="index")
+            ui-select
+              ui-label
+              ui-dropdown
+                ui-option Select
+                ui-option(value='option1') Option 1
+    ui-page(name="components")
+      ui-pager
+        ui-page(name="index")
           .col
             h1 Components
           .col
@@ -71,15 +53,15 @@ body
             a(target="components/tooltip")
               i.icon-puzzle-piece
               | Tooltip
-        ui:page(name="button")
-          include components/ui:button/index
-        ui:page(name="modal")
-          include components/ui:modal/index
-        ui:page(name="dropdown")
-          include components/ui:dropdown/index
-        ui:page(name="select")
-          include components/ui:select/index
-        ui:page(name="tooltip")
-          include components/ui:tooltip/index
+        ui-page(name="button")
+          include components/ui-button/index
+        ui-page(name="modal")
+          include components/ui-modal/index
+        ui-page(name="dropdown")
+          include components/ui-dropdown/index
+        ui-page(name="select")
+          include components/ui-select/index
+        ui-page(name="tooltip")
+          include components/ui-tooltip/index
       - title = 'Components'
       include partials/header

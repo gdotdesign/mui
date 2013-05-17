@@ -1,20 +1,20 @@
 .col
   style(type='text/css')
-    ui\:modal > * {
+    ui-modal > * {
     padding: 20px;
     text-align: center;
     }
-    ui\:modal h1{
+    ui-modal h1{
     margin: 0;
     margin-bottom: 20px;
     }
-    ui\:modal[name=modal2] > * {
+    ui-modal[name=modal2] > * {
     -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
     -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
     -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
     -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
     }
-    ui\:modal[name=modal2][open] > *{
+    ui-modal[name=modal2][open] > *{
     opacity: 1;
     -webkit-transform: perspective(1000px);
     -moz-transform: perspective(1000px);
@@ -31,31 +31,31 @@
 .col
   .examples
     .span
-      ui:button.ex(name='modal1') Simple Modal
+      ui-button.ex(name='modal1') Simple Modal
     .span
-      ui:button.ex(name='modal2') Custom Transition
+      ui-button.ex(name='modal2') Custom Transition
     .clear
-  ui:modal(name='modal2')
+  ui-modal(name='modal2')
     div
       h1 Modal
       p This is a modal dialog.
-      ui:button.ex(type='danger', name='modal2') Close Modal
-  ui:modal(name='modal1')
+      ui-button.ex(type='danger', name='modal2') Close Modal
+  ui-modal(name='modal1')
     div
       h1 Modal
       p This is a modal dialog.
-      ui:button.ex(type='danger', name='modal1') Close Modal
+      ui-button.ex(type='danger', name='modal1') Close Modal
   .markup
-    ui:markup
-      ui:modal
+    ui-markup
+      ui-modal
         div
           h1 Modal
           p This is a modal dialog.
-          ui:button(type='danger') Close Modal
+          ui-button(type='danger') Close Modal
   script(type='text/javascript')
     document.addEventListener('click',function(e){
-      if(e.target.tagName === 'UI:BUTTON' && e.target.classList.contains('ex')){
-        modal = document.querySelector('ui\\:modal[name='+e.target.getAttribute('name')+']')
+      if(e.target.tagName === 'UI-BUTTON' && e.target.classList.contains('ex')){
+        modal = document.querySelector('ui-modal[name='+e.target.getAttribute('name')+']')
         modal.toggle()
       }
     })

@@ -3,7 +3,7 @@ class UI.Tooltip extends UI.Abstract
 
   onAdded: ->
     @parentNode.addEventListener 'mouseover', (e)=>
-      unless getParent(e.target, 'ui:tooltip')
+      unless getParent(e.target, 'ui-tooltip')
         @setAttribute('open',true)
     @parentNode.addEventListener 'mouseout', (e)=>
       @removeAttribute('open')

@@ -8,30 +8,30 @@
 h1 {
   color: #333;
 }
-ui\:page {
+ui-page {
   text-align: center;
   background: #fff;
   overflow-y: scroll;
 }
 </style>
 <h1>Some Text</h1>
-<ui:pager>
-  <ui:page name="login" active="true">
+<ui-pager>
+  <ui-page name="login" active="true">
     <h1>Login</h1>
-    <ui:submit id="login">ToDos</ui:submit>
-  </ui:page>
-  <ui:page name="todo">
+    <ui-submit id="login">ToDos</ui-submit>
+  </ui-page>
+  <ui-page name="todo">
     <h1>ToDos</h1>
-    <ui:submit id="add">Add Item</ui:submit>
-    <ui:submit id="logout">Logout</ui:submit>
+    <ui-submit id="add">Add Item</ui-submit>
+    <ui-submit id="logout">Logout</ui-submit>
     <div id="todos">
     </div>
-  </ui:page>
-</ui:pager>
+  </ui-page>
+</ui-pager>
 
 <script type="text/javascript">
 
-  pager = document.querySelector('ui\\:pager')
+  pager = document.querySelector('ui-pager')
   todos = document.querySelector("#todos")
   document.querySelector('#login').addEventListener('click',function(){
     pager.select('todo')

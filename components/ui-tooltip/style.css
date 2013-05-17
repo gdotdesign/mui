@@ -1,4 +1,4 @@
-ui\:tooltip {
+ui-tooltip {
   position: absolute;
   text-align: center;
   display: block;
@@ -6,12 +6,12 @@ ui\:tooltip {
   opacity: 0;
   transition: opacity 600ms, z-index 1ms 600ms;
 }
-ui\:tooltip[open] {
+ui-tooltip[open] {
   opacity: 1;
   z-index: 9999;
   transition: opacity 600ms;
 }
-ui\:tooltip > * {
+ui-tooltip > * {
   background: #2C3E50;
   color: #ECF0F1;
   padding: 15px;
@@ -21,35 +21,35 @@ ui\:tooltip > * {
   line-height: 20px;
   text-align: center;
 }
-ui\:tooltip > *:before {
+ui-tooltip > *:before {
   content: "";
   width: 0;
   height: 0;
   position: absolute;
 }
 
-ui\:tooltip[direction=left] {
+ui-tooltip[direction=left] {
   right: 100%;
   margin-right: 15px;
   top: -10px;
   width: 1000px;
   text-align: right;
 }
-ui\:tooltip[direction=left] > *:before{
+ui-tooltip[direction=left] > *:before{
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   border-left: 6px solid #2C3E50;
   right: -6px;
   top: 15px;
 }
-ui\:tooltip[direction=right] {
+ui-tooltip[direction=right] {
   left: 100%;
   margin-left: 15px;
   top: -10px;
   width: 1000px;
   text-align: left;
 }
-ui\:tooltip[direction=right] > *:before{
+ui-tooltip[direction=right] > *:before{
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   border-right: 6px solid #2C3E50;
@@ -57,14 +57,14 @@ ui\:tooltip[direction=right] > *:before{
   top: 15px;
 }
 
-ui\:tooltip[direction=top] {
+ui-tooltip[direction=top] {
   bottom: 100%;
   margin-bottom: 10px;
   left: 50%;
   width: 1000px;
   margin-left: -500px;
 }
-ui\:tooltip[direction=top] > *:before{
+ui-tooltip[direction=top] > *:before{
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid #2C3E50;
@@ -74,14 +74,14 @@ ui\:tooltip[direction=top] > *:before{
 }
 
 
-ui\:tooltip[direction=bottom] {
+ui-tooltip[direction=bottom] {
   top: 100%;
   margin-top: 10px;
   left: 50%;
   width: 1000px;
   margin-left: -500px;
 }
-ui\:tooltip[direction=bottom] > *:before{
+ui-tooltip[direction=bottom] > *:before{
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid #2C3E50;
