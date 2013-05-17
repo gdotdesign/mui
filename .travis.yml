@@ -1,3 +1,16 @@
+---
 language: node_js
 node_js:
-  - "0.8"
+- '0.8'
+env:
+  global:
+  - secure: ! 'FVzwH5cpVIYHTdrR3ZWw5HGkl3phOVgEbp9fLkcFrLXxCY4AVboeTydwTqVZ
+
+      ubQ2iXeSxPu3GQ3+NYvVJJROf9KA8pIJ4+0ztfE4Ictx3anmfiJUtoVE4y+D
+
+      o3aaBRarMBUvZuOVrJdXew/j6SjHN0Lbqke5Sue9DATxpMVpgbc='
+  - secure: ! 'GwbRPz1fgeQ7oWb/6Aq46q419T0INCon+lDQoBOO/359frB5HyPC5qtYzgOS
+
+      EdEDsYMEpiprbmP3ZZ/oxzb5J8QDJ3ydgkw8A/5G2f0xDZNAviG1p37RccOs
+
+      CUZdefMMawQUCX1s2HgDqj5GFN3guAtSY0OJqf0Ocva+JaKDnk8='
