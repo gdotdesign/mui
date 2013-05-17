@@ -4,6 +4,7 @@
   "author": "",
   "description": "",
   "dependencies" : {
+    "coffee-script"       : "*",
     "dry"                 : "git://github.com/gdotdesign/dry.git"
   },
   "license": "MIT",
