@@ -1,32 +1,40 @@
 .col
   style(type='text/css')
     ui-modal > * {
-    padding: 20px;
-    text-align: center;
+      padding: 20px;
+      text-align: center;
     }
     ui-modal h1{
-    margin: 0;
-    margin-bottom: 20px;
+      margin: 0;
+      margin-bottom: 20px;
     }
     ui-modal[name=modal2] > * {
-    -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-    -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-    -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
-    -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+      -webkit-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+      -moz-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+      -ms-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
+      -o-transform: perspective(1000px) rotateX(90deg) rotateY(-520deg) scale(0.4);
     }
     ui-modal[name=modal2][open] > *{
-    opacity: 1;
-    -webkit-transform: perspective(1000px);
-    -moz-transform: perspective(1000px);
-    -ms-transform: perspective(1000px);
-    -o-transform: perspective(1000px);
+      opacity: 1;
+      -webkit-transform: perspective(1000px);
+      -moz-transform: perspective(1000px);
+      -ms-transform: perspective(1000px);
+      -o-transform: perspective(1000px);
     }
   h1 Modal
   p
-    | Any immediate children is positioned center via text-align and inline-block, this allows us to create a modal dialog with only CSS.
+    | Customizable dialog functionality.
+  p
+    | The modal element is the backdrop, all the immediate children are inline-block elements aligned center, thus creating the dialog feel.
   h2 API
   dl
-    dt ~ toggle()
+    dt
+      span.property #
+      | open
+      span.text  - Alias for open attribute (boolean)
+    dt
+      span.method @
+      | toggle()
     dd Toggle open / closed state of the modal (toggles attribute "open")
 .col
   .examples
@@ -47,7 +55,9 @@
       ui-button.ex(type='danger', name='modal1') Close Modal
   .markup
     ui-markup
+      // ui-modal will be the backdrop
       ui-modal
+        // the first child will be the content, can be anything
         div
           h1 Modal
           p This is a modal dialog.

@@ -17,7 +17,6 @@ api = (url, method, data) ->
     uri: ["https://", username, ":", accessKey, "@saucelabs.com/rest", url].join("")
     headers:
       "Content-Type": "application/json"
-
     body: JSON.stringify(data)
   , (error, response, body) ->
     deferred.resolve response.body

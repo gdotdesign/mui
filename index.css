@@ -334,6 +334,7 @@ span[name=tooltip] ui-tooltip {
 
 dl {
   margin: 0;
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
 .span {
@@ -343,4 +344,52 @@ dl {
 
 .clear {
   clear:  both;
+}
+
+dt, dd {
+  position: relative;
+  margin: 0;
+}
+dt + dd:after, dd + dt:after, dt + dt:after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.1)
+}
+dd {
+  padding: 10px 0;
+  padding-left: 50px;
+  background: #fcfcfc;
+}
+dt {
+  height: 40px;
+  line-height: 36px;
+  background: #fff;
+  font-weight: 700;
+  font-size: 18px;
+}
+.method, .event, .property {
+  font-size: 20px;
+  width: 40px;
+  text-align: center;
+  margin-right: 10px;
+  height: 40px;
+  color: #fff;
+  display: inline-block;
+}
+.text {
+  font-weight: normal;
+  font-size: 16px;
+}
+.method {
+  background: #3498DB;
+}
+.property {
+  background: #E74C3C;
+}
+.event {
+  background: #9B59B6;
 }

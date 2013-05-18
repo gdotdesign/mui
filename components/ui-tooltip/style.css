@@ -4,6 +4,7 @@ ui-tooltip {
   display: block;
   z-index: -1;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 600ms, z-index 1ms 600ms;
 }
 ui-tooltip[open] {
@@ -72,7 +73,6 @@ ui-tooltip[direction=top] > *:before{
   margin-left: -6px;
   left: 50%;
 }
-
 
 ui-tooltip[direction=bottom] {
   top: 100%;

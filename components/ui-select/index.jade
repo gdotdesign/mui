@@ -1,20 +1,31 @@
 .col
   h1 Select
   p The select element recreated with just CSS / JS.
+  h3 API
   dl
-    dt @value
+    dt
+      span.property #
+      | value
     dd Get the current value of the component (selected options value)
-    dt @selectedOption
-    dd Get the selected option
-    dt ~ selectDefault()
+    dt
+      span.property #
+      | selectedOption
+    dd Get / set the selected option
+    dt
+      span.method @
+      | selectDefault()
     dd
       | Select option by the default algorithm:
       ol
         li First option element with selected attribute
         li First option element
-    dt ~ select(value=ui-option|string)
+    dt
+      span.method @
+      | select(value=ui-option|string)
     dd Select by option value / text or by ui-option element directly
-    dt × change
+    dt
+      span.event ~
+      | change
     dd Fires every time the selected option changes
 .col
   .examples

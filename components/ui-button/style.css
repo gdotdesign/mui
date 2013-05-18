@@ -8,11 +8,11 @@ ui-button {
   cursor: pointer;
   position: relative;
   font-weight: bold;
+  transition: 120ms;
 }
 ui-button:hover {
   background-color: #34495E;
 }
-
 ui-button[type=info] {
   background-color: #2980B9;
 }
