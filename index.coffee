@@ -65,7 +65,8 @@ class UI.Abstract
       if key isnt 'initialize'
         el[key] = fn.bind(el)
     @::initialize?.call el
-    @::onAdded?.call el
+    if el.parentNode
+      el.onAdded?()
     el._processed = true
 
   @create: ->
@@ -81,6 +82,9 @@ class UI.Abstract
       event[key] = value
     @dispatchEvent(event)
     event
+
+  toString: ->
+    "<#{@tagName.toLowerCase()}>"
 
 class UI.Option extends UI.Abstract
   @TAGNAME: 'option'
@@ -242,12 +246,14 @@ class UI.ListItem extends UI.Abstract
 
 init = (e)->
   return unless e.target.tagName
-  return if e.target._processed
   tagName = e.target.tagName
   if tagName.match /^UI-/
     tag = tagName.split("-").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     if UI[tag]
-      UI[tag].wrap e.target
+      unless e.target._processed
+        UI[tag].wrap e.target
+      else
+        e.target.onAdded?()
 
 document.addEventListener 'DOMNodeInserted', init
 
