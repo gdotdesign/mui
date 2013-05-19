@@ -18,3 +18,21 @@ Test.add 'Dropdown',->
     document.body.click()
     @assert !dropdown.hasAttribute('open')
 
+  @case "Direction property should set direction attribute", ->
+    @assert dropdown.getAttribute('direction') is null
+    dropdown.direction = 'top'
+    @assert dropdown.getAttribute('direction') is 'top'
+
+  @case "Direction property should return attribute value if direction isnt default", ->
+    @assert dropdown.getAttribute('direction') is dropdown.direction
+
+  @case "Direction property should remove attribute direction if value isnt top", ->
+    @assert dropdown.getAttribute('direction') is 'top'
+    dropdown.direction = 'xxx'
+    @assert dropdown.getAttribute('direction') is null
+
+  @case "Direction property should return default if no attribute is present", ->
+    @assert !dropdown.hasAttribute('direction')
+    @assert dropdown.direction is 'bottom'
+
+

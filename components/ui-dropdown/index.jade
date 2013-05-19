@@ -33,11 +33,30 @@
       transition: 320ms;
     }
   h1 Dropdown
-  p Dropdown component for everything.
-  p
-    | The dropdown can be appended into any element, that is not self closing.
-    br
-    | Any element can be in the dropdown.
+  p Dropdown component for everything. It can be appended into any element, that is not self closing, and any element can be in the dropdown.
+  p Clicking on the parent element will toggle the dropdown, clicking outside the dropdown will close it.
+  h3 API
+  dl
+    dt
+      span.method @
+      | close
+      span.text  - Close the dropdown
+    dt
+      span.method @
+      | open
+      span.text  - Open the dropdown
+    dt
+      span.method @
+      | toggle
+      span.text  - Toggle the dropdown
+    dt
+      span.attribute $
+      | direction
+      span.text  - top / bottom (default)
+    dt
+      span.property #
+      | direction
+      span.text  - Alias for direction attribute
 .col
   .examples
     .span
@@ -85,7 +104,7 @@
   .markup
     ui-markup
       ui-button(type='info')
-        | Open Dropdown
-        ui-dropdown
+        ui-label Open Dropdown
+        ui-dropdown(direction='top')
           ui-option Item 1
           ui-option Item 2

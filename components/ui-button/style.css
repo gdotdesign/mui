@@ -13,6 +13,7 @@ ui-button {
 ui-button:hover {
   background-color: #34495E;
 }
+
 ui-button[type=info] {
   background-color: #2980B9;
 }

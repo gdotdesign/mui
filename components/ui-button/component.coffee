@@ -1,5 +1,6 @@
 class UI.Button extends UI.Abstract
   @TAGNAME: 'button'
+
   initialize: ->
     Object.defineProperty @, 'label',
       get: ->

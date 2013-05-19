@@ -14,6 +14,7 @@ ui-dropdown {
   pointer-events: none;
   transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
 }
+
 ui-dropdown[direction=top] {
   top: auto;
   bottom: 100%;
@@ -21,6 +22,7 @@ ui-dropdown[direction=top] {
   margin-bottom: 3px;
   transform: translateY(-5px);
 }
+
 ui-dropdown[open] {
   max-height: 200px;
   opacity: 1;
@@ -28,12 +30,15 @@ ui-dropdown[open] {
   transition: opacity 320ms, transform 320ms;
   pointer-events: auto;
 }
+
 ui-dropdown ui-option {
   cursor: pointer;
 }
+
 ui-dropdown > *:first-child{
   border-radius: 3px 3px  0 0;
 }
+
 ui-dropdown > *:last-child{
   border-radius: 0 0 3px 3px;
 }

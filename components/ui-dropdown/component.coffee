@@ -12,13 +12,23 @@ class UI.Dropdown extends UI.Abstract
 
   toggle: ->
     return if @parentNode.hasAttribute('disabled')
-    # Hack something do with scope
-    @_open = !@_open
-    if @_open then @open() else @close()
+    @toggleAttribute('open')
 
   initialize: ->
     @_open = false
+    directions = ['top','bottom']
+    Object.defineProperty @, 'direction',
+      get: ->
+        dir = @getAttribute('direction')
+        dir = 'bottom' if directions.indexOf(dir) is -1
+        dir
+      set: (value)->
+        value = 'bottom' if directions.indexOf(value) is -1
+        if value is 'bottom'
+          @removeAttribute('direction')
+        else
+          @setAttribute('direction',value)
+
     document.addEventListener 'click', (e)=>
-      # TODO child checking
-      @close() if e.target isnt @
+      @close() if e.target isnt @ and e.target isnt @parentNode
     , true

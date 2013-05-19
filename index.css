@@ -371,7 +371,7 @@ dt {
   font-weight: 700;
   font-size: 18px;
 }
-.method, .event, .property {
+.method, .event, .property, .attribute {
   font-size: 20px;
   width: 40px;
   text-align: center;
@@ -383,6 +383,9 @@ dt {
 .text {
   font-weight: normal;
   font-size: 16px;
+}
+.attribute {
+  background: #27AE60;
 }
 .method {
   background: #3498DB;
