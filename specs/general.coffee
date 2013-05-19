@@ -1,4 +1,4 @@
-['Button','Dropdown'].forEach (tag)->
+['Button','Dropdown','Modal'].forEach (tag)->
   Test.add tag+' - General',->
     selector = UI[tag].SELECTOR()
     el = document.querySelector(selector)
@@ -15,6 +15,13 @@
     @case "Inserting the #{tag} should process it", ->
       document.body.appendChild el3
       @assert el3._processed
+
+    @case "Disabled property should be aliased for disabled attribute", ->
+      @assert !el.hasAttribute('disabled')
+      el.disabled = true
+      @assert el.hasAttribute('disabled')
+      el.disabled = false
+      @assert !el.hasAttribute('disabled')
 
     # Inheritance
     @case "An instance of #{tag} should get all methods from class", ->

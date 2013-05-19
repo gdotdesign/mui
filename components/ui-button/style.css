@@ -10,6 +10,9 @@ ui-button {
   font-weight: bold;
   transition: 120ms;
 }
+ui-button[disabled]{
+  opacity: 0.5
+}
 ui-button:hover {
   background-color: #34495E;
 }

@@ -6,7 +6,6 @@ class UI.Dropdown extends UI.Abstract
 
   onAdded: ->
     @parentNode.addEventListener 'click', @toggle
-    # Ensure parent node is "relative"
     if getComputedStyle(@parentNode).position is 'static'
       @parentNode.style.position = 'relative'
 
@@ -17,6 +16,8 @@ class UI.Dropdown extends UI.Abstract
   initialize: ->
     @_open = false
     directions = ['top','bottom']
+    Object.defineProperty @, 'isOpen',
+      get: -> @hasAttribute('open')
     Object.defineProperty @, 'direction',
       get: ->
         dir = @getAttribute('direction')

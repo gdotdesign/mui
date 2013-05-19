@@ -64,15 +64,23 @@ class UI.Abstract
     for key, fn of @::
       if key isnt 'initialize'
         el[key] = fn.bind(el)
-    @::initialize?.call el
-    if el.parentNode
-      el.onAdded?()
     el._processed = true
+    @::initialize?.call el
+
+    Object.defineProperty el, 'disabled',
+      get: -> @hasAttribute('disabled')
+      set: (value) ->
+        value = !!value
+        if value
+          @setAttribute('disabled',true)
+        else
+          @removeAttribute('disabled')
+
+    el.onAdded?() if el.parentNode
 
   @create: ->
     base = document.createElement(UI.ns+"-"+@TAGNAME)
-    if @::initialize
-      @wrap base
+    @wrap base
     base
 
   fireEvent: (type,data)->

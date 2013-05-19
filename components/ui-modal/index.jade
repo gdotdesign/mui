@@ -23,19 +23,31 @@
     }
   h1 Modal
   p
-    | Customizable dialog functionality.
+    | Customizable dialog component.
+  h3 Structure
   p
     | The modal element is the backdrop, all the immediate children are inline-block elements aligned center, thus creating the dialog feel.
-  h2 API
+  h3 Quirks
+  p
+    | The z-index transition is delayed until the opacity transition finishes.
+  h3 API
   dl
     dt
       span.property #
-      | open
-      span.text  - Alias for open attribute (boolean)
+      | isOpen
+      span.text  - Whether the modal is open or not
+    dt
+      span.method @
+      | open()
+      span.text  - Open the modal
+    dt
+      span.method @
+      | close()
+      span.text  - Close the modal
     dt
       span.method @
       | toggle()
-    dd Toggle open / closed state of the modal (toggles attribute "open")
+      span.text  - Toggle the modal
 .col
   .examples
     .span

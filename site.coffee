@@ -1,6 +1,7 @@
 window.addEventListener 'load', ->
   pager = document.querySelector('body > ui-pager')
   window.componentPager =  document.querySelector('[name=components] > ui-pager')
+  dropdown = document.querySelector('header ui-dropdown')
 
   setHash = ->
     page = pager.selectedPage.getAttribute('name')
@@ -27,4 +28,5 @@ window.addEventListener 'load', ->
     if (a = getParent(e.target,'a')) or (a = getParent(e.target,'ui-button'))
       if (name = a.getAttribute('target'))
         changePages(name)
+        dropdown.close()
 

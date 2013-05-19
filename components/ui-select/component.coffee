@@ -2,11 +2,11 @@ class UI.Select extends UI.Abstract
   @TAGNAME: 'select'
 
   initialize: ->
-    @dropdown = @querySelector(UI.Dropdown.SELECTOR())
-    @label = @querySelector(UI.Label.SELECTOR())
+    @_dropdown = @querySelector(UI.Dropdown.SELECTOR())
+    @_label = @querySelector(UI.Label.SELECTOR())
 
-    UI.warn('SELECT: No dropdown found...') unless @dropdown
-    UI.warn('SELECT: No label found...') unless @label
+    UI.warn('SELECT: No dropdown found...') unless @_dropdown
+    UI.warn('SELECT: No label found...') unless @_label
 
     @addEventListener 'DOMNodeRemoved', (e)=>
       setTimeout =>
@@ -20,6 +20,7 @@ class UI.Select extends UI.Abstract
       return if @getAttribute('disabled')
       if e.target.matchesSelector(UI.Option.SELECTOR())
         @select(e.target)
+        @_dropdown.close()
     @selectDefault()
 
   selectDefault: ->
@@ -45,9 +46,9 @@ class UI.Select extends UI.Abstract
       @querySelector('[selected]')?.removeAttribute('selected')
       @selectedOption.setAttribute('selected',true)
       @value = @selectedOption.getAttribute('value')
-      @label?.textContent = @selectedOption.textContent
+      @_label?.textContent = @selectedOption.textContent
     else
-      @label?.textContent = ""
+      @_label?.textContent = ""
       @value = null
     if @value isnt lastValue
       UI.log 'SELECT: change'

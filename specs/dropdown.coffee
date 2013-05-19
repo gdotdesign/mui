@@ -35,4 +35,7 @@ Test.add 'Dropdown',->
     @assert !dropdown.hasAttribute('direction')
     @assert dropdown.direction is 'bottom'
 
-
+  @case "isOpen property should return accordingly", ->
+    @assert dropdown.isOpen is false
+    dropdown.toggle()
+    @assert dropdown.isOpen is true

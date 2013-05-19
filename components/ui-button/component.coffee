@@ -2,6 +2,10 @@ class UI.Button extends UI.Abstract
   @TAGNAME: 'button'
 
   initialize: ->
+    @addEventListener 'click', (e)->
+      if @disabled
+        e.stopPropagation()
+        e.preventDefault()
     Object.defineProperty @, 'label',
       get: ->
         @textContent
