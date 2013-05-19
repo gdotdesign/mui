@@ -9,10 +9,17 @@ this.Element && function(ElementPrototype) {
     var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
     while (nodes[++i] && nodes[i] != node);
     return !!nodes[i];
-  }
+  };
 }(Element.prototype);
 
-
+if(!HTMLElement.prototype.click){
+  HTMLElement.prototype.click = function(){
+    var event = document.createEvent("MouseEvent");
+    event.initEvent('click', true, true);
+    this.dispatchEvent(event);
+    return event;
+  };
+}
 Function.prototype.bind = Function.prototype.bind || function(to){
     // Make an array of our arguments, starting from second argument
   var partial = Array.prototype.splice.call(arguments, 1),
