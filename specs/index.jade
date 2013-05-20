@@ -8,6 +8,7 @@ html
     script(type='text/javascript', src='dropdown.coffee')
     script(type='text/javascript', src='modal.coffee')
     script(type='text/javascript', src='tooltip.coffee')
+    script(type='text/javascript', src='select.coffee')
     script(type='text/javascript', src='specs.coffee')
   body
     ui-button
@@ -16,3 +17,9 @@ html
       ui-tooltip
     div
       ui-dropdown
+    ui-select
+      ui-label
+      ui-dropdown
+        ui-option(value="option1") Option 1
+        ui-option(value="option2", selected="true") Option 2
+        ui-option(value="option3") Option 3
