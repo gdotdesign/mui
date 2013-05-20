@@ -2,13 +2,17 @@
 html
   head
     include ../partials/includes
-    script(type='text/javascript', src='general.coffee')
+    script(type='text/javascript', src='abstract.coffee')
+    script(type='text/javascript', src='iopenable.coffee')
     script(type='text/javascript', src='button.coffee')
     script(type='text/javascript', src='dropdown.coffee')
     script(type='text/javascript', src='modal.coffee')
+    script(type='text/javascript', src='tooltip.coffee')
     script(type='text/javascript', src='specs.coffee')
   body
     ui-button
     ui-modal
+    div
+      ui-tooltip
     div
       ui-dropdown

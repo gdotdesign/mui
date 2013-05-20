@@ -15,10 +15,12 @@ ui-tooltip[open] {
 ui-tooltip > * {
   background: #2C3E50;
   color: #ECF0F1;
-  padding: 15px;
+  font-size: 13px;
+  padding: 10px;
   display: inline-block;
   max-width: 200px;
-  border-radius: 10px;
+  font-weight: bold;
+  border-radius: 5px;
   line-height: 20px;
   text-align: center;
 }
@@ -32,7 +34,7 @@ ui-tooltip > *:before {
 ui-tooltip[direction=left] {
   right: 100%;
   margin-right: 15px;
-  top: -10px;
+  top: 0px;
   width: 1000px;
   text-align: right;
 }
@@ -41,12 +43,12 @@ ui-tooltip[direction=left] > *:before{
   border-bottom: 6px solid transparent;
   border-left: 6px solid #2C3E50;
   right: -6px;
-  top: 15px;
+  top: 8px;
 }
 ui-tooltip[direction=right] {
   left: 100%;
   margin-left: 15px;
-  top: -10px;
+  top: 0;
   width: 1000px;
   text-align: left;
 }
@@ -55,7 +57,7 @@ ui-tooltip[direction=right] > *:before{
   border-bottom: 6px solid transparent;
   border-right: 6px solid #2C3E50;
   left: -6px;
-  top: 15px;
+  top: 8px;
 }
 
 ui-tooltip[direction=top] {
@@ -74,14 +76,14 @@ ui-tooltip[direction=top] > *:before{
   left: 50%;
 }
 
-ui-tooltip[direction=bottom] {
+ui-tooltip[direction=bottom], ui-tooltip:not([direction]) {
   top: 100%;
   margin-top: 10px;
   left: 50%;
   width: 1000px;
   margin-left: -500px;
 }
-ui-tooltip[direction=bottom] > *:before{
+ui-tooltip[direction=bottom] > *:before, ui-tooltip:not([direction]) > *:before{
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid #2C3E50;
