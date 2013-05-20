@@ -1,11 +1,8 @@
-window.console ?= {
+window.console ?=
   log: ->
   warn: ->
-}
 
-qs = (args...)-> document.querySelector.apply document, args
-
-UI = {
+UI =
   verbose: false
   ns: 'ui'
   warn: (text)->
@@ -13,7 +10,24 @@ UI = {
   log: (args...)->
     if UI.verbose
       console.log.apply console, args
-}
+  onInsert: (e)->
+    return unless e.target.tagName
+    tagName = e.target.tagName
+    if tagName.match /^UI-/
+      tag = tagName.split("-").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
+      if UI[tag]
+        unless e.target._processed
+          UI[tag].wrap e.target
+        else
+          e.target.onAdded?()
+  load: ->
+    for key, value of UI
+      if value.SELECTOR
+        for el in document.querySelectorAll(value.SELECTOR())
+          value.wrap el
+  initialize: ->
+    document.addEventListener 'DOMNodeInserted', UI.onInsert
+    window.addEventListener 'load', UI.load
 
 Test =
   tests: {}
@@ -52,11 +66,24 @@ Test =
   add: (name, fn)->
     @tests[name] = fn
 
-Element::toggleAttribute = (attr) ->
-  if @hasAttribute(attr)
+Element::toggleAttribute = (attr, value) ->
+  state = @hasAttribute(attr)
+  if value isnt undefined
+    state = !!value
+  if state
     @removeAttribute(attr)
   else
     @setAttribute(attr,'true')
+
+getParent = (el,tagName)->
+  return el if el.tagName is tagName.toUpperCase()
+  if el.parentNode
+    if el.parentNode.tagName is tagName.toUpperCase()
+      el.parentNode
+    else
+      getParent(el.parentNode,tagName)
+  else
+    null
 
 class UI.Abstract
   @SELECTOR: -> UI.ns+"-"+@TAGNAME
@@ -79,7 +106,7 @@ class UI.Abstract
     el.onAdded?() if el.parentNode
 
   @create: ->
-    base = document.createElement(UI.ns+"-"+@TAGNAME)
+    base = document.createElement(@SELECTOR())
     @wrap base
     base
 
@@ -117,6 +144,24 @@ class UI.iOpenable extends UI.Abstract
         else
           @setAttribute('direction',value)
 
+class UI.iInput extends UI.Abstract
+  @TAGNAME: 'input'
+  @wrap: (el)->
+    super
+    Object.defineProperty el, 'value',
+      get: ->  @textContent
+      set: (value)-> @textContent = value
+
+  initialize: ->
+    @setAttribute('contenteditable',true)
+    @_input = document.createElement('input')
+    @addEventListener 'blur', (e) ->
+      if @childNodes.length is 1
+        if @childNodes[0].tagName is 'BR'
+          @removeChild @childNodes[0]
+
+# Move these to components
+# -----------------------
 class UI.Option extends UI.Abstract
   @TAGNAME: 'option'
 
@@ -134,43 +179,20 @@ class UI.Checkbox extends UI.Abstract
   @wrap: (el)->
     super
     Object.defineProperty el, 'checked',
-      get: ->  @hasAttribute('checked')
+      get: -> @hasAttribute 'checked'
       set: (value)->
-        if value
-          @setAttribute('checked',true)
-        else
-          @removeAttribute('checked')
-        @fireEvent('change')
+        @toggleAttribute 'checked', value
+        @fireEvent 'change'
 
   initialize: ->
     @addEventListener 'click', =>
-      if @hasAttribute('checked')
-        @removeAttribute('checked')
-      else
-        @setAttribute('checked',true)
-      @fireEvent('change')
+      @toggleAttribute 'checked'
+      @fireEvent 'change'
 
-
-class UI.Input extends UI.Abstract
-  @TAGNAME: 'input'
-  @wrap: (el)->
-    super
-    Object.defineProperty el, 'value',
-      get: ->  @textContent
-      set: (value)-> @textContent = value
-
-  initialize: ->
-    @setAttribute('contenteditable',true)
-    @_input = document.createElement('input')
-    @addEventListener 'blur', (e) ->
-      if @childNodes.length is 1
-        if @childNodes[0].tagName is 'BR'
-          @removeChild @childNodes[0]
-
-class UI.Textarea extends UI.Input
+class UI.Textarea extends UI.iInput
   @TAGNAME: 'textarea'
 
-class UI.Text extends UI.Input
+class UI.Text extends UI.iInput
   @TAGNAME: 'text'
   initialize: ->
     super
@@ -213,24 +235,6 @@ class UI.Form extends UI.Abstract
           status = oReq.status
           @fireEvent 'complete', {response: {headers: headers, body: body, status: status}}
 
-getParent = (el,tagName)->
-  return el if el.tagName is tagName.toUpperCase()
-  if el.parentNode
-    if el.parentNode.tagName is tagName.toUpperCase()
-      el.parentNode
-    else
-      getParent(el.parentNode,tagName)
-  else
-    null
-
-class UI.Submit extends UI.Abstract
-  @TAGNAME: 'submit'
-  initialize: ->
-    @addEventListener 'click', ->
-      form = getParent(@,'ui-form')
-      if form
-        form.submit()
-
 class UI.Page extends UI.Abstract
   @TAGNAME: 'page'
 class UI.Pager extends UI.Abstract
@@ -248,52 +252,3 @@ class UI.Pager extends UI.Abstract
     @selectedPage.setAttribute('active',true)
     if lastPage isnt @selectedPage
       @fireEvent('change')
-
-
-# CUSTOM ELEMENTS
-#################
-class UI.ListItem extends UI.Abstract
-  @TAGNAME: 'listitem'
-
-  initialize: ->
-    @addEventListener 'change', (e)->
-      @toggleAttribute('done')
-
-  @create: (options)->
-    base = super
-    label = UI.Text.create()
-    checkbox = UI.Checkbox.create()
-
-    base.appendChild(label)
-    base.appendChild(checkbox)
-
-    if options.label
-      label.textContent = options.label
-    if options.done
-      checkbox.checked = true
-      base.setAttribute('done', true)
-
-    base
-
-init = (e)->
-  return unless e.target.tagName
-  tagName = e.target.tagName
-  if tagName.match /^UI-/
-    tag = tagName.split("-").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
-    if UI[tag]
-      unless e.target._processed
-        UI[tag].wrap e.target
-      else
-        e.target.onAdded?()
-
-document.addEventListener 'DOMNodeInserted', init
-
-window.addEventListener 'load', ->
-
-  Array::slice.call(document.querySelectorAll('ui-markup')).forEach (el)->
-    el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
-
-  for key, value of UI
-    if value.SELECTOR
-      for el in document.querySelectorAll(value.SELECTOR())
-        value.wrap el
