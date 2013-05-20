@@ -32,6 +32,8 @@ WIN8 = 'Windows 8'
 LINUX = 'Linux'
 
 browsers = {
+  'android|4': [LINUX]
+  'android|4|tablet': [LINUX]
   iphone: [OSX10_8]
   ipad: [OSX10_8]
   'internet explorer|10': [WIN8]
@@ -47,7 +49,7 @@ fns = []
 
 for bw, platforms of browsers
   do (bw, platforms) ->
-    [bw,version] = bw.split('|')
+    [bw,version,deviceType] = bw.split('|')
     platforms.forEach (platform) ->
       fns.push (callback)->
         console.log bw+" - "+platform
@@ -56,6 +58,8 @@ for bw, platforms of browsers
           platform: platform
           name: "MUI - Modern User Interfaces"
           build: process.env.TRAVIS_BUILD_NUMBER
+        if deviceType
+          opts.deviceType = deviceType
         if version
           opts.version = version
         browser.init(opts).then(->
