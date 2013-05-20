@@ -21,6 +21,29 @@ Test.add 'Modal',->
 
   @case "isOpen property should return accordingly", ->
     modal.toggle()
-    @assert modal.isOpen is true
+    @assert modal.isOpen
     modal.toggle()
-    @assert modal.isOpen is false
+    @assert !modal.isOpen
+
+  @case "Toggle should not toggle the open attibute if the element is disabled", ->
+    modal.disabled = true
+    @assert !modal.isOpen
+    modal.toggle()
+    @assert !modal.isOpen
+    modal.disabled = false
+
+  @case "Close should not remove the open attibute if the element is disabled", ->
+    modal.open()
+    @assert modal.hasAttribute('open')
+    modal.disabled = true
+    modal.close()
+    @assert modal.hasAttribute('open')
+    modal.disabled = false
+    modal.close()
+
+  @case "Open should not add the open attribute if the element is disabled", ->
+    @assert !modal.hasAttribute('open')
+    modal.disabled = true
+    modal.open()
+    @assert !modal.hasAttribute('open')
+

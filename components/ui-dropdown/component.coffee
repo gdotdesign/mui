@@ -1,20 +1,20 @@
 class UI.Dropdown extends UI.Abstract
   @TAGNAME: 'dropdown'
 
-  open: -> @setAttribute('open',true)
-  close: -> @removeAttribute('open')
+  open:   -> @setAttribute('open',true)
+  close:  -> @removeAttribute('open')
+  toggle: -> @toggleAttribute('open')
 
   onAdded: ->
-    @parentNode.addEventListener 'click', @toggle
+    @parentNode.addEventListener 'click', =>
+      return if @disabled
+      return if @parentNode.hasAttribute('disabled')
+      @toggle()
+
     if getComputedStyle(@parentNode).position is 'static'
       @parentNode.style.position = 'relative'
 
-  toggle: ->
-    return if @parentNode.hasAttribute('disabled')
-    @toggleAttribute('open')
-
   initialize: ->
-    @_open = false
     directions = ['top','bottom']
     Object.defineProperty @, 'isOpen',
       get: -> @hasAttribute('open')

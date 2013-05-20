@@ -1,7 +1,6 @@
 Test.add 'Dropdown',->
   dropdown = document.querySelector(UI.Dropdown.SELECTOR())
 
-  # Attributes
   @case "Toggle should toggle the the open attribute", ->
     @assert !dropdown.hasAttribute('open')
     dropdown.toggle()
@@ -12,11 +11,30 @@ Test.add 'Dropdown',->
   @case "Parent node should not be 'static'", ->
     @assert getComputedStyle(dropdown.parentNode).position isnt 'static'
 
-  @case "Clicking outside the should close the dropdown", ->
+  @case "Clicking outside should close the dropdown", ->
     dropdown.toggle()
     @assert dropdown.hasAttribute('open')
     document.body.click()
     @assert !dropdown.hasAttribute('open')
+
+  @case "Clicking the parent element should toggle the dropdown", ->
+    @assert !dropdown.isOpen
+    dropdown.parentNode.click()
+    @assert dropdown.isOpen
+    dropdown.parentNode.click()
+    @assert !dropdown.isOpen
+
+  @case "Clicking the disabled parent element should not toggle the dropdown", ->
+    dropdown.parentNode.setAttribute('disabled',true)
+    dropdown.parentNode.click()
+    @assert !dropdown.isOpen
+    dropdown.parentNode.removeAttribute('disabled')
+
+  @case "Clicking the parent element while in disabled state shoud not toggle the dropdown", ->
+    dropdown.disabled = true
+    dropdown.parentNode.click()
+    @assert !dropdown.isOpen
+    dropdown.disabled = false
 
   @case "Direction property should set direction attribute", ->
     @assert dropdown.getAttribute('direction') is null

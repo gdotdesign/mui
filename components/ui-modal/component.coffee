@@ -6,8 +6,12 @@ class UI.Modal extends UI.Abstract
       get: -> @hasAttribute('open')
     document.body.appendChild(@)
 
-  close: -> @removeAttribute('open')
-  open: -> @setAttribute('open',true)
+  close: ->
+    return if @disabled
+    @removeAttribute('open')
+  open: ->
+    return if @disabled
+    @setAttribute('open',true)
   toggle: ->
     return if @disabled
     @toggleAttribute('open')

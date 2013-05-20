@@ -1,7 +1,6 @@
 Test.add 'Button',->
   button = document.querySelector(UI.Button.SELECTOR())
 
-  # Attributes
   @case "Label should set textContent of the button", ->
     button.label = 'Test Button'
     @assert button.textContent is 'Test Button'
@@ -15,3 +14,11 @@ Test.add 'Button',->
     @assert button.getAttribute('type') is 'info'
   @case "Type should return the type attribute  of the button", ->
     @assert button.type is button.getAttribute('type')
+
+  @case "It should not trigger click event if it is disabled", ->
+    x = true
+    button.disabled = true
+    button.addEventListener 'click', (e)=>
+      x = false
+    button.click()
+    @assert x
