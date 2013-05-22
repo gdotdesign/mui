@@ -29,3 +29,4 @@ Test.add 'Tooltip',->
     tooltip.disabled = true
     fireMouseEvent tooltip.parentNode, 'mouseover'
     @assert !tooltip.isOpen
+    tooltip.disabled = false

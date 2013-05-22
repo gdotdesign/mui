@@ -62,6 +62,14 @@ b {
   color: #333;
   margin-top: 18px;
 }
+.ic ui-checkbox {
+  z-index: 1;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+  left: 50%;
+  margin-left: -20px;
+  position: absolute;
+  bottom: 20px;
+}
 .ic ui-button {
   z-index: 1;
   width: 100px;
@@ -135,6 +143,9 @@ ui-button.components {
 }
 ui-button.components i{
   margin-left: 15px;
+}
+ui-button.components ui-dropdown {
+  max-height: 500px;
 }
 ui-button.components ui-option a{
   padding: 0;

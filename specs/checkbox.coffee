@@ -29,3 +29,4 @@ Test.add 'Checkbox',->
     checkbox.disabled = true
     checkbox.click()
     @assert checkbox.hasAttribute('checked')
+    checkbox.disabled = false

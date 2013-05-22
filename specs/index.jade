@@ -50,6 +50,7 @@ html
         ui-button(type='warning') Warning button
         ui-button(type='danger') Danger button
         ui-button(type='inverse') Inverse button
+        ui-button(disabled) Default button
       .component
         ui-label Modal
         ui-button Open Modal
@@ -60,11 +61,13 @@ html
       .component
         ui-label Checkbox
         ui-checkbox
+        ui-checkbox(disabled)
       .component
         ui-label Tooltip
         span
           | Hover me!
           ui-tooltip
+            div Tooltip
       .component
         ui-label Dropdown
         span
@@ -79,6 +82,10 @@ html
             ui-option(value="option1") Option 1
             ui-option(value="option2", selected="true") Option 2
             ui-option(value="option3") Option 3
+        ui-select(disabled)
+          ui-label
+          ui-dropdown
+            ui-option(value="option1") Option 1
       .component
         ui-label Text
         ui-text(placeholder="Text")
