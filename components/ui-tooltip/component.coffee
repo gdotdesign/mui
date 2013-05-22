@@ -8,6 +8,7 @@ class UI.Tooltip extends UI.iOpenable
       unless getParent(e.target, 'ui-tooltip')
         @setAttribute('open',true)
     @parentNode.addEventListener 'mouseout', (e)=>
+      return if @parentNode.hasAttribute('disabled') or @disabled
       @removeAttribute('open')
 
   initialize: ->

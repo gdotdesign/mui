@@ -35,23 +35,33 @@ body
     ui-page(name="components")
       ui-pager
         ui-page(name="index")
-          .col
+          .container
             h1 Components
-          .col
             a(target="components/button")
-              i.icon-puzzle-piece
+              .ic
+                ui-button(type="info") Button
               | Button
             a(target="components/modal")
-              i.icon-puzzle-piece
+              .ic
+                .modal
+                  .content Content content content
               | Modal
             a(target="components/dropdown")
-              i.icon-puzzle-piece
+              .ic
+                ui-button(type="success")
+                  | butt
+                  i.icon-chevron-down
               | Dropdown
             a(target="components/select")
-              i.icon-puzzle-piece
+              .ic
+                ui-button
+                  | butt
+                  i.icon-chevron-down
               | Select
             a(target="components/tooltip")
-              i.icon-puzzle-piece
+              .ic
+                ui-tooltip(open="true", direction="top", disabled="true")
+                  div tootlipaaaa
               | Tooltip
         ui-page(name="button")
           include components/ui-button/index
