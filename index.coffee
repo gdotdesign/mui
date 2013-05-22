@@ -67,13 +67,13 @@ Test =
     @tests[name] = fn
 
 Element::toggleAttribute = (attr, value) ->
-  state = @hasAttribute(attr)
+  state = !@hasAttribute(attr)
   if value isnt undefined
     state = !!value
   if state
-    @removeAttribute(attr)
-  else
     @setAttribute(attr,'true')
+  else
+    @removeAttribute(attr)
 
 getParent = (el,tagName)->
   return el if el.tagName is tagName.toUpperCase()
@@ -173,21 +173,6 @@ class UI.Label extends UI.Abstract
       el = document.querySelector("[name=#{name}]")
       el?.focus()
       el?.click()
-
-class UI.Checkbox extends UI.Abstract
-  @TAGNAME: 'checkbox'
-  @wrap: (el)->
-    super
-    Object.defineProperty el, 'checked',
-      get: -> @hasAttribute 'checked'
-      set: (value)->
-        @toggleAttribute 'checked', value
-        @fireEvent 'change'
-
-  initialize: ->
-    @addEventListener 'click', =>
-      @toggleAttribute 'checked'
-      @fireEvent 'change'
 
 class UI.Textarea extends UI.iInput
   @TAGNAME: 'textarea'

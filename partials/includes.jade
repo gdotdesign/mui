@@ -4,13 +4,6 @@ link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
 link(rel='stylesheet', type='text/css', href='/themes/flat/theme.css')
 link(rel='stylesheet', type='text/css', href='/index.css')
 script(type='text/javascript', src='/index.coffee')
-script
-  window.addEventListener('load',function(){
-    Array.prototype.slice.call(document.querySelectorAll('ui-markup')).forEach(function(el){
-      el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
-    })
-  })
-  UI.initialize()
 
 script(type='text/javascript', src='/components/ui-tooltip/component.coffee')
 link(rel='stylesheet', href='/components/ui-tooltip/style.css')
@@ -26,3 +19,14 @@ link(rel='stylesheet', href='/components/ui-select/style.css')
 
 script(type='text/javascript', src='/components/ui-modal/component.coffee')
 link(rel='stylesheet', href='/components/ui-modal/style.css')
+
+script(type='text/javascript', src='/components/ui-checkbox/component.coffee')
+link(rel='stylesheet', href='/components/ui-checkbox/style.css')
+
+script
+  window.addEventListener('load',function(){
+    Array.prototype.slice.call(document.querySelectorAll('ui-markup')).forEach(function(el){
+      el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
+    })
+  })
+  UI.initialize()

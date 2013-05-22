@@ -1,0 +1,33 @@
+.col
+  h1 Checkbox
+  p Simple checkbox component.
+  h3 API
+  dl
+    dt
+      span.property #
+      | disabled
+      span.text  - Alias for disabled attribute
+    dt
+      span.property #
+      | checked
+      span.text  - Alias for checked attribute
+    dt
+      span.attribute $
+      | checked
+      span.text  - Whether the checkbox is checked or not
+    dt
+      span.event ~
+      | change
+      span.text  - Fires when the checked property changes
+.col
+  .examples
+    .span
+      ui-checkbox(checked=true)
+    .span
+      ui-checkbox
+    .span
+      ui-checkbox(checked=true, disabled=true)
+    .clear
+  .markup
+    ui-markup
+      ui-checkbox(checked="true", disabled="true")

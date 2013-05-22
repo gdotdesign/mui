@@ -89,28 +89,6 @@ ui-option:hover {
 	background: #34495E;
 }
 
-ui-checkbox {
-	background: #2C3E50;
-	width: 40px;
-	display: inline-block;
-	height: 40px;
-	cursor: pointer;
-	text-align: center;
-	border-radius: 3px;
-}
-ui-checkbox:hover {
-	background: #34495E;
-}
-ui-checkbox:after{
-	line-height: 40px;
-	color: rgba(255,255,255,0.2);
-	content: "\f00c";
-	font-family: FontAwesome;
-}
-ui-checkbox[checked]:after{
-	color: #ECF0F1;
-}
-
 ui-submit {
 	padding: 7px 20px;
 	display: inline-block;

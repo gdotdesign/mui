@@ -41,6 +41,10 @@ body
               .ic
                 ui-button(type="info") Button
               | Button
+            a(target="components/checkbox")
+              .ic
+                ui-checkbox
+              | checkbox
             a(target="components/modal")
               .ic
                 .modal
@@ -73,5 +77,7 @@ body
           include components/ui-select/index
         ui-page(name="tooltip")
           include components/ui-tooltip/index
+        ui-page(name="checkbox")
+          include components/ui-checkbox/index
       - title = 'Components'
       include partials/header
