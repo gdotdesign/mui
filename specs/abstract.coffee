@@ -28,3 +28,4 @@ Test.add 'Abstract',->
     for key, fn of UI[tag]::
       if key isnt 'initialize'
         @assert !!el[key]
+    document.body.removeChild el3

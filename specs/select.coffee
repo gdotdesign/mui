@@ -8,7 +8,7 @@ Test.add 'Select',->
     @assert select.value is 'option2'
     select.select('option3')
     @assert select.value is 'option3'
-    @assert select.selectedOption is document.querySelector('ui-option:nth-child(3)')
+    @assert select.selectedOption is document.querySelector('ui-select ui-option:nth-child(3)')
 
   @case "Value property should deselect when no match found", ->
     select.select('null')
@@ -20,8 +20,8 @@ Test.add 'Select',->
     @assert select.value is "option1"
 
   @case "SelectDefault should select selected option if is one", ->
-    document.querySelector('ui-option:nth-child(1)').removeAttribute('selected')
-    document.querySelector('ui-option:nth-child(3)').setAttribute('selected',true)
+    document.querySelector('ui-select ui-option:nth-child(1)').removeAttribute('selected')
+    document.querySelector('ui-select ui-option:nth-child(3)').setAttribute('selected',true)
     select.selectDefault()
     @assert select.value is "option3"
 
@@ -44,17 +44,17 @@ Test.add 'Select',->
     @assert select.value is "option4"
 
   @case "When a child option is clicked it should be selected", ->
-    document.querySelector('ui-option:nth-child(1)').click()
+    document.querySelector('ui-select ui-option:nth-child(1)').click()
     @assert select.value is "option1"
 
   @case "When a child option is clicked it should close the dropdown", ->
     select._dropdown.open()
     @assert select._dropdown.isOpen
-    document.querySelector('ui-option:nth-child(1)').click()
+    document.querySelector('ui-select ui-option:nth-child(1)').click()
     @assert !select._dropdown.isOpen
 
   @case "Label should be the selectedOptions textContent", ->
-    @assert select._label.textContent is document.querySelector('ui-option:nth-child(1)').textContent
+    @assert select._label.textContent is document.querySelector('ui-select ui-option:nth-child(1)').textContent
 
   @case "It should not fire change event if selecting the same value", ->
     x = true
@@ -76,3 +76,4 @@ Test.add 'Select',->
       x = false
     select.select(null)
     @assert !x
+    select.selectDefault()

@@ -11,17 +11,80 @@ html
     script(type='text/javascript', src='select.coffee')
     script(type='text/javascript', src='checkbox.coffee')
     script(type='text/javascript', src='specs.coffee')
+    style
+      body {
+        padding: 0 50px;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #ccc;
+        margin-bottom: 30px;
+      }
+      .component {
+        margin-bottom: 10px;
+        position: relative;
+        min-height: 35px;
+        padding-left: 200px;
+      }
+      ui-button{
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      .component > ui-label {
+        width: 200px;
+        position: absolute;
+        line-height: 35px;
+        top: 0;
+        left: 0;
+        display: block;
+      }
   body
-    ui-button
-    ui-modal
-    ui-checkbox
-    div
-      ui-tooltip
-    div
-      ui-dropdown
-    ui-select
-      ui-label
-      ui-dropdown
-        ui-option(value="option1") Option 1
-        ui-option(value="option2", selected="true") Option 2
-        ui-option(value="option3") Option 3
+    .container
+      h1 MUI - Kitchen Sink / Specs
+      hr
+      .component
+        ui-label Button
+        ui-button Default button
+        ui-button(type='info') Info button
+        ui-button(type='success') Success button
+        ui-button(type='warning') Warning button
+        ui-button(type='danger') Danger button
+        ui-button(type='inverse') Inverse button
+      .component
+        ui-label Modal
+        ui-button Open Modal
+          ui-modal
+            div
+              h1 Content
+              ui-button Close
+      .component
+        ui-label Checkbox
+        ui-checkbox
+      .component
+        ui-label Tooltip
+        span
+          | Hover me!
+          ui-tooltip
+      .component
+        ui-label Dropdown
+        span
+          | Click me!
+          ui-dropdown
+            ui-option Option1
+      .component
+        ui-label Select
+        ui-select
+          ui-label
+          ui-dropdown
+            ui-option(value="option1") Option 1
+            ui-option(value="option2", selected="true") Option 2
+            ui-option(value="option3") Option 3
+      .component
+        ui-label Text
+        ui-text(placeholder="Text")
+      .component
+        ui-label Password
+        ui-password(placeholder="Password")
+      .component
+        ui-label Textarea
+        ui-textarea
