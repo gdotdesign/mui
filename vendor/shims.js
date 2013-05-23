@@ -1,3 +1,39 @@
+if (window.console == null) {
+  window.console = {
+    log: function() {},
+    warn: function() {}
+  };
+}
+
+Element.prototype.toggleAttribute = function(attr, value) {
+  var state;
+
+  state = !this.hasAttribute(attr);
+  if (value !== void 0) {
+    state = !!value;
+  }
+  if (state) {
+    return this.setAttribute(attr, 'true');
+  } else {
+    return this.removeAttribute(attr);
+  }
+};
+
+getParent = function(el, tagName) {
+  if (el.tagName === tagName.toUpperCase()) {
+    return el;
+  }
+  if (el.parentNode) {
+    if (el.parentNode.tagName === tagName.toUpperCase()) {
+      return el.parentNode;
+    } else {
+      return getParent(el.parentNode, tagName);
+    }
+  } else {
+    return null;
+  }
+};
+
 // matchesSelector PolyFill
 this.Element && function(ElementPrototype) {
   ElementPrototype.matchesSelector = ElementPrototype.matchesSelector ||

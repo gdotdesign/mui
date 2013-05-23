@@ -1,0 +1,47 @@
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+body {
+  color: #333;
+  font-family: Lato;
+  padding: 30px;
+  background-color: #ECF0F1;
+}
+
+body * {
+  box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+  user-select: none;
+}
+
+ui-input {
+	background: #FFF;
+	padding: 10px 10px;
+	width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	font-size: 16px;
+	display: inline-block;
+	border-radius: 3px;
+	position: relative;
+	vertical-align: top;
+	user-select: auto;
+}
+
+ui-input:empty:after {
+  content: attr(placeholder);
+  color: #ccc;
+}
+
+@import "components/ui-button/style.scss";
+@import "components/ui-checkbox/style.scss";
+@import "components/ui-dropdown/style.scss";
+@import "components/ui-modal/style.scss";
+@import "components/ui-select/style.scss";
+@import "components/ui-tooltip/style.scss";
+@import "components/ui-text/style.scss";
+@import "components/ui-email/style.scss";
+@import "components/ui-password/style.scss";
+@import "components/ui-textarea/style.scss";
+@import "components/ui-option/style.scss";
+@import "components/ui-pager/style.scss";

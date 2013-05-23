@@ -1,0 +1,15 @@
+ui-option {
+  display: block;
+  padding: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  background: #2C3E50;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #ECF0F1;
+  white-space: nowrap;
+  font-weight: bold;
+}
+ui-option:hover {
+  background: #34495E;
+}

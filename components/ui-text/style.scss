@@ -1,0 +1,6 @@
+ui-text {
+  @extend ui-input;
+}
+ui-text:empty:after {
+  @extend ui-input:empty:after;
+}

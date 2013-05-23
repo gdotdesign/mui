@@ -13,6 +13,7 @@ ui-dropdown {
   transform: translateY(5px);
   pointer-events: none;
   transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2)
 }
 
 ui-dropdown[direction=top] {
@@ -41,4 +42,8 @@ ui-dropdown > *:first-child{
 
 ui-dropdown > *:last-child{
   border-radius: 0 0 3px 3px;
+}
+
+ui-dropdown > *:last-child:first-child{
+  border-radius: 3px;
 }

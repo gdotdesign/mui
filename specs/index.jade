@@ -2,6 +2,7 @@
 html
   head
     include ../partials/includes
+    script(type='text/javascript', src='specs.coffee')
     script(type='text/javascript', src='abstract.coffee')
     script(type='text/javascript', src='iopenable.coffee')
     script(type='text/javascript', src='button.coffee')
@@ -10,34 +11,7 @@ html
     script(type='text/javascript', src='tooltip.coffee')
     script(type='text/javascript', src='select.coffee')
     script(type='text/javascript', src='checkbox.coffee')
-    script(type='text/javascript', src='specs.coffee')
-    style
-      body {
-        padding: 0 50px;
-      }
-      hr {
-        border: none;
-        border-top: 1px solid #ccc;
-        margin-bottom: 30px;
-      }
-      .component {
-        margin-bottom: 10px;
-        position: relative;
-        min-height: 35px;
-        padding-left: 200px;
-      }
-      ui-button{
-        margin-right: 10px;
-        margin-bottom: 10px;
-      }
-      .component > ui-label {
-        width: 200px;
-        position: absolute;
-        line-height: 35px;
-        top: 0;
-        left: 0;
-        display: block;
-      }
+    link(rel='stylesheet', type='text/css', href='specs.scss')
   body
     .container
       h1 MUI - Kitchen Sink / Specs
@@ -63,17 +37,17 @@ html
         ui-checkbox
         ui-checkbox(disabled)
       .component
-        ui-label Tooltip
-        span
-          | Hover me!
-          ui-tooltip
-            div Tooltip
-      .component
         ui-label Dropdown
         span
           | Click me!
           ui-dropdown
-            ui-option Option1
+            ui-option Option 1
+      .component
+        ui-label Tooltip
+        span
+          | Hover me!
+          ui-tooltip(direction="top")
+            div Tooltip
       .component
         ui-label Select
         ui-select

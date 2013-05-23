@@ -1,0 +1,11 @@
+ui-textarea {
+  @extend ui-input;
+}
+ui-textarea:empty:after {
+  @extend ui-input:empty:after;
+}
+ui-textarea {
+  height:  200px;
+  resize: both;
+  overflow: auto;
+}
