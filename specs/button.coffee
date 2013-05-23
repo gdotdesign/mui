@@ -12,7 +12,6 @@ Test.add 'Button',->
   @case "Type should set the type attribute of the button", ->
     button.type = 'info'
     @assert button.getAttribute('type') is 'info'
-    button.type = null
   @case "Type should return the type attribute  of the button", ->
     @assert button.type is button.getAttribute('type')
 
@@ -23,4 +22,5 @@ Test.add 'Button',->
       x = false
     button.click()
     @assert x
+    button.type = null
     button.disabled = false
