@@ -35,4 +35,5 @@ Test =
   add: (name, fn)->
     @tests[name] = fn
 
+UI.initialize()
 window.addEventListener 'load', -> Test.run()

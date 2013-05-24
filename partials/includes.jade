@@ -3,8 +3,11 @@ script(type='text/javascript', src='/vendor/style-html.js')
 link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
 link(rel='stylesheet', type='text/css', href='/themes/flat/theme.scss')
 link(rel='stylesheet', type='text/css', href='/index.css')
-script(type='text/javascript', src='/index.coffee')
 
+script(type='text/javascript', src='/core/ui.coffee')
+script(type='text/javascript', src='/core/abstract.coffee')
+script(type='text/javascript', src='/core/i-openable.coffee')
+script(type='text/javascript', src='/core/i-input.coffee')
 script(type='text/javascript', src='/components/ui-button/component.coffee')
 script(type='text/javascript', src='/components/ui-checkbox/component.coffee')
 script(type='text/javascript', src='/components/ui-dropdown/component.coffee')
@@ -19,11 +22,3 @@ script(type='text/javascript', src='/components/ui-password/component.coffee')
 script(type='text/javascript', src='/components/ui-select/component.coffee')
 script(type='text/javascript', src='/components/ui-textarea/component.coffee')
 script(type='text/javascript', src='/components/ui-tooltip/component.coffee')
-
-script
-  window.addEventListener('load',function(){
-    Array.prototype.slice.call(document.querySelectorAll('ui-markup')).forEach(function(el){
-      el.textContent = html_beautify(el.innerHTML,{indent_size: 1, indent_char: '\t'})
-    })
-  })
-  UI.initialize()
