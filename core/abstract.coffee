@@ -1,3 +1,5 @@
+#= require ui
+
 class UI.Abstract
   @SELECTOR: -> UI.ns+"-"+@TAGNAME
   @wrap: (el)->

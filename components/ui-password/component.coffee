@@ -1,3 +1,5 @@
+#= require ../ui-text/component
+
 class UI.Password extends UI.Text
   @TAGNAME: 'password'
   initialize: ->

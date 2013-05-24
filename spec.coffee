@@ -63,7 +63,7 @@ for bw, platforms of browsers
         if version
           opts.version = version
         browser.init(opts).then(->
-          browser.get("http://mui-test.herokuapp.com/specs/").delay 3000
+          browser.get("http://mui-test.herokuapp.com/specs.html").delay 3000
         ).then(->
           browser.eval "window.results"
         ).then((results) ->

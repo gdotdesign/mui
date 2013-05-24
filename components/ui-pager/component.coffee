@@ -1,3 +1,5 @@
+#= require ../../core/abstract
+
 class UI.Page extends UI.Abstract
   @TAGNAME: 'page'
 class UI.Pager extends UI.Abstract

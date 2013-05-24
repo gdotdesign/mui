@@ -1,3 +1,5 @@
+#= require ../../core/abstract
+
 class UI.Checkbox extends UI.Abstract
   @TAGNAME: 'checkbox'
 

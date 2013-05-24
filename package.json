@@ -6,10 +6,14 @@
   "dependencies" : {
     "wd"                  : "*",
     "q"                   : "*",
-    "coffee-script"       : "*",
     "request"             : "*",
     "async"               : "*",
-    "dry"                 : "git://github.com/gdotdesign/dry.git"
+    "coffee-script"       : "*",
+    "jade"                : "*",
+    "node-sass"           : "*",
+    "mincer"              : "*",
+    "connect"             : "*",
+    "autoprefixer"        : "*"
   },
   "license": "MIT",
   "scripts": {

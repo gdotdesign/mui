@@ -1,3 +1,5 @@
+#= require ../../core/abstract
+
 class UI.Select extends UI.Abstract
   @TAGNAME: 'select'
 

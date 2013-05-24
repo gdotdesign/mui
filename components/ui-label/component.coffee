@@ -1,3 +1,5 @@
+#= require ../../core/abstract
+
 class UI.Label extends UI.Abstract
   @TAGNAME: 'label'
   initialize: ->

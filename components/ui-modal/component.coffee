@@ -1,3 +1,5 @@
+#= require ../../core/abstract
+
 class UI.Modal extends UI.Abstract
   @TAGNAME: 'modal'
 

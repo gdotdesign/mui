@@ -1,3 +1,5 @@
+#= require abstract
+
 class UI.iInput extends UI.Abstract
   @TAGNAME: 'input'
   @wrap: (el)->

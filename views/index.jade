@@ -1,8 +1,14 @@
 !!! 5
 html
   head
-    include partials/includes
-    script(type='text/javascript', src='/index.coffee')
+    script(type='text/javascript', src='/vendor/shims.js')
+    script(type='text/javascript', src='/vendor/style-html.js')
+    link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
+    link(rel='stylesheet', type='text/css', href='/theme.css')
+    link(rel='stylesheet', type='text/css', href='/index.css')
+
+    script(type='text/javascript', src='/mui.js')
+    script(type='text/javascript', src='/index.js')
 
 body
   ui-pager(name="main")
@@ -68,16 +74,16 @@ body
                   div tootlipaaaa
               | Tooltip
         ui-page(name="button")
-          include components/ui-button/index
+          include ../components/ui-button/index
         ui-page(name="modal")
-          include components/ui-modal/index
+          include ../components/ui-modal/index
         ui-page(name="dropdown")
-          include components/ui-dropdown/index
+          include ../components/ui-dropdown/index
         ui-page(name="select")
-          include components/ui-select/index
+          include ../components/ui-select/index
         ui-page(name="tooltip")
-          include components/ui-tooltip/index
+          include ../components/ui-tooltip/index
         ui-page(name="checkbox")
-          include components/ui-checkbox/index
+          include ../components/ui-checkbox/index
       - title = 'Components'
-      include partials/header
+      include ../partials/header

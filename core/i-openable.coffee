@@ -1,3 +1,5 @@
+#= require abstract
+
 class UI.iOpenable extends UI.Abstract
   onAdded: ->
     if getComputedStyle(@parentNode).position is 'static'

@@ -1,3 +1,6 @@
+#= require_self
+#= require_tree ./
+
 Test =
   tests: {}
   assert: (condition)->
