@@ -1,4 +1,4 @@
-#= require ../../core/abstract
+#= require ../core/abstract
 
 class UI.Button extends UI.Abstract
   @TAGNAME: 'button'

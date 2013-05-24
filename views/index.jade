@@ -4,7 +4,7 @@ html
     script(type='text/javascript', src='/vendor/shims.js')
     script(type='text/javascript', src='/vendor/style-html.js')
     link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
-    link(rel='stylesheet', type='text/css', href='/theme.css')
+    link(rel='stylesheet', type='text/css', href='/flat-ui/theme.css')
     link(rel='stylesheet', type='text/css', href='/index.css')
 
     script(type='text/javascript', src='/mui.js')
@@ -74,16 +74,49 @@ body
                   div tootlipaaaa
               | Tooltip
         ui-page(name="button")
-          include ../components/ui-button/index
+          include components/ui-button
         ui-page(name="modal")
-          include ../components/ui-modal/index
+          include components/ui-modal
         ui-page(name="dropdown")
-          include ../components/ui-dropdown/index
+          include components/ui-dropdown
         ui-page(name="select")
-          include ../components/ui-select/index
+          include components/ui-select
         ui-page(name="tooltip")
-          include ../components/ui-tooltip/index
+          include components/ui-tooltip
         ui-page(name="checkbox")
-          include ../components/ui-checkbox/index
+          include components/ui-checkbox
       - title = 'Components'
-      include ../partials/header
+      header
+        h1 mui
+        ui-button.icon(target="index")
+          i.icon-home
+        ui-button.icon
+          i.icon-twitter
+          ui-tooltip(direction="bottom")
+            span Tweet
+        ui-button.icon
+          i.icon-code-fork
+          ui-tooltip(direction="bottom")
+            span Fork at Github
+        ui-button.components
+          | Components
+          i.icon-chevron-down
+          ui-dropdown
+            ui-option
+              a(target="components/button")
+                | Button
+            ui-option
+              a(target="components/dropdown")
+                | Dropdown
+            ui-option
+              a(target="components/modal")
+                | Modal
+            ui-option
+              a(target="components/select")
+                | Select
+            ui-option
+              a(target="components/tooltip")
+                | Tooltip
+            ui-option
+              a(target="components/checkbox")
+                | Checkbox

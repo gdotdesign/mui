@@ -28,7 +28,7 @@ environment = new Mincer.Environment()
 environment.appendPath('views')
 environment.appendPath('core')
 environment.appendPath('components')
-environment.appendPath('themes/flat')
+environment.appendPath('themes')
 environment.appendPath('vendor')
 environment.appendPath('specs')
 

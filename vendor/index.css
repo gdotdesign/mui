@@ -344,7 +344,7 @@ a i {
   bottom: 0;
   right: 0;
   background: #5eade2;
-  background-image: url(/images/bg-clouds.png),linear-gradient(#5eade2,#3498DB);
+  background-image: url(/vendor/bg-clouds.png),linear-gradient(#5eade2,#3498DB);
   background-repeat: no-repeat;
   background-position: center bottom;
   overflow: hidden;

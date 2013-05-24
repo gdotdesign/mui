@@ -5,7 +5,6 @@ Test.add 'Abstract',->
   el2 = UI[tag].create()
   el3 = document.createElement(selector)
 
-  # Processing
   @case "An existsing Component should be processed on load", ->
     @assert el._processed
   @case "New Component created with create() should be processed", ->
@@ -23,7 +22,6 @@ Test.add 'Abstract',->
     el.disabled = false
     @assert !el.hasAttribute('disabled')
 
-  # Inheritance
   @case "An instance of Component should get all methods from class", ->
     for key, fn of UI[tag]::
       if key isnt 'initialize'

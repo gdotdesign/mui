@@ -33,15 +33,15 @@ ui-input:empty:after {
   color: #ccc;
 }
 
-@import "components/ui-button/style.scss";
-@import "components/ui-checkbox/style.scss";
-@import "components/ui-dropdown/style.scss";
-@import "components/ui-modal/style.scss";
-@import "components/ui-select/style.scss";
-@import "components/ui-tooltip/style.scss";
-@import "components/ui-text/style.scss";
-@import "components/ui-email/style.scss";
-@import "components/ui-password/style.scss";
-@import "components/ui-textarea/style.scss";
-@import "components/ui-option/style.scss";
-@import "components/ui-pager/style.scss";
+@import "ui-button.scss";
+@import "ui-checkbox.scss";
+@import "ui-dropdown.scss";
+@import "ui-modal.scss";
+@import "ui-select.scss";
+@import "ui-tooltip.scss";
+@import "ui-text.scss";
+@import "ui-email.scss";
+@import "ui-password.scss";
+@import "ui-textarea.scss";
+@import "ui-option.scss";
+@import "ui-pager.scss";

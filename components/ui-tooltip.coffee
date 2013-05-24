@@ -1,4 +1,4 @@
-#= require ../../core/i-openable
+#= require ../core/i-openable
 
 class UI.Tooltip extends UI.iOpenable
   @TAGNAME: 'tooltip'

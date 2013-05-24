@@ -1,4 +1,4 @@
-#= require ../../core/i-input
+#= require ../core/i-input
 
 class UI.Text extends UI.iInput
   @TAGNAME: 'text'

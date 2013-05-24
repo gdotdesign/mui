@@ -1,4 +1,4 @@
-#= require ../../core/abstract
+#= require ../core/abstract
 
 class UI.Page extends UI.Abstract
   @TAGNAME: 'page'

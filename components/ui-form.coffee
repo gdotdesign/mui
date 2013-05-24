@@ -1,4 +1,4 @@
-#= require ../../core/abstract
+#= require ../core/abstract
 
 class UI.Form extends UI.Abstract
   @TAGNAME: 'form'
