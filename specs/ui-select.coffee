@@ -40,7 +40,7 @@ Test.add 'Select',->
     option.setAttribute('value','option4')
     option.setAttribute('selected', true)
     option.textContent = 'Option 4'
-    select._dropdown.appendChild option
+    select.dropdown.appendChild option
     @assert select.value is "option4"
 
   @case "When a child option is clicked it should be selected", ->
@@ -48,13 +48,13 @@ Test.add 'Select',->
     @assert select.value is "option1"
 
   @case "When a child option is clicked it should close the dropdown", ->
-    select._dropdown.open()
-    @assert select._dropdown.isOpen
+    select.dropdown.open()
+    @assert select.dropdown.isOpen
     document.querySelector('ui-select ui-option:nth-child(1)').click()
-    @assert !select._dropdown.isOpen
+    @assert !select.dropdown.isOpen
 
   @case "Label should be the selectedOptions textContent", ->
-    @assert select._label.textContent is document.querySelector('ui-select ui-option:nth-child(1)').textContent
+    @assert select.label.textContent is document.querySelector('ui-select ui-option:nth-child(1)').textContent
 
   @case "It should not fire change event if selecting the same value", ->
     x = true

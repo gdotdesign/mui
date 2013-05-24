@@ -3,7 +3,6 @@ html
   head
     script(type='text/javascript', src='/vendor/shims.js')
     script(type='text/javascript', src='/vendor/style-html.js')
-    link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
     link(rel='stylesheet', type='text/css', href='/flat-ui/theme.css')
     link(rel='stylesheet', type='text/css', href='/index.css')
 
@@ -44,34 +43,16 @@ body
           .container
             h1 Components
             a(target="components/button")
-              .ic
-                ui-button(type="info") Button
               | Button
             a(target="components/checkbox")
-              .ic
-                ui-checkbox(checked='true')
               | checkbox
             a(target="components/modal")
-              .ic
-                .modal
-                  .content Content content content
               | Modal
             a(target="components/dropdown")
-              .ic
-                ui-button(type="success")
-                  | butt
-                  i.icon-chevron-down
               | Dropdown
             a(target="components/select")
-              .ic
-                ui-button
-                  | butt
-                  i.icon-chevron-down
               | Select
             a(target="components/tooltip")
-              .ic
-                ui-tooltip(open="true", direction="top", disabled="true")
-                  div tootlipaaaa
               | Tooltip
         ui-page(name="button")
           include components/ui-button

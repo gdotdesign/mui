@@ -1,7 +1,9 @@
+// IE8 - Console polyfill
 if (window.console == null) {
   window.console = {
     log: function() {},
-    warn: function() {}
+    warn: function() {},
+    info: function() {}
   };
 }
 

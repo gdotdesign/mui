@@ -2,9 +2,12 @@
 
 class UI.Label extends UI.Abstract
   @TAGNAME: 'label'
+
+  _redirect: ->
+    target = document.querySelector("[name='#{@getAttribute('for')}']")
+    return unless target
+    target.focus()
+    target.click()
+
   initialize: ->
-    @addEventListener 'click', =>
-      name = @getAttribute('for')
-      el = document.querySelector("[name=#{name}]")
-      el?.focus()
-      el?.click()
+    @addEventListener UI.Events.action, @_redirect

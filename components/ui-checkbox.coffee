@@ -3,15 +3,18 @@
 class UI.Checkbox extends UI.Abstract
   @TAGNAME: 'checkbox'
 
+  toggle: ->
+    return if @disabled
+    @checked = !@checked
+
   initialize: ->
+    @addEventListener UI.Events.action, @toggle
+
     Object.defineProperty @, 'checked',
       get: -> @hasAttribute 'checked'
       set: (value)->
-        checked = @checked
-        @toggleAttribute 'checked', !!value
-        if checked isnt !!value
+        lastValue = @checked
+        value = !!value
+        @toggleAttribute 'checked', value
+        if lastValue isnt value
           @fireEvent 'change'
-
-    @addEventListener 'click', =>
-      return if @disabled
-      @checked = !@checked

@@ -3,7 +3,6 @@ html
   head
     script(type='text/javascript', src='/vendor/shims.js')
     script(type='text/javascript', src='/vendor/style-html.js')
-    link(rel='stylesheet', type='text/css', href='/vendor/redacted/stylesheet.css')
     link(rel='stylesheet', type='text/css', href='/flat-ui/theme.css')
     script(type='text/javascript', src='/mui.js')
     script(type='text/javascript', src='/specs.js')
@@ -57,11 +56,11 @@ html
           ui-dropdown
             ui-option(value="option1") Option 1
       .component
-        ui-label Text
-        ui-text(placeholder="Text")
+        ui-label(for="text") Text
+        ui-text(placeholder="Text...",name="text")
       .component
         ui-label Password
-        ui-password(placeholder="Password")
+        ui-password(placeholder="Password...")
       .component
         ui-label Textarea
-        ui-textarea
+        ui-textarea(placeholder="Textarea...")

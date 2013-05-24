@@ -5,15 +5,18 @@ class UI.Modal extends UI.Abstract
 
   initialize: ->
     Object.defineProperty @, 'isOpen',
-      get: -> @hasAttribute('open')
+      get: -> @hasAttribute 'open'
+
     document.body.appendChild(@)
 
   close: ->
     return if @disabled
-    @removeAttribute('open')
+    @removeAttribute 'open'
+
   open: ->
     return if @disabled
-    @setAttribute('open',true)
+    @setAttribute 'open', true
+
   toggle: ->
     return if @disabled
-    @toggleAttribute('open')
+    @toggleAttribute 'open'

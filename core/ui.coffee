@@ -1,6 +1,13 @@
 UI =
   verbose: false
   ns: 'ui'
+  Events:
+    action: 'click'
+    enter: 'mouseover'
+    leave: 'mouseout'
+    input: 'input'
+    beforeInput: 'keydown'
+
   warn: (text)->
     console.warn text
   log: (args...)->

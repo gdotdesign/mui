@@ -3,16 +3,18 @@
 class UI.Dropdown extends UI.iOpenable
   @TAGNAME: 'dropdown'
 
+  _cancel: ->
+    return if @parentNode.hasAttribute('disabled') or @disabled
+    @toggle()
+
+  _close: (e)->
+      @close() if e.target isnt @ and e.target isnt @parentNode
+
   onAdded: ->
     super
-    @parentNode.addEventListener 'click', =>
-      return if @disabled
-      return if @parentNode.hasAttribute('disabled')
-      @toggle()
+    @parentNode.addEventListener UI.Events.action, @_cancel.bind(@)
 
   initialize: ->
     super ['top','bottom']
 
-    document.addEventListener 'click', (e)=>
-      @close() if e.target isnt @ and e.target isnt @parentNode
-    , true
+    document.addEventListener UI.Events.action, @_close, true

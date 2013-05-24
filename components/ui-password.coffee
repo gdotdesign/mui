@@ -2,7 +2,10 @@
 
 class UI.Password extends UI.Text
   @TAGNAME: 'password'
+
+  mask: ->
+    @setAttribute 'mask', @textContent.replace(/./g,'*')
+
   initialize: ->
     super
-    @addEventListener 'input', (e) ->
-      @setAttribute 'mask', @textContent.replace(/./g,'*')
+    @addEventListener UI.Events.input, @mask

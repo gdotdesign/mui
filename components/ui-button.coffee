@@ -3,11 +3,13 @@
 class UI.Button extends UI.Abstract
   @TAGNAME: 'button'
 
+  _cancel: (e)->
+    return unless @disabled
+    e.stopImmediatePropagation()
+    e.stopPropagation()
+
   initialize: ->
-    @addEventListener 'click', (e)->
-      if @disabled
-        e.stopImmediatePropagation()
-        e.stopPropagation()
+    @addEventListener UI.Events.action, @_cancel
 
     Object.defineProperty @, 'label',
       get:        -> @textContent
