@@ -1,14 +1,1 @@
-#= require ../components/ui-button
-#= require ../components/ui-checkbox
-#= require ../components/ui-dropdown
-#= require ../components/ui-form
-#= require ../components/ui-label
-#= require ../components/ui-modal
-#= require ../components/ui-option
-#= require ../components/ui-text
-#= require ../components/ui-email
-#= require ../components/ui-pager
-#= require ../components/ui-password
-#= require ../components/ui-select
-#= require ../components/ui-textarea
-#= require ../components/ui-tooltip
+#= require_tree ../components

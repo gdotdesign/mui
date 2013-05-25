@@ -9,26 +9,30 @@ ui-modal {
   background: rgba(0,0,0,0.7);
   text-align: center;
   transition: opacity 600ms, z-index 1ms 600ms;
-}
-ui-modal[open] {
-  opacity: 1;
-  z-index: 9999;
-  transition: opacity 600ms;
-}
-ui-modal[open] > *{
-  opacity: 1;
-  transform: translateY(0);
-}
-ui-modal > * {
-  opacity: 0;
-  transition: 600ms;
-  transform: translateY(-150px);
-  background: #fff;
-  display: inline-block;
-  margin-top: 150px;
-  border-radius: 5px;
-  max-width: 60%;
-  text-align: left;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6)
+
+  &[disabled] {
+    opacity: 0;
+  }
+  &[open] {
+    opacity: 1;
+    z-index: 9999;
+    transition: opacity 600ms;
+  }
+  &[open] > *{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  & > * {
+    opacity: 0;
+    transition: 600ms;
+    transform: translateY(-150px);
+    background: #fff;
+    display: inline-block;
+    margin-top: 150px;
+    border-radius: 5px;
+    max-width: 60%;
+    text-align: left;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6)
+  }
 }

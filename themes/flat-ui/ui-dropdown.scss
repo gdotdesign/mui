@@ -13,37 +13,37 @@ ui-dropdown {
   transform: translateY(5px);
   pointer-events: none;
   transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2)
-}
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 
-ui-dropdown[direction=top] {
-  top: auto;
-  bottom: 100%;
-  margin-top: 0;
-  margin-bottom: 3px;
-  transform: translateY(-5px);
-}
+  &[direction=top] {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: 3px;
+    transform: translateY(-5px);
+  }
 
-ui-dropdown[open] {
-  max-height: 200px;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 320ms, transform 320ms;
-  pointer-events: auto;
-}
+  &[open] {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 320ms, transform 320ms;
+    pointer-events: auto;
+  }
 
-ui-dropdown ui-option {
-  cursor: pointer;
-}
+  & ui-option {
+    cursor: pointer;
+  }
 
-ui-dropdown > *:first-child{
-  border-radius: 3px 3px  0 0;
-}
+  & > *:first-child{
+    border-radius: 3px 3px  0 0;
+  }
 
-ui-dropdown > *:last-child{
-  border-radius: 0 0 3px 3px;
-}
+  & > *:last-child{
+    border-radius: 0 0 3px 3px;
+  }
 
-ui-dropdown > *:last-child:first-child{
-  border-radius: 3px;
+  & > *:last-child:first-child{
+    border-radius: 3px;
+  }
 }

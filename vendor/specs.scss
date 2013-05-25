@@ -20,7 +20,7 @@ hr {
   min-height: 35px;
   padding-left: 200px;
 }
-ui-button, ui-select, ui-checkbox{
+ui-button, ui-select, ui-checkbox, ui-radio{
   margin-right: 10px;
 }
 .component > span {
@@ -28,7 +28,7 @@ ui-button, ui-select, ui-checkbox{
   line-height: 35px;
   display: inline-block;
 }
-ui-button, ui-select, ui-checkbox, .component > span, ui-text, ui-password, ui-textarea{
+ui-radio, ui-toggle, ui-button, ui-select, ui-checkbox, .component > span, ui-text, ui-password, ui-textarea{
   margin-bottom: 10px;
 }
 .component > ui-label {

@@ -1,6 +1,7 @@
 ui-email {
   @extend ui-input;
-}
-ui-email:empty:after {
-  @extend ui-input:empty:after;
+
+  &:empty:after {
+    @extend ui-input:empty:after;
+  }
 }

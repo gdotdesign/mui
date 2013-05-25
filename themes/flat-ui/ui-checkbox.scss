@@ -6,19 +6,21 @@ ui-checkbox {
   cursor: pointer;
   text-align: center;
   border-radius: 3px;
-}
-ui-checkbox:hover {
-  background: #34495E;
-}
-ui-checkbox:after{
-  line-height: 40px;
-  color: rgba(255,255,255,0.2);
-  content: "\f00c";
-  font-family: FontAwesome;
-}
-ui-checkbox[checked]:after{
-  color: #ECF0F1;
-}
-ui-checkbox[disabled] {
-  opacity: 0.5;
+
+  &:hover {
+    background: #34495E;
+  }
+
+  &:after{
+    line-height: 40px;
+    color: rgba(255,255,255,0.2);
+    content: "\f00c";
+    font-family: FontAwesome;
+  }
+
+  &[checked]:after{
+    color: #ECF0F1;
+  }
+
+
 }

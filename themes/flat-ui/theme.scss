@@ -14,10 +14,14 @@ body * {
   user-select: none;
 }
 
+[disabled] {
+  opacity: 0.5;
+}
+
 ui-input {
 	background: #FFF;
 	padding: 10px 10px;
-	width: 200px;
+	width: 300px;
 	overflow: hidden;
 	white-space: nowrap;
 	font-size: 16px;
@@ -45,3 +49,5 @@ ui-input:empty:after {
 @import "ui-textarea.scss";
 @import "ui-option.scss";
 @import "ui-pager.scss";
+@import "ui-toggle.scss";
+@import "ui-radio.scss";

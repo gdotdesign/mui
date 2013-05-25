@@ -1,20 +1,4 @@
-#= require ../core/abstract
+#= require ../core/i-checkable
 
-class UI.Checkbox extends UI.Abstract
+class UI.Checkbox extends UI.iCheckable
   @TAGNAME: 'checkbox'
-
-  toggle: ->
-    return if @disabled
-    @checked = !@checked
-
-  initialize: ->
-    @addEventListener UI.Events.action, @toggle
-
-    Object.defineProperty @, 'checked',
-      get: -> @hasAttribute 'checked'
-      set: (value)->
-        lastValue = @checked
-        value = !!value
-        @toggleAttribute 'checked', value
-        if lastValue isnt value
-          @fireEvent 'change'
