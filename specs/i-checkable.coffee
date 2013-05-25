@@ -1,4 +1,4 @@
-Test.add 'Checkbox',->
+Test.add 'iCheckable',->
   checkbox = document.querySelector(UI.Checkbox.SELECTOR())
 
   @case "Checked should set checked attribute of the checkbox", ->
