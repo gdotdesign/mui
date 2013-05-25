@@ -1,5 +1,5 @@
 {
-  "name": "asd",
+  "name": "mui",
   "version": "0.1.0",
   "author": "",
   "description": "",
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "coffee spec.coffee"
+    "test": "coffee bin/spec.coffee"
   },
   "engines": {
     "node": ">=0.8"
