@@ -19,6 +19,7 @@ class UI.Range extends UI.Abstract
     @knob = @children[0]
     @knob.style.left = 0
 
+
     Object.defineProperty @, '_percent',
       get: -> Math.abs(@min-@value) / Math.abs(@min-@max)
 
@@ -50,6 +51,11 @@ class UI.Range extends UI.Abstract
         range = Math.abs(@min-@max)
         range*(percent/100)+@min
 
+    if !isNaN(value = parseFloat(@getAttribute('value')))
+      value = value.clamp @min, @max
+      range =  Math.abs(@min-@max)
+      @_setValue (value-@min)/range
+
     startPos = start = null
 
     getPosition = (e)->
@@ -70,12 +76,14 @@ class UI.Range extends UI.Abstract
       document.removeEventListener UI.Events.dragEnd, up
 
     @addEventListener UI.Events.action, (e)->
+      return if @disabled
       return if e.target is @knob.children[0]
       left = if e.touches then e.touches[0].layerX else e.layerX
       percent = left / @offsetWidth
       @_setValue percent
 
     @knob.children[0].addEventListener UI.Events.dragStart, (e)=>
+      return if @disabled
       rect = @getBoundingClientRect()
       knobRect = @knob.getBoundingClientRect()
 

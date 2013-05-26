@@ -13,7 +13,7 @@ ui-dropdown {
   transform: translateY(5px);
   pointer-events: none;
   transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 5px 0 rgba(120,120,120,0.5);
 
   &[direction=top] {
     top: auto;

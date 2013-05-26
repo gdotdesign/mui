@@ -12,42 +12,10 @@
 #= depend_on ui-pager
 #= depend_on ui-toggle
 #= depend_on ui-radio
+#= depend_on ui-range
 
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-
-ui-range {
-  height: 40px;
-  min-width: 300px;
-  display: inline-block;
-  position: relative;
-}
-ui-range > *:first-child {
-	position: absolute;
-	top: 0;
-	width: 0;
-	height: 0;
-}
-ui-range > *:first-child > *:first-child{
-	content: "";
-	display: block;
-	position: relative;
-	left: -10px;
-	top: 10px;
-	width: 20px;
-	height: 20px;
-	background-color: #2C3E50;
-	border-radius: 50%;
-}
-ui-range:before {
-	content: "";
-	display: block;
-	background-color: #95A5A6;
-	height: 12px;
-	position: relative;
-	top: 14px;
-	border-radius: 8px;
-}
 
 body {
   color: #333;
@@ -100,3 +68,5 @@ ui-input:empty:after {
 @import "ui-pager.scss";
 @import "ui-toggle.scss";
 @import "ui-radio.scss";
+@import "ui-range.scss";
+@import "ui-slider.scss";

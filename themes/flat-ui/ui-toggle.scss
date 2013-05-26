@@ -1,5 +1,6 @@
 ui-toggle {
 	border-radius: 3px;
+	overflow: hidden;
   background-color: #2C3E50;
   display: inline-block;
   height: 35px;
@@ -23,7 +24,7 @@ ui-toggle > * {
 }
 
 ui-toggle > *:nth-child(2) {
-	background: #2980B9;
+	background: #3498DB;
 	border-radius: 3px;
 	transform: translateX(100%)
 }
@@ -37,6 +38,7 @@ ui-toggle[checked] > *:nth-child(1) {
 }
 
 ui-toggle[checked] > *:nth-child(2) {
+	background: #7F8C8D;
 	transform: translateX(0%)
 }
 

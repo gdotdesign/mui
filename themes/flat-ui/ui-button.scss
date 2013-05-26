@@ -11,6 +11,12 @@ ui-button {
   font-weight: bold;
   transition: 120ms;
 
+  i:first-child {
+    margin-right: 10px;
+  }
+  i:last-child {
+    margin-left: 10px;
+  }
   &:hover {
     background-color: #34495E;
   }

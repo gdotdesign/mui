@@ -39,4 +39,6 @@ Test =
     @tests[name] = fn
 
 UI.initialize()
-window.addEventListener 'load', -> Test.run()
+window.addEventListener 'load', ->
+  Test.run()
+  document.querySelector('.container').style.display = "block"

@@ -1,6 +1,7 @@
 .container {
   width: 960px;
   margin: 0 auto;
+  display: none;
 }
 
 .container > ui-markup {
@@ -9,10 +10,11 @@
 
 body {
   padding: 0 50px;
+  background: #f9fafa;
 }
 hr {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 3px solid #eee;
   margin-bottom: 30px;
 }
 .component {
@@ -20,7 +22,19 @@ hr {
   min-height: 35px;
   padding-left: 200px;
 }
-ui-button, ui-select, ui-checkbox, ui-radio{
+.extend {
+  margin-left: 10px;
+  color: #aaa;
+}
+.separator {
+  display: inline-block;
+  width: 1px;
+  background: #aaa;
+  height: 26px;
+  margin-bottom: 12px;
+  margin-right: 10px;
+}
+ui-button, ui-select, ui-checkbox, ui-radio, ui-toggle{
   margin-right: 10px;
 }
 .component > span {
