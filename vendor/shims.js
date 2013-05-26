@@ -50,6 +50,19 @@ this.Element && function(ElementPrototype) {
   };
 }(Element.prototype);
 
+if(!HTMLElement.prototype.action){
+  HTMLElement.prototype.action = function(){
+    if(isTouch){
+      var event = document.createEvent("UIEvent");
+      event.initEvent('touchend', true, true);
+      this.dispatchEvent(event);
+      return event;
+    }else{
+      this.click()
+    }
+  };
+}
+
 if(!HTMLElement.prototype.click){
   HTMLElement.prototype.click = function(){
     var event = document.createEvent("MouseEvent");

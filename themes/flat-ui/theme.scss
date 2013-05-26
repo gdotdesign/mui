@@ -28,7 +28,7 @@ ui-range > *:first-child {
 	width: 0;
 	height: 0;
 }
-ui-range > *:first-child:before{
+ui-range > *:first-child > *:first-child{
 	content: "";
 	display: block;
 	position: relative;
@@ -59,6 +59,7 @@ body {
 body * {
   box-sizing: border-box;
   -webkit-backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
 

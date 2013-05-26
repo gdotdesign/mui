@@ -43,14 +43,14 @@ Test.add 'Select',->
     select.dropdown.appendChild option
     @assert select.value is "option4"
 
-  @case "When a child option is clicked it should be selected", ->
-    document.querySelector('ui-select ui-option:nth-child(1)').click()
+  @case "When a child option is actioned it should be selected", ->
+    document.querySelector('ui-select ui-option:nth-child(1)').action()
     @assert select.value is "option1"
 
-  @case "When a child option is clicked it should close the dropdown", ->
+  @case "When a child option is actioned it should close the dropdown", ->
     select.dropdown.open()
     @assert select.dropdown.isOpen
-    document.querySelector('ui-select ui-option:nth-child(1)').click()
+    document.querySelector('ui-select ui-option:nth-child(1)').action()
     @assert !select.dropdown.isOpen
 
   @case "Label should be the selectedOptions textContent", ->

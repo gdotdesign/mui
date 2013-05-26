@@ -11,27 +11,30 @@ Number::clamp = (min,max)->
 class UI.Range extends UI.Abstract
   @TAGNAME: 'range'
 
+  _setValue: (percent)->
+    range = Math.abs(@min-@max)
+    @value = range*percent+@min
+
   initialize: ->
     @knob = @children[0]
     @knob.style.left = 0
 
+    Object.defineProperty @, '_percent',
+      get: -> Math.abs(@min-@value) / Math.abs(@min-@max)
+
     Object.defineProperty @, 'min',
       get: -> parseFloat @getAttribute('min')
       set: (value)->
-        oldRange = Math.abs(@min-@max)
-        percent = Math.abs(@min-@value)/oldRange
+        percent = @_percent
         @setAttribute 'min', parseFloat(value)
-        newRange = Math.abs(@min-@max)
-        @value = newRange*percent+@min
+        @_setValue = percent
 
     Object.defineProperty @, 'max',
       get: -> parseFloat @getAttribute('max')
       set: (value)->
-        oldRange = Math.abs(@min-@max)
-        percent = Math.abs(@min-@value)/oldRange
+        percent = @_percent
         @setAttribute 'max', parseFloat(value)
-        newRange = Math.abs(@min-@max)
-        @value = newRange*percent+@min
+        @_setValue = percent
 
     Object.defineProperty @, 'value',
       set: (value)->
@@ -49,30 +52,35 @@ class UI.Range extends UI.Abstract
 
     startPos = start = null
 
+    getPosition = (e)->
+      if e.touches
+        new Point e.touches[0].pageX, e.touches[0].pageY
+      else
+        new Point e.pageX, e.pageY
+
     move = (e)=>
+      e.preventDefault()
       diff = startPos.diff start.diff new Point(e.pageX, e.pageY)
       current = diff.x.clamp(0,@offsetWidth)
       percent = (current / @offsetWidth)
-      range = Math.abs(@min-@max)
-      @value = range*percent+@min
+      @_setValue percent
 
     up = (e)=>
-      document.removeEventListener 'mousemove', move
-      document.removeEventListener 'mouseup', up
+      document.removeEventListener UI.Events.dragMove, move
+      document.removeEventListener UI.Events.dragEnd, up
 
-    @addEventListener 'click', (e)->
-      return if e.target is @knob
-      percent = (e.layerX / @offsetWidth)
-      range = Math.abs(@min-@max)
-      @value = range*percent+@min
+    @addEventListener UI.Events.action, (e)->
+      return if e.target is @knob.children[0]
+      left = if e.touches then e.touches[0].layerX else e.layerX
+      percent = left / @offsetWidth
+      @_setValue percent
 
-    @knob.addEventListener 'mousedown', (e)=>
+    @knob.children[0].addEventListener UI.Events.dragStart, (e)=>
       rect = @getBoundingClientRect()
       knobRect = @knob.getBoundingClientRect()
 
-      start = new Point e.pageX, e.pageY
+      start = getPosition(e)
       startPos = new Point Math.abs(rect.left-knobRect.left), Math.abs(rect.top-knobRect.top)
 
-      document.addEventListener 'mousemove', move
-      document.addEventListener 'mouseup', up
-
+      document.addEventListener UI.Events.dragMove, move
+      document.addEventListener UI.Events.dragEnd, up

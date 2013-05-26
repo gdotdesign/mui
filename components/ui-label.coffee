@@ -7,7 +7,7 @@ class UI.Label extends UI.Abstract
     target = document.querySelector("[name='#{@getAttribute('for')}']")
     return unless target
     target.focus()
-    target.click()
+    target.action()
 
   initialize: ->
     @addEventListener UI.Events.action, @_redirect

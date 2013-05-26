@@ -1,16 +1,8 @@
+isTouch = !!('ontouchstart' of window) or !!('onmsgesturechange' of window)
+
 UI =
   verbose: false
   ns: 'ui'
-  Events:
-    action: 'click'
-    dragStart: 'mousedown'
-    dragMove: 'mousemove'
-    dragEnd: 'mouseup'
-    enter: 'mouseover'
-    leave: 'mouseout'
-    input: 'input'
-    beforeInput: 'keydown'
-
   warn: (text)->
     console.warn text
   log: (args...)->
@@ -34,3 +26,25 @@ UI =
   initialize: ->
     document.addEventListener 'DOMNodeInserted', UI.onInsert
     window.addEventListener 'load', UI.load
+
+
+if isTouch
+  UI.Events =
+    action: 'touchend'
+    dragStart: 'touchstart'
+    dragMove: 'touchmove'
+    dragEnd: 'touchend'
+    enter: 'touchstart'
+    leave: 'touchend'
+    input: 'input'
+    beforeInput: 'keydown'
+else
+  UI.Events =
+    action: 'click'
+    dragStart: 'mousedown'
+    dragMove: 'mousemove'
+    dragEnd: 'mouseup'
+    enter: 'mouseover'
+    leave: 'mouseout'
+    input: 'input'
+    beforeInput: 'keydown'

@@ -15,12 +15,12 @@ Test.add 'Button',->
   @case "Type should return the type attribute  of the button", ->
     @assert button.type is button.getAttribute('type')
 
-  @case "It should not trigger click event if it is disabled", ->
+  @case "It should not trigger action event if it is disabled", ->
     x = true
     button.disabled = true
-    button.addEventListener 'click', (e)=>
+    button.addEventListener UI.Events.action, (e)=>
       x = false
-    button.click()
+    button.action()
     @assert x
     button.type = null
     button.disabled = false
