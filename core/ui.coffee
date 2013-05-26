@@ -3,6 +3,9 @@ UI =
   ns: 'ui'
   Events:
     action: 'click'
+    dragStart: 'mousedown'
+    dragMove: 'mousemove'
+    dragEnd: 'mouseup'
     enter: 'mouseover'
     leave: 'mouseout'
     input: 'input'
