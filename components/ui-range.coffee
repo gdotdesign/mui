@@ -16,6 +16,12 @@ class UI.Range extends UI.Abstract
     @value = range*percent+@min
 
   initialize: ->
+    if @children.length is 0
+      knob = document.createElement('div')
+      knob.appendChild document.createElement('div')
+      @appendChild knob
+
+
     @knob = @children[0]
     @knob.style.left = 0
 
@@ -28,14 +34,14 @@ class UI.Range extends UI.Abstract
       set: (value)->
         percent = @_percent
         @setAttribute 'min', parseFloat(value)
-        @_setValue = percent
+        @_setValue percent
 
     Object.defineProperty @, 'max',
       get: -> parseFloat @getAttribute('max')
       set: (value)->
         percent = @_percent
         @setAttribute 'max', parseFloat(value)
-        @_setValue = percent
+        @_setValue percent
 
     Object.defineProperty @, 'value',
       set: (value)->
@@ -50,6 +56,9 @@ class UI.Range extends UI.Abstract
         percent = parseFloat @knob.style.left
         range = Math.abs(@min-@max)
         range*(percent/100)+@min
+
+    @setAttribute 'min', 0 unless @min
+    @setAttribute 'max', 100 unless @max
 
     if !isNaN(value = parseFloat(@getAttribute('value')))
       value = value.clamp @min, @max
