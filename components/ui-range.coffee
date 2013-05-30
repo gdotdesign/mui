@@ -60,6 +60,7 @@ class UI.Range extends UI.Abstract
       @_setValue (value-@min)/range
 
     startPos = start = null
+    mouseIsDown = false
 
     getPosition = (e)->
       if e.touches
@@ -68,14 +69,20 @@ class UI.Range extends UI.Abstract
         new Point e.pageX, e.pageY
 
     move = (e)=>
-      e.preventDefault()
-      diff = startPos.diff start.diff new Point(e.pageX, e.pageY)
+      diff = startPos.diff start.diff new Point(@pageX, @pageY)
       current = diff.x.clamp(0,@offsetWidth)
       percent = (current / @offsetWidth)
       @_setValue percent
+      requestAnimationFrame move if mouseIsDown
+
+    pos = (e)=>
+      e.preventDefault()
+      @pageX = e.pageX
+      @pageY = e.pageY
 
     up = (e)=>
-      document.removeEventListener UI.Events.dragMove, move
+      mouseIsDown = false
+      document.removeEventListener UI.Events.dragMove, pos
       document.removeEventListener UI.Events.dragEnd, up
 
     @addEventListener UI.Events.dragStart, (e)=>
@@ -89,6 +96,8 @@ class UI.Range extends UI.Abstract
 
       percent = startPos.x / @offsetWidth
       @_setValue percent
+      mouseIsDown = true
 
-      document.addEventListener UI.Events.dragMove, move
+      document.addEventListener UI.Events.dragMove, pos
+      requestAnimationFrame move
       document.addEventListener UI.Events.dragEnd, up
