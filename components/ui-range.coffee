@@ -1,4 +1,5 @@
 #= require ../core/abstract
+#= require ../core/i-draggable
 
 class UI.Range extends UI.Abstract
   @TAGNAME: 'range'
@@ -59,45 +60,20 @@ class UI.Range extends UI.Abstract
       range =  Math.abs(@min-@max)
       @_setValue (value-@min)/range
 
-    startPos = start = null
-    mouseIsDown = false
+    @drag = new Drag @
+    @addEventListener 'dragstart', (e)=>
 
-    getPosition = (e)->
-      if e.touches
-        new Point e.touches[0].pageX, e.touches[0].pageY
-      else
-        new Point e.pageX, e.pageY
-
-    move = (e)=>
-      diff = startPos.diff start.diff new Point(@pageX, @pageY)
-      current = diff.x.clamp(0,@offsetWidth)
-      percent = (current / @offsetWidth)
-      @_setValue percent
-      requestAnimationFrame move if mouseIsDown
-
-    pos = (e)=>
-      e.preventDefault()
-      @pageX = e.pageX
-      @pageY = e.pageY
-
-    up = (e)=>
-      mouseIsDown = false
-      document.removeEventListener UI.Events.dragMove, pos
-      document.removeEventListener UI.Events.dragEnd, up
-
-    @addEventListener UI.Events.dragStart, (e)=>
-      return if @disabled
-
+      e.stopPropagation()
       rect = @getBoundingClientRect()
       knobRect = @knob.getBoundingClientRect()
 
-      start = getPosition(e)
-      startPos = start.diff new Point(rect.left,rect.top)
-
-      percent = startPos.x / @offsetWidth
+      @startPosition = @drag.startPosition.diff new Point(rect.left,rect.top)
+      percent = @startPosition.x / @offsetWidth
       @_setValue percent
-      mouseIsDown = true
 
-      document.addEventListener UI.Events.dragMove, pos
-      requestAnimationFrame move
-      document.addEventListener UI.Events.dragEnd, up
+    @addEventListener 'dragmove', (e)=>
+      e.stopPropagation()
+      diff = @startPosition.diff @drag.diff
+      current = diff.x.clamp(0,@offsetWidth)
+      percent = (current / @offsetWidth)
+      @_setValue percent

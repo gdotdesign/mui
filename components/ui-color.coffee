@@ -216,12 +216,16 @@ class ColorPicker
     @triangle.appendChild @point
     @el.appendChild @point2
 
-    @el.addEventListener 'mousedown', (e)=>
+    @drag = new Drag @el
+    @el.addEventListener 'dragmove', (e)=>
       e.stopPropagation()
-      @dragTriangle(e)
-      @dragCircle(e)
-      @el.addEventListener 'mousemove', @drag
-      document.addEventListener 'mouseup', @end
+      @dragTriangle()
+      @dragCircle()
+
+    @el.addEventListener 'dragstart', (e)=>
+      e.stopPropagation()
+      @dragTriangle()
+      @dragCircle()
 
   fromColor: (color)->
     try
@@ -239,12 +243,8 @@ class ColorPicker
 
   dragTriangle: (e)=>
     rect = @triangle.getBoundingClientRect(@triangle)
-    rect =
-      top: rect.top + window.scrollY
-      left: rect.left
-      height: rect.height
-    p1 = new Point(e.pageX, e.pageY)
-    p = p1.diff new Point(rect.left, rect.top)
+    p1 = new Point(@drag.position.x, @drag.position.y)
+    p = p1.diff new Point(rect.left, rect.top + window.scrollY)
     if 0 < p.x < 82 and 0 < p.y < 82
       @point.style.top = p.y-6+"px"
       @point.style.left = p.x-6+"px"
@@ -258,17 +258,9 @@ class ColorPicker
   bind: (input) ->
     @bound = input
 
-  drag: (e) =>
-    @dragTriangle(e)
-    @dragCircle(e)
-
-  end: =>
-    @el.removeEventListener 'mousemove', @drag
-    document.removeEventListener 'mouseup', @end
-
   dragCircle: (e) =>
     rect = @circleCanvas.getBoundingClientRect()
-    p = new Point(e.pageX, e.pageY)
+    p = new Point(@drag.position.x, @drag.position.y)
     p1 = p.diff new Point(rect.left, rect.top+window.scrollY)
     top = p1.y-80
     left = p1.x-80
