@@ -1,0 +1,72 @@
+ui-color {
+  width: 100px;
+  height: 40px;
+  background: #fff;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+  display: block;
+}
+
+
+point {
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(#fff,0.5);
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+picker {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  width: 180px;
+  height: 180px;
+  background: rgba(#111,0.9);
+  border-radius: 50%;
+  background-clip: padding-box;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  triangle {
+    top: 48px;
+    left: 48px;
+  }
+  &.top {
+    &.left {
+      border-bottom-left-radius: 10px;
+    }
+    &.right {
+      border-bottom-right-radius: 10px;
+    }
+  }
+  &.bottom {
+    &.left {
+      border-top-left-radius: 10px;
+    }
+    &.right {
+      border-top-right-radius: 10px;
+    }
+  }
+  gradient {
+    width: 100%;
+    height: 100%;
+  }
+  gradient {
+    background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%), linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  }
+  canvas, triangle, gradient {
+    display: block;
+    position: absolute;
+  }
+  canvas {
+    top: 10px;
+    left: 10px;
+  }
+}

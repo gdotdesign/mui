@@ -1,19 +1,12 @@
 #= require ../core/abstract
 
-class Point
-  constructor: (@x,@y)->
-  diff: (point)->
-    new Point @x-point.x, @y-point.y
-
-Number::clamp = (min,max)->
-  if @valueOf() < min then min else if @valueOf() > max then max else @valueOf()
-
 class UI.Range extends UI.Abstract
   @TAGNAME: 'range'
 
-  _setValue: (percent)->
+  _setValue: (percent, set = true)->
     range = Math.abs(@min-@max)
-    @value = range*percent+@min
+    if set
+      @value = range*percent+@min
 
   initialize: ->
     if @children.length is 0
@@ -50,6 +43,7 @@ class UI.Range extends UI.Abstract
         range = Math.abs(@min-@max)
         percent = (Math.abs(@min-value)/range)*100
         @knob.style.left = percent+"%"
+        @_setValue percent/100, false
         @fireEvent 'change'
         @value
       get: ->
@@ -84,20 +78,17 @@ class UI.Range extends UI.Abstract
       document.removeEventListener UI.Events.dragMove, move
       document.removeEventListener UI.Events.dragEnd, up
 
-    @addEventListener UI.Events.action, (e)->
+    @addEventListener UI.Events.dragStart, (e)=>
       return if @disabled
-      return if e.target is @knob.children[0]
-      left = if e.touches then e.touches[0].layerX else e.layerX
-      percent = left / @offsetWidth
-      @_setValue percent
 
-    @knob.children[0].addEventListener UI.Events.dragStart, (e)=>
-      return if @disabled
       rect = @getBoundingClientRect()
       knobRect = @knob.getBoundingClientRect()
 
       start = getPosition(e)
-      startPos = new Point Math.abs(rect.left-knobRect.left), Math.abs(rect.top-knobRect.top)
+      startPos = start.diff new Point(rect.left,rect.top)
+
+      percent = startPos.x / @offsetWidth
+      @_setValue percent
 
       document.addEventListener UI.Events.dragMove, move
       document.addEventListener UI.Events.dragEnd, up
