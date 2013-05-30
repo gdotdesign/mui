@@ -267,8 +267,11 @@ class ColorPicker
     document.removeEventListener 'mouseup', @end
 
   dragCircle: (e) =>
-    top = e.layerY-80
-    left = e.layerX-80
+    rect = @circleCanvas.getBoundingClientRect()
+    p = new Point(e.pageX, e.pageY)
+    p1 = p.diff new Point(rect.left, rect.top+window.scrollY)
+    top = p1.y-80
+    left = p1.x-80
     r = Math.sqrt(Math.pow(top,2)+Math.pow(left,2))
     radius = 69
     if 60 < r < 80

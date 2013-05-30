@@ -55,6 +55,11 @@ class Point
   diff: (point)->
     new Point @x-point.x, @y-point.y
 
+unless 'scrollY' of window
+  Object.defineProperty window, 'scrollY', get: ->
+    if document.documentElement
+      document.documentElement.scrollTop
+
 Number::clamp = (min,max)->
   if @valueOf() < min then min else if @valueOf() > max then max else @valueOf()
 
