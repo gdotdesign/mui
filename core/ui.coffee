@@ -1,4 +1,4 @@
-isTouch = !!('ontouchstart' of window) or !!('onmsgesturechange' of window)
+isTouch = !!('ontouchstart' of window)
 
 UI =
   verbose: false
