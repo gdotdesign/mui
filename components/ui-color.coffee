@@ -1,6 +1,9 @@
+#= require ui-text
+
 color = class Color
   constructor: (color = "FFFFFF") ->
-    color = color.toString()
+    color = "rgba(0,0,0,0)" if color is 'transparent'
+    color = color.trim().toString()
     color = color.replace /\s/g, ''
     if (match = color.match /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i)
       if color.match /^#/
@@ -227,7 +230,7 @@ class ColorPicker
       @dragTriangle()
       @dragCircle()
 
-  fromColor: (color)->
+  fromColor: (color,set=true)->
     try
       c = new Color(color)
       radius = 69
@@ -239,7 +242,7 @@ class ColorPicker
       @color.hue = c.hue
       @endColor = c
       @triangle.style.background = @color.hex
-      @setBoundValue()
+      @setBoundValue() if set
 
   dragTriangle: (e)=>
     rect = @triangle.getBoundingClientRect(@triangle)
@@ -304,6 +307,7 @@ class ColorPicker
       top: rect.top + window.scrollY
       left: rect.left
       height: rect.height
+      width: rect.width
     @fromColor el.value
     if window.innerWidth < 180+rect.left
       @el.classList.remove 'left'
@@ -324,22 +328,39 @@ class ColorPicker
     @el.style.display = 'block'
 
 
-class UI.Color extends UI.Abstract
+class UI.Color extends UI.Text
   @TAGNAME: 'color'
+
+  @get 'value', ->
+    new color(getComputedStyle(@).backgroundColor).hex
+  @set 'value', (value)->
+    last = @value
+    if document.querySelector(':focus') isnt @
+      @textContent = value.replace("#",'')
+    else
+      ColorPicker.fromColor value, false
+    try
+      c = new color(value)
+      @style.backgroundColor = c.hex
+      if c.lightness < 50
+        @style.color = "#fff"
+      else
+        @style.color = "#000"
+      if @value isnt last
+        @fireEvent 'change'
+
   initialize: ->
+    @setAttribute 'contenteditable', true
+    @setAttribute 'spellcheck', false
     @addEventListener UI.Events.action, (e)->
       e.stopPropagation()
       ColorPicker.show @
-    Object.defineProperty @, 'value',
-      get: ->
-        new color(getComputedStyle(@).backgroundColor).hex
-      set: (value)->
-        last = @value
-        @textContent = value
-        @style.backgroundColor = value
-        if new color(value).lightness < 50
-          @style.color = "#fff"
-        else
-          @style.color = "#000"
-        if @value isnt last
-          @fireEvent 'change'
+    @addEventListener 'keypress', (e)->
+      return if [39,37,8,46].indexOf(e.keyCode) isnt -1
+      unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
+        return e.preventDefault()
+      @value = @textContent
+    @addEventListener 'keyup', (e)->
+      @value = @textContent
+    @addEventListener 'blur', ->
+      @value = @textContent

@@ -18,16 +18,28 @@ UI =
           UI[tag].wrap e.target
         else
           e.target.onAdded?()
-  load: ->
-    window.ColorPicker = new ColorPicker
+  load: (base = document)->
     for key, value of UI
       if value.SELECTOR
-        for el in document.querySelectorAll(value.SELECTOR())
+        for el in base.querySelectorAll(value.SELECTOR())
+          continue if el._processed
+          UI.load(el)
           value.wrap el
+
   initialize: ->
     document.addEventListener 'DOMNodeInserted', UI.onInsert
-    window.addEventListener 'load', UI.load
+    window.addEventListener 'load', ->
+      window.ColorPicker = new ColorPicker
+      UI.load()
 
+  _geather: (obj)->
+    ret = {}
+    for key in Object.keys(obj)
+      ret[key] = Object.getOwnPropertyDescriptor(obj,key)
+    if (proto = Object.getPrototypeOf(obj)) isnt Object::
+      for key, desc of UI._geather(proto)
+        ret[key] ?= desc
+    ret
 
 if isTouch
   UI.Events =
@@ -60,8 +72,9 @@ unless 'scrollY' of window
     if document.documentElement
       document.documentElement.scrollTop
 
-Number::clamp = (min,max)->
-  if @valueOf() < min then min else if @valueOf() > max then max else @valueOf()
+Element::getPosition = ->
+  rect = getComputedStyle(@)
+  new Point parseInt(rect.left), parseInt(rect.top) + window.scrollY
 
 Number::clamp =(min,max) ->
   min = parseFloat(min)

@@ -10,10 +10,11 @@
     "async"               : "*",
     "coffee-script"       : "*",
     "jade"                : "*",
-    "node-sass"           : "*",
+    "node-sass"           : "0.4.4",
     "mincer"              : "*",
     "connect"             : "*",
-    "autoprefixer"        : "*"
+    "autoprefixer"        : "*",
+    "codo"                : "git://github.com/gdotdesign/codo.git"
   },
   "license": "MIT",
   "scripts": {

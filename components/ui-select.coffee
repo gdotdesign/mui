@@ -22,6 +22,7 @@ class UI.Select extends UI.Abstract
   initialize: ->
     @dropdown = @querySelector(UI.Dropdown.SELECTOR())
     @label = @querySelector(UI.Label.SELECTOR())
+    @name = @getAttribute('name')
 
     @addEventListener 'DOMNodeRemoved', @_nodeRemoved
     @addEventListener 'DOMNodeInserted', @_nodeAdded

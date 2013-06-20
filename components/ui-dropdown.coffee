@@ -8,7 +8,7 @@ class UI.Dropdown extends UI.iOpenable
     @toggle()
 
   _close: (e)->
-      @close() if e.target isnt @ and e.target isnt @parentNode
+    @close() if e.target isnt @ and e.target isnt @parentNode
 
   onAdded: ->
     super
@@ -17,4 +17,4 @@ class UI.Dropdown extends UI.iOpenable
   initialize: ->
     super ['top','bottom']
 
-    document.addEventListener UI.Events.action, @_close, true
+    document.addEventListener UI.Events.action, @_close.bind(@), true

@@ -39,6 +39,7 @@ class UI.Range extends UI.Abstract
 
     Object.defineProperty @, 'value',
       set: (value)->
+        value = parseFloat(value)
         return if @value is value
         value = value.clamp(@min,@max)
         range = Math.abs(@min-@max)

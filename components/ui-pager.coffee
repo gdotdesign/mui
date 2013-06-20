@@ -3,10 +3,8 @@
 class UI.Page extends UI.Abstract
   @TAGNAME: 'page'
 
-  initialize: ->
-    Object.defineProperty @, 'active',
-      get: -> !!@getAttribute 'active'
-      set: (value) -> @toggleAttribute 'active', !!value
+  @get 'active', -> !!@getAttribute 'active'
+  @set 'active', (value) -> @toggleAttribute 'active', !!value
 
 class UI.Pager extends UI.Abstract
   @TAGNAME: 'pager'

@@ -6,7 +6,7 @@ if (window.console == null) {
     info: function() {}
   };
 }
-
+// Request Animation Frame
 (function() {
     var lastTime = 0;
     var vendors = ['webkit', 'moz'];
@@ -116,3 +116,41 @@ Function.prototype.bind = Function.prototype.bind || function(to){
   bound.prototype = fn.prototype;
   return bound;
 };
+
+Object.defineProperties(Function.prototype, {
+  property: {
+    value: function(property, descriptor) {
+      descriptor.configurable = true;
+      descriptor.enumerable = true;
+      return Object.defineProperty(this.prototype, property, descriptor);
+    }
+  },
+  get: {
+    value: function(property, fn) {
+      var descriptor;
+      descriptor = Object.getOwnPropertyDescriptor(this.prototype, property);
+      if (descriptor) {
+        descriptor.get = fn;
+      } else {
+        descriptor = {
+          get: fn
+        };
+      }
+      return this.property(property, descriptor);
+    }
+  },
+  set: {
+    value: function(property, fn) {
+      var descriptor;
+      descriptor = Object.getOwnPropertyDescriptor(this.prototype, property);
+      if (descriptor) {
+        descriptor.set = fn;
+      } else {
+        descriptor = {
+          set: fn
+        };
+      }
+      return this.property(property, descriptor);
+    }
+  }
+});

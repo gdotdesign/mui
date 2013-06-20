@@ -18,7 +18,7 @@ class Drag
 
     @position = @startPosition = @getPosition(e)
 
-    e = UI.Abstract::fireEvent.call @base, 'dragstart', {_target: e.target}
+    e = UI.Abstract::fireEvent.call @base, 'dragstart', {_target: e.target, shiftKey: e.shiftKey}
     return if e.stopped
 
     @mouseIsDown = true

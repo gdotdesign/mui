@@ -7,6 +7,10 @@ ui-color {
   line-height: 40px;
   font-weight: bold;
   display: block;
+  user-select: auto;
+  &:before {
+    content: "#"
+  }
 }
 
 
@@ -40,18 +44,18 @@ picker {
   }
   &.top {
     &.left {
-      border-bottom-left-radius: 10px;
+      border-bottom-left-radius: 3px;
     }
     &.right {
-      border-bottom-right-radius: 10px;
+      border-bottom-right-radius: 3px;
     }
   }
   &.bottom {
     &.left {
-      border-top-left-radius: 10px;
+      border-top-left-radius: 3px;
     }
     &.right {
-      border-top-right-radius: 10px;
+      border-top-right-radius: 3px;
     }
   }
   gradient {

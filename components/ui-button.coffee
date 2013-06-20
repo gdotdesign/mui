@@ -3,6 +3,12 @@
 class UI.Button extends UI.Abstract
   @TAGNAME: 'button'
 
+  @get 'label', -> @textContent
+  @set 'label', (value) -> @textContent = value
+
+  @get 'type', ->  @getAttribute('type') or 'default'
+  @set 'type', (value) -> @setAttribute 'type', value
+
   _cancel: (e)->
     return unless @disabled
     e.stopImmediatePropagation()
@@ -10,11 +16,3 @@ class UI.Button extends UI.Abstract
 
   initialize: ->
     @addEventListener UI.Events.action, @_cancel
-
-    Object.defineProperty @, 'label',
-      get:        -> @textContent
-      set: (value)-> @textContent = value
-
-    Object.defineProperty @, 'type',
-      get:        -> @getAttribute('type') or 'default'
-      set: (value)-> @setAttribute 'type', value

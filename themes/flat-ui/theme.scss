@@ -18,6 +18,56 @@
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
+ui-grid {
+  text-align: justify;
+  display: block;
+  width: 100%;
+  font-size: 0.1px;
+  ui-cell {
+    padding: 10px;
+  }
+  ui-cell, ui-placeholder {
+    font-size: 16px;
+    display: inline-block;
+    background: #eee;
+  }
+  &:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+  }
+  &[columns="1"] {
+    ui-cell, ui-placeholder{
+      width: 100%;
+      margin-bottom: 1%;
+    }
+  }
+  &[columns="2"] {
+    ui-cell, ui-placeholder{
+      width: 49%;
+      margin-bottom: 2%;
+    }
+  }
+  &[columns="3"] {
+    ui-cell, ui-placeholder{
+      width: 32%;
+      margin-bottom: 2%;
+    }
+  }
+  &[columns="4"] {
+    ui-cell, ui-placeholder{
+      width: 23%;
+      margin-bottom: 2.5%;
+    }
+  }
+  &[columns="5"] {
+    ui-cell, ui-placeholder{
+      width: 19%;
+      margin-bottom: 1%;
+    }
+  }
+}
+
 body {
   color: #333;
   font-family: Lato;
