@@ -77,7 +77,7 @@ this.Element && function(ElementPrototype) {
 
 if(!HTMLElement.prototype.action){
   HTMLElement.prototype.action = function(){
-    if(isTouch){
+    if(!!('ontouchstart' in window)){
       var event = document.createEvent("UIEvent");
       event.initEvent('touchend', true, true);
       this.dispatchEvent(event);
@@ -154,3 +154,61 @@ Object.defineProperties(Function.prototype, {
     }
   }
 });
+
+Point = (function() {
+  function Point(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  Point.prototype.diff = function(point) {
+    return new Point(this.x - point.x, this.y - point.y);
+  };
+
+  return Point;
+
+})();
+
+if (!('scrollY' in window)) {
+  Object.defineProperty(window, 'scrollY', {
+    get: function() {
+      if (document.documentElement) {
+        return document.documentElement.scrollTop;
+      }
+    }
+  });
+}
+
+Element.prototype.getPosition = function() {
+  var rect;
+  rect = getComputedStyle(this);
+  return new Point(parseInt(rect.left), parseInt(rect.top) + window.scrollY);
+};
+
+Number.prototype.clamp = function(min, max) {
+  var val;
+  min = parseFloat(min);
+  max = parseFloat(max);
+  val = this.valueOf();
+  if (val > max) {
+    return max;
+  } else if (val < min) {
+    return min;
+  } else {
+    return val;
+  }
+};
+
+Number.prototype.clampRange = function(min, max) {
+  var val;
+  min = parseFloat(min);
+  max = parseFloat(max);
+  val = this.valueOf();
+  if (val > max) {
+    return val % max;
+  } else if (val < min) {
+    return max - Math.abs(val % max);
+  } else {
+    return val;
+  }
+};

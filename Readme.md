@@ -4,6 +4,10 @@
 
 The aim of this repository is to create Form Controls with JavaScript & CSS (under a namespace), which are look and work the same way in every browser, modular and extensible.
 
+# Guidelines
+In `disabled` state, components can be manipulated with the API only not user interaction.
+
+
 ## Browser Support
 * IE9+
 * Chrome

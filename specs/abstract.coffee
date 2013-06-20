@@ -1,8 +1,7 @@
 Test.add 'Abstract',->
-  tag = 'Button'
-  selector = UI[tag].SELECTOR()
+  selector = UI.Toggle.SELECTOR()
   el = document.querySelector(selector)
-  el2 = UI[tag].create()
+  el2 = UI.Toggle.create()
   el3 = document.createElement(selector)
 
   @case "An existsing Component should be processed on load", ->
@@ -23,7 +22,7 @@ Test.add 'Abstract',->
     @assert !el.hasAttribute('disabled')
 
   @case "An instance of Component should get all methods from class", ->
-    #for key, fn of UI[tag]::
-    #  if key isnt 'initialize'
-    #    @assert !!el[key]
-    #document.body.removeChild el3
+    for key of UI._geather(UI.Toggle::)
+      if key isnt 'initialize' and key isnt 'constructor'
+        @assert Object.getOwnPropertyDescriptor el3, key
+    document.body.removeChild el3

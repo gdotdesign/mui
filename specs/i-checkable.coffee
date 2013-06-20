@@ -11,15 +11,13 @@ Test.add 'iCheckable',->
 
   @case "It should not trigger change event if the checked is the same ", ->
     x = false
-    checkbox.addEventListener 'change', ->
-      x = true
+    checkbox.addEventListener 'change', -> x = true
     checkbox.checked = true
     @assert !x
 
   @case "It should trigger change event if the checked changes", ->
     x = false
-    checkbox.addEventListener 'change', ->
-      x = true
+    checkbox.addEventListener 'change', -> x = true
     checkbox.checked = false
     @assert x
     checkbox.checked = true

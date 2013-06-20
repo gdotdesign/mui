@@ -1,5 +1,5 @@
 #= require ../core/abstract
-#= require ../core/i-draggable
+#= require ../core/drag
 
 class UI.Range extends UI.Abstract
   @TAGNAME: 'range'
