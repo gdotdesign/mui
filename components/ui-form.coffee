@@ -1,6 +1,8 @@
 #= require ../core/abstract
 
+# Form component
 class UI.Form extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'form'
 
   # @property [Object] The data of all child elements

@@ -2,6 +2,7 @@
 
 # Tooltip Component
 class UI.Tooltip extends UI.iOpenable
+  # The tagname of the component
   @TAGNAME: 'tooltip'
 
   # Enter event hanlder

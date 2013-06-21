@@ -140,9 +140,12 @@ picker = class
     @el.style.display = 'block'
 
 color = Color
+# Color component
 class UI.Color extends UI.Text
+  # The tagname of the component
   @TAGNAME: 'color'
 
+  # @property [String] The hex reperesentation of the color
   @get 'value', ->
     new color(getComputedStyle(@).backgroundColor).hex
   @set 'value', (value)->
@@ -161,21 +164,27 @@ class UI.Color extends UI.Text
       if @value isnt last
         @fireEvent 'change'
 
+  # Initializes the component
+  # @private
   initialize: ->
     window.ColorPicker ?= new picker
     @setAttribute 'contenteditable', true
     @setAttribute 'spellcheck', false
+
     @addEventListener UI.Events.action, (e)->
       e.stopPropagation()
       ColorPicker.show @
-    @addEventListener 'keypress', (e)->
+
+    @addEventListener UI.Events.keypress, (e)->
       return if [39,37,8,46].indexOf(e.keyCode) isnt -1
       unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
         return e.preventDefault()
       @value = @textContent
-    @addEventListener 'keyup', (e)->
+
+    @addEventListener UI.Events.keyup, (e)->
       @value = @textContent
-    @addEventListener 'blur', ->
+
+    @addEventListener UI.Events.blur, ->
       @value = @textContent
 
     @value = @getAttribute('value') or '#fff'

@@ -2,14 +2,17 @@
 
 # Cell component for Grid
 class UI.Cell extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'cell'
 
 # Placeholder component
 class UI.Placeholder extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'placeholder'
 
 # Grid component
 class UI.Grid extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'grid'
 
   # @property [Number] Number of columns to map the cells.

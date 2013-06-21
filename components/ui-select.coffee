@@ -2,6 +2,7 @@
 
 # Select component
 class UI.Select extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'select'
 
   # @property [String] The current value of the component

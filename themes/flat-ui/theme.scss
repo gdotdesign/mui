@@ -6,7 +6,6 @@
 #= depend_on ./ui-tooltip
 #= depend_on ./ui-text
 #= depend_on ./ui-email
-#= depend_on ./ui-password
 #= depend_on ./ui-textarea
 #= depend_on ./ui-option
 #= depend_on ./ui-pager
@@ -63,7 +62,6 @@ ui-input:empty:after {
 @import "ui-tooltip.scss";
 @import "ui-text.scss";
 @import "ui-email.scss";
-@import "ui-password.scss";
 @import "ui-textarea.scss";
 @import "ui-option.scss";
 @import "ui-pager.scss";

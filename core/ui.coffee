@@ -58,6 +58,8 @@ if !!('ontouchstart' of window)
     input: 'input'
     beforeInput: 'keydown'
     blur: 'blur'
+    keypress: 'keypress'
+    keyup: 'keyup'
 else
   UI.Events =
     action: 'click'
@@ -69,3 +71,5 @@ else
     input: 'input'
     beforeInput: 'keydown'
     blur: 'blur'
+    keypress: 'keypress'
+    keyup: 'keyup'

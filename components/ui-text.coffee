@@ -2,6 +2,7 @@
 
 # Text Input Compontent
 class UI.Text extends UI.iInput
+  # The tagname of the component
   @TAGNAME: 'text'
 
   # BeforeInput event handler

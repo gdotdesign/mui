@@ -1,5 +1,6 @@
 #= require ../core/i-checkable
 
-# Basic Checkbox Component
+# Checkbox Component
 class UI.Checkbox extends UI.iCheckable
+  # The tagname of the component
   @TAGNAME: 'checkbox'

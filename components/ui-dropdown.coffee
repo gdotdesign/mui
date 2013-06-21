@@ -7,6 +7,7 @@
 # * Click to toggle the dropdown
 # * Clicking anywhere else will close the dropdown
 class UI.Dropdown extends UI.iOpenable
+  # The tagname of the component
   @TAGNAME: 'dropdown'
 
   # Action event handler

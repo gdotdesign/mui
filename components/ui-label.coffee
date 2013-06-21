@@ -2,6 +2,7 @@
 
 # Label component
 class UI.Label extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'label'
 
   # Action event handler

@@ -3,6 +3,7 @@
 
 # Range component
 class UI.Range extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'range'
 
   # @property [Number] The range of the component

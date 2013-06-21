@@ -1,7 +1,8 @@
 #= require ../core/abstract
 
-# Basic Button Component
+# Button Component
 class UI.Button extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'button'
 
   # @property [String] Alias for textContent property.

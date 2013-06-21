@@ -1,7 +1,9 @@
 #= require ../core/abstract
 #= require ui-page
 
+# Pager component
 class UI.Pager extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'pager'
 
   # @property [UI.Page] The selected page component

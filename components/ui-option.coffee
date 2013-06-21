@@ -2,6 +2,7 @@
 
 # Option component for Select component
 class UI.Option extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'option'
 
   # @property [Boolean] Returns true if the component is selected false otherwise

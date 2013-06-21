@@ -2,6 +2,7 @@
 
 # Radio Component
 class UI.Radio extends UI.iCheckable
+  # The tagname of the component
   @TAGNAME: 'radio'
 
   # Toggles the component checked state unless disabled.

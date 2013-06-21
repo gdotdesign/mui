@@ -2,6 +2,7 @@
 
 # Modal Component
 class UI.Modal extends UI.Abstract
+  # The tagname of the component
   @TAGNAME: 'modal'
 
   # @property [Boolean] Returns true if the component is open false otherwise
