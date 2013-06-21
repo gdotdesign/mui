@@ -25,12 +25,6 @@ Test.add 'iInput',->
     component.cleanup()
     @assert component.textContent.length is 0
 
-  @case "Should cleanup on blur", ->
-    component.appendChild document.createElement 'br'
-    @assert component.children.length is 1
-    component.fireEvent('blur')
-    @assert component.children.length is 0
-
   @case "Should set contenteditable on initialize", ->
     el = UI.Text.create()
     @assert component.hasAttribute('contenteditable')
