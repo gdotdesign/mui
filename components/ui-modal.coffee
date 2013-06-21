@@ -3,11 +3,9 @@
 class UI.Modal extends UI.Abstract
   @TAGNAME: 'modal'
 
-  initialize: ->
-    Object.defineProperty @, 'isOpen',
-      get: -> @hasAttribute 'open'
+  @get 'isOpen', -> @hasAttribute 'open'
 
-    document.body.appendChild(@)
+  initialize: -> document.body.appendChild(@)
 
   close: ->
     return if @disabled

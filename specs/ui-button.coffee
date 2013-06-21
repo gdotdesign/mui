@@ -18,8 +18,7 @@ Test.add 'Button',->
   @case "It should not trigger action event if it is disabled", ->
     x = true
     button.disabled = true
-    button.addEventListener UI.Events.action, (e)=>
-      x = false
+    button.addEventListener UI.Events.action, (e)=> x = false
     button.action()
     @assert x
     button.type = null
