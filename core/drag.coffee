@@ -8,7 +8,9 @@
 class Drag
 
   # @property [Point] The relative displacement of the mouse from the starting point
-  @get 'diff', -> @startPosition.diff @position
+  @get 'diff', ->
+    return null if not(@position instanceof Point) and not(@startPosition instanceof Point)
+    @startPosition.diff @position
 
   # @param [Element] @base The element in which to initalize event listeners
   constructor: (@base = document.body) ->
