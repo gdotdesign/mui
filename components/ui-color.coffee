@@ -33,13 +33,13 @@ class ColorPicker
     @drag = new Drag @el
     @el.addEventListener 'dragmove', (e)=>
       e.stopPropagation()
-      @dragTriangle()
-      @dragCircle()
+      @dragCircle(e)
+      @dragTriangle(e)
 
     @el.addEventListener 'dragstart', (e)=>
       e.stopPropagation()
-      @dragTriangle()
-      @dragCircle()
+      @dragCircle(e)
+      @dragTriangle(e)
 
   fromColor: (color,set=true)->
     try
@@ -56,15 +56,15 @@ class ColorPicker
       @setBoundValue() if set
 
   dragTriangle: (e)=>
+    return if e._stop
     rect = @triangle.getBoundingClientRect(@triangle)
     p1 = new Point(@drag.position.x, @drag.position.y)
     p = p1.diff new Point(rect.left, rect.top + window.scrollY)
-    if 0 < p.x < 82 and 0 < p.y < 82
-      @point.style.top = p.y-6+"px"
-      @point.style.left = p.x-6+"px"
-      @endColor.lightness = Math.min((100-Math.round((p.y/82)*100)), (100-(Math.round((p.x/82)*50))))
-      @endColor.saturation = Math.round((p.x/82)*100)
-      @setBoundValue()
+    @point.style.top = (p.y-6).clamp(-6,76)+"px"
+    @point.style.left = (p.x-6).clamp(-6,76)+"px"
+    @endColor.lightness = Math.min((100-Math.round((p.y/82)*100)), (100-(Math.round((p.x/82)*50))))
+    @endColor.saturation = Math.round((p.x/82)*100)
+    @setBoundValue()
 
   setBoundValue: ->
     @bound?.value = @endColor.hex
@@ -81,6 +81,7 @@ class ColorPicker
     r = Math.sqrt(Math.pow(top,2)+Math.pow(left,2))
     radius = 69
     if 60 < r < 80
+      e._stop = true
       @angleRad = Math.atan2(top,left)
       @angle = @angleRad*(180/Math.PI)
       @point2.style.top = radius*Math.sin(@angleRad)+85+"px"
@@ -138,7 +139,7 @@ class ColorPicker
       @el.classList.add 'bottom'
     @el.style.display = 'block'
 
-
+color = Color
 class UI.Color extends UI.Text
   @TAGNAME: 'color'
 
