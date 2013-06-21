@@ -1,13 +1,18 @@
 #= require ../core/abstract
 
+# Label component
 class UI.Label extends UI.Abstract
   @TAGNAME: 'label'
 
+  # Action event handler
+  # Focuses the element associated with this component.
+  # @private
   _redirect: ->
     target = document.querySelector("[name='#{@getAttribute('for')}']")
     return unless target
     target.focus()
     target.action()
 
-  initialize: ->
-    @addEventListener UI.Events.action, @_redirect
+  # Initializes the component
+  # @private
+  initialize: -> @addEventListener UI.Events.action, @_redirect

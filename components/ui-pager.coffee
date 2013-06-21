@@ -1,28 +1,27 @@
 #= require ../core/abstract
-
-class UI.Page extends UI.Abstract
-  @TAGNAME: 'page'
-
-  @get 'active', -> !!@getAttribute 'active'
-  @set 'active', (value) -> @toggleAttribute 'active', !!value
+#= require ui-page
 
 class UI.Pager extends UI.Abstract
   @TAGNAME: 'pager'
 
-  select: (value)->
-    return if @selectedPage is value
+  # @property [UI.Page] The selected page component
+  @get 'activePage', -> @querySelector(UI.Page.SELECTOR()+"[active]")
+  @set 'activePage', (value) -> @change value
 
-    @selectedPage?.active = false
-
-    lastPage = @selectedPage
+  # Selects a page
+  #
+  # Fires change event when active page changes
+  # @param [UI.Page] The page to be selected
+  change: (value)->
     if value instanceof HTMLElement
       if value.parentNode is @
-        @selectedPage = value
+        page = value
     else
-      @selectedPage = @querySelector(UI.Page.SELECTOR()+"[name='#{value}']")
+      page = @querySelector(UI.Page.SELECTOR()+"[name='#{value}']")
 
-    return unless @selectedPage
+    return unless page
+    return if @activePage is page
 
-    @selectedPage.active = true
-
-    @fireEvent 'change' if lastPage isnt @selectedPage
+    @activePage?.active = false
+    page.active = true
+    @fireEvent 'change'

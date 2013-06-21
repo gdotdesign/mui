@@ -9,9 +9,9 @@ window.addEventListener 'load', ->
   dropdown = document.querySelector('header ui-dropdown')
 
   setHash = ->
-    page = pager.selectedPage.getAttribute('name')
-    if page is 'components' and componentPager.selectedPage
-      page += "/"+componentPager.selectedPage.getAttribute('name')
+    page = pager.activePage.getAttribute('name')
+    if page is 'components' and componentPager.activePage
+      page += "/"+componentPager.activePage.getAttribute('name')
     window.location.hash = page
 
   changePages = (str)->
@@ -19,8 +19,8 @@ window.addEventListener 'load', ->
       str = (window.location.hash[1..] or 'index')
     [page,component] = str.split('/')
     component ?= 'index'
-    pager.select page
-    componentPager.select component
+    pager.change page
+    componentPager.change component
     component = 'Components' if component is 'index'
 
   pager.addEventListener 'change', setHash
