@@ -3,7 +3,7 @@
 class UI.Form extends UI.Abstract
   @TAGNAME: 'form'
 
-  # @property [Object]
+  # @property [Object] The data of all child elements
   @get 'data', ->
     data = {}
     for el in @querySelectorAll('[name]')
@@ -11,9 +11,11 @@ class UI.Form extends UI.Abstract
       data[el.getAttribute('name')] = el.value
     data
 
+  # @property [String] The URL for the form
   @get 'action', -> @getAttribute 'action'
   @set 'action', (value)-> @setAttribute 'action', value
 
+  # @property [String] The method  for the form (get,post,put,delete,patch)
   @get 'method', ->
     method = @getAttribute('method').toLowerCase()
     return 'get' if ['get','post','delete','patch', 'put'].indexOf(method) is -1
@@ -22,7 +24,7 @@ class UI.Form extends UI.Abstract
     value = "get" if ['get','post','delete','patch', 'put'].indexOf(value.toLowerCase()) is -1
     @setAttribute 'method', value
 
-  # Submit
+  # Submits the form and class submit and complete events.
   submit: (callback)->
     event = @fireEvent 'submit'
     return event.defaultPrevented
