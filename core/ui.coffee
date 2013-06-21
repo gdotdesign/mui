@@ -17,7 +17,6 @@ UI =
   initialize: ->
     document.addEventListener 'DOMNodeInserted', @_insert.bind @
     window.addEventListener 'load', =>
-      window.ColorPicker = new ColorPicker
       @load()
 
   # Runs when a node is inserted into the document

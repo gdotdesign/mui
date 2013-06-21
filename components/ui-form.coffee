@@ -3,20 +3,33 @@
 class UI.Form extends UI.Abstract
   @TAGNAME: 'form'
 
-  geather: ->
+  # @property [Object]
+  @get 'data', ->
     data = {}
     for el in @querySelectorAll('[name]')
       continue unless el.value
       data[el.getAttribute('name')] = el.value
     data
 
-  submit: ->
-    event = @fireEvent('submit')
+  @get 'action', -> @getAttribute 'action'
+  @set 'action', (value)-> @setAttribute 'action', value
+
+  @get 'method', ->
+    method = @getAttribute('method').toLowerCase()
+    return 'get' if ['get','post','delete','patch', 'put'].indexOf(method) is -1
+    method
+  @set 'method', (value)->
+    value = "get" if ['get','post','delete','patch', 'put'].indexOf(value.toLowerCase()) is -1
+    @setAttribute 'method', value
+
+  # Submit
+  submit: (callback)->
+    event = @fireEvent 'submit'
     return event.defaultPrevented
 
     oReq = new XMLHttpRequest()
-    oReq.open "POST", "submitform.php"
-    oReq.send @geather()
+    oReq.open @method.toUppercase(), @action
+    oReq.send @data
 
     oReq.onreadystatechange = =>
       if oReq.readyState is 4

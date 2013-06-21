@@ -1,7 +1,7 @@
 #= require ui-text
 #= require ../core/color
 
-class ColorPicker
+picker = class
   constructor: ->
     @el = document.createElement 'picker'
     document.body.appendChild @el
@@ -162,6 +162,7 @@ class UI.Color extends UI.Text
         @fireEvent 'change'
 
   initialize: ->
+    window.ColorPicker ?= new picker
     @setAttribute 'contenteditable', true
     @setAttribute 'spellcheck', false
     @addEventListener UI.Events.action, (e)->
@@ -176,3 +177,5 @@ class UI.Color extends UI.Text
       @value = @textContent
     @addEventListener 'blur', ->
       @value = @textContent
+
+    @value = @getAttribute('value') or '#fff'
