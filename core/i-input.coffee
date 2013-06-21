@@ -16,12 +16,15 @@ class UI.iInput extends UI.Abstract
 
   # Removes empty text
   cleanup: ->
+    @normalize()
     return unless @childNodes.length is 1
-    return unless @childNodes[0].tagName is 'BR'
-    @removeChild @childNodes[0]
+    if @childNodes[0].tagName is 'BR'
+      @removeChild @childNodes[0]
+    else if @childNodes[0].nodeType is 3
+      @childNodes[0].textContent = @childNodes[0].textContent.trim()
 
   # Initializes the component
   # @private
   initialize: ->
     @setAttribute 'contenteditable', true
-    @addEventListener 'blur', @cleanup.bind(@)
+    @addEventListener UI.Events.blur, @cleanup.bind(@)

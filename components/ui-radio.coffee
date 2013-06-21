@@ -1,6 +1,6 @@
 #= require ui-checkbox
 
-class UI.Radio extends UI.Checkbox
+class UI.Radio extends UI.iCheckable
 	@TAGNAME: 'radio'
 	toggle: ->
 		return if @checked
