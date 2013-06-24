@@ -17,7 +17,7 @@ class UI.iOpenable extends UI.Abstract
   # Runs when the element is inserted into the DOM
   # @private
   onAdded: ->
-    # Ensure the the parent element inst `static`
+    # Ensure that the parent element inst `static`
     if getComputedStyle(@parentNode).position is 'static'
       @parentNode.style.position = 'relative'
 

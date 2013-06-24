@@ -9,7 +9,7 @@ Test.add 'Color', ->
     @assert component.value is "#FF0000"
 
   @case 'Value should set the background color', ->
-    hex = new ColorType(component.style.background).hex
+    hex = new ColorType(component.style.backgroundColor).hex
     @assert hex is "#FF0000"
 
   @case 'Value should set the color', ->
