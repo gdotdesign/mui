@@ -19,6 +19,7 @@ class UI.Grid extends UI.Abstract
   @get 'columns', -> parseInt @getAttribute('columns')
   @set 'columns', (value)->
     @setAttribute 'columns', parseInt(value)
+    @_updating = true
     @_update()
 
   # Updates placeholders
