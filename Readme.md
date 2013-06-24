@@ -2,9 +2,7 @@
 MUI is a UI Libarary / Framework that doesn't suck. It offers Custom Elements with just vanilla JavaScript & CSS and nothing else,
 no shadow dom, no scoped style, no voodoo nor magic, and still works in every modern browser.
 
-
-[![Selenium Test Status](https://saucelabs.com/buildstatus/gdotdesign)](https://saucelabs.com/u/gdotdesign)
-[![Build Status](https://travis-ci.org/gdotdesign/mui.png?branch=master)](https://travis-ci.org/gdotdesign/mui)
+[![SauceLabs Test Status](https://saucelabs.com/browser-matrix/gdotdesign.svg)](https://saucelabs.com/u/gdotdesign)
 
 ## Basic concepts
 * Exetensible
