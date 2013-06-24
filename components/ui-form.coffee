@@ -19,21 +19,20 @@ class UI.Form extends UI.Abstract
 
   # @property [String] The method  for the form (get,post,put,delete,patch)
   @get 'method', ->
+    return 'get' unless @hasAttribute('method')
     method = @getAttribute('method').toLowerCase()
     return 'get' if ['get','post','delete','patch', 'put'].indexOf(method) is -1
     method
   @set 'method', (value)->
     value = "get" if ['get','post','delete','patch', 'put'].indexOf(value.toLowerCase()) is -1
-    @setAttribute 'method', value
+    @setAttribute 'method', value.toLowerCase()
 
   # Submits the form and class submit and complete events.
   submit: (callback)->
     event = @fireEvent 'submit'
-    return event.defaultPrevented
+    return if event.defaultPrevented
 
     oReq = new XMLHttpRequest()
-    oReq.open @method.toUppercase(), @action
-    oReq.send @data
 
     oReq.onreadystatechange = =>
       if oReq.readyState is 4
@@ -45,3 +44,6 @@ class UI.Form extends UI.Abstract
         body = oReq.response
         status = oReq.status
         @fireEvent 'complete', {response: {headers: headers, body: body, status: status}}
+
+    oReq.open @method.toUpperCase(), @action
+    oReq.send @data

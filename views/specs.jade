@@ -128,6 +128,14 @@ html
         ui-textarea(placeholder="Textarea...")
       .component
         ui-label
+          | Form
+        ui-form
+          ui-email(placeholder="Email", name="email")
+          input(type="password", placeholder="Password", name="password")
+          ui-color(name="color")
+          ui-button Submit
+      .component
+        ui-label
           | Grid
         ui-grid(columns="3")
           ui-cell

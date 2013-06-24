@@ -1,6 +1,13 @@
 #= require_self
 #= require_tree ./
 
+window.XMLHttpRequest = class XMLHttpRequest
+  open: ->
+  getAllResponseHeaders: -> ""
+  send: ->
+    @readyState = 4
+    @onreadystatechange.call @
+
 Test =
   tests: {}
   assert: (condition)->
@@ -34,6 +41,7 @@ Test =
       if console.group
         console.groupEnd()
     window.results = @results
+    console.log JSON.stringify(@results)
 
   add: (name, fn)->
     @tests[name] = fn
