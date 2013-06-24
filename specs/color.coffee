@@ -1,4 +1,4 @@
-Test.add "Color", ->
+Test.add "Color (Type)", ->
   TEST_DATA_COLOR = """
     hsl(0, 100%, 50%):rgb(255, 0, 0)
     hsl(60, 100%, 50%):rgb(255, 255, 0)

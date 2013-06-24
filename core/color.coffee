@@ -227,3 +227,5 @@ class Color
         "hsla(#{@_hue}, #{Math.round(@_saturation)}%, #{Math.round(@_lightness)}%, #{@alpha/100})"
       when "hex"
         @hex
+
+window.ColorType = Color
