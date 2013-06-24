@@ -18,7 +18,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "test": "coffee bin/spec.coffee"
+    "test": "coffee bin/spec.coffee",
+    "start": "coffee bin/server.coffee"
   },
   "engines": {
     "node": ">=0.8"

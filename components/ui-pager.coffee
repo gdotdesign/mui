@@ -10,6 +10,12 @@ class UI.Pager extends UI.Abstract
   @get 'activePage', -> @querySelector(UI.Page.SELECTOR()+"[active]")
   @set 'activePage', (value) -> @change value
 
+  # Selects next page
+  next: -> @change @activePage.nextElementSibling
+
+  # Selects previous page
+  prev: -> @change @activePage.previousElementSibling
+
   # Selects a page
   #
   # Fires change event when active page changes

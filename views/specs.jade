@@ -91,7 +91,7 @@ html
         ui-label
           | Slider
           span.extend (ui-range)
-        ui-slider(min="-100", max="100", value="-80")
+        ui-slider(min="-100", max="100", value="-80", name="slider")
           div
             div
         ui-slider(min="-100", max="100", value="40", disabled="true")
@@ -134,6 +134,14 @@ html
           input(type="password", placeholder="Password", name="password")
           ui-color(name="color")
           ui-button Submit
+      .component
+        ui-label
+          | Pager
+        ui-pager
+          ui-page(name="page1")
+            | Page 1
+          ui-page(active="true")
+            | Page 2
       .component
         ui-label
           | Grid
