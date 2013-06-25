@@ -15,7 +15,7 @@ WIN7     = 'Windows 7'
 WINXP    = 'Windows XP'
 WIN8     = 'Windows 8'
 LINUX    = 'Linux'
-TEST_URL = "http://mui-test.herokuapp.com/specs.html"
+TEST_URL = "http://mui-test.herokuapp.com/specs/"
 
 browsers = {
   'android|4':            [LINUX]

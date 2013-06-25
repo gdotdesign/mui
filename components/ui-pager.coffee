@@ -7,8 +7,11 @@ class UI.Pager extends UI.Abstract
   @TAGNAME: 'pager'
 
   # @property [UI.Page] The selected page component
-  @get 'activePage', -> @querySelector(UI.Page.SELECTOR()+"[active]")
   @set 'activePage', (value) -> @change value
+  @get 'activePage', ->
+    for child in @children
+      if child.matchesSelector UI.Page.SELECTOR()+"[active]"
+        return child
 
   # Selects next page
   next: -> @change @activePage.nextElementSibling
@@ -29,7 +32,6 @@ class UI.Pager extends UI.Abstract
 
     return unless page
     return if @activePage is page
-
     @activePage?.active = false
     page.active = true
     @fireEvent 'change'

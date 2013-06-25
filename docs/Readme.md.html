@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='UTF-8'>
+  <title>MUI Documentation</title>
+  <link rel='stylesheet' href='assets/codo.css' type='text/css'>
+  <script src='assets/codo.js'></script>
+  <script src='assets/search_data.js'></script>
+</head>
+  <body>
+    <div id='base' data-path=''></div>
+<div id='header'>
+  <div id='menu'>
+    <a href='Readme.md.html' title='Ui'>Ui</a>
+    &raquo;
+    <a href='class_index.html' title='Index'>Index</a>
+    &raquo;
+    <span class='title'>Readme.md</span>
+    <nav>
+      <ul>
+        <li class='noframes'>
+          (<a class='noframes' href='#'>no frames</a>)
+        </li>
+      </ul>
+    </nav>
+    <div id='search'>
+      <a id='class_list_link' href='class_list.html'>Classes</a>
+      <a id='mixin_list_link' href='mixin_list.html'>Mixins</a>
+      <a id='file_list_link' href='file_list.html'>Files</a>
+      <a id='method_list_link' href='method_list.html'>Methods</a>
+      <a id='extra_list_link' href='extra_list.html'>Extras</a>
+    </div>
+  </div>
+  <iframe id='search_frame'></iframe>
+  <div id='fuzzySearch'>
+    <input type='text'>
+    <ol></ol>
+  </div>
+  <div id='help'>
+    <p>
+      Quickly fuzzy find classes, mixins, methods, file:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-T</span>
+        Open fuzzy finder dialog
+      </li>
+    </ul>
+    <p>
+      In frame mode you can toggle the list naviation frame on the left side:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-L</span>
+        Toggle list view
+      </li>
+    </ul>
+    <p>
+      You can focus a list in frame mode or toggle a tab in frameless mode:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-C</span>
+        Class list
+      </li>
+      <li>
+        <span>Ctrl-I</span>
+        Mixin list
+      </li>
+      <li>
+        <span>Ctrl-F</span>
+        File list
+      </li>
+      <li>
+        <span>Ctrl-M</span>
+        Method list
+      </li>
+      <li>
+        <span>Ctrl-E</span>
+        Extras list
+      </li>
+    </ul>
+    <p>
+      You can focus and blur the search input:
+    </p>
+    <ul>
+      <li>
+        <span>Ctrl-S</span>
+        Focus search input
+      </li>
+      <li>
+        <span>Esc</span>
+        Blur search input
+      </li>
+    </ul>
+    <p>
+      In frameless mode you can close the list tab:
+    </p>
+    <ul>
+      <li>
+        <span>Esc</span>
+        Close list tab
+      </li>
+    </ul>
+  </div>
+</div>
+    <div id='content'>
+      <nav class='toc'>
+        <p class='title'>
+          <a class='hide_toc' href='#'>
+            <strong>Table of Contents</strong>
+          </a>
+          <small>
+            (<a class='float_toc' href='#'>left</a>)
+          </small>
+        </p>
+      </nav>
+      <div id='filecontents'>
+        <h1>MUI</h1><p>MUI is a UI Libarary / Framework that doesn&#39;t suck. It offers Custom Elements with just vanilla JavaScript &amp; CSS and nothing else,
+no shadow dom, no scoped style, no voodoo nor magic, and still works in every modern browser.</p><p><a href="https://saucelabs.com/u/gdotdesign"><img src="https://saucelabs.com/browser-matrix/gdotdesign.svg" alt="SauceLabs Test Status"></a></p><h2>Basic concepts</h2>
+<ul>
+<li>Exetensible</li>
+<li>Simple</li>
+<li>Only Custom Elements ( no input, textarea, select, etc...)</li>
+<li>Modular</li>
+<li>Keyboard Support (v0.3.0)</li>
+<li>Touch Support (v0.2.0)</li>
+<li>Same Look and Feel everywhere</li>
+<li>Test (CI)</li>
+<li>Modern</li>
+</ul>
+<h2>Guidelines</h2><p>If you want to create a new (not existing) component, these are the guidelines to follow:</p><ul>
+<li>Every component <strong>must</strong> be implemented in <em>CoffeeScript</em>.</li>
+<li>Every component <strong>must</strong> implement a <code>disabled</code> state.</li>
+<li>Every component <strong>must</strong> implement a public <strong>API</strong>.</li>
+<li>Every component <strong>must</strong> be tested extensivly.</li>
+<li>Every component <strong>must</strong> be documented.</li>
+<li>Every component <strong>must</strong> use the <code>UI.Events</code> <em>event types</em>.</li>
+<li>Every component <strong>must</strong> extend either <code>UI.Abstract</code> or an other component.</li>
+<li>Every component <strong>must</strong> be skinned at least in one theme.</li>
+<li>A component in <code>disabled</code> state can <strong>only</strong> be manipulated with the <strong>API</strong> (not with user interaction).</li>
+<li>A component <strong>should not</strong> leak</li>
+<li>A component <strong>must not</strong> use CSS classes for control.</li>
+<li>A component <strong>should</strong> use attributes for control.</li>
+<li>A component which implements properties <strong>must</strong> use the <code>@get</code> and <code>@set</code> property constructors.</li>
+<li>Any CSS references to an other component <strong>must</strong> be made with <code>SELECTOR</code> method:
+<code>@button = @querySelector(UI.Button.SELECTOR())</code></li>
+</ul>
+<h2>Contributing</h2><p>You can contribute by:</p><ul>
+<li>Creating new a Component<ul>
+<li>Fork the repo</li>
+<li>Create component</li>
+<li>Create tests and documentation</li>
+<li>Create a pull request</li>
+<li>The Component will be reviewed and accepted if it meets the Guidelines.</li>
+</ul>
+</li>
+<li>Submitting / Fixing bugs</li>
+<li>Testing MUI in real world projects</li>
+<li>Publishing articles about MUI (tutorials, reviews, comparissons, etc...)</li>
+<li>Staring this repo</li>
+<li>Sharing this repo</li>
+</ul>
+<h2>Browser Support</h2>
+<ul>
+<li>IE9+</li>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Android(4+)</li>
+<li>iOS</li>
+</ul>
+
+      </div>
+    </div>
+    <div id='footer'>
+  Generated on
+  Tue Jun 25 2013 07:10:20 GMT+0200 (CEST)
+  by
+  <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
+  v1.7.0
+  (Node.js v0.10.0).
+  &#10034;
+  Press Ctrl-h to see the keyboard shortcuts
+  &#10034;
+  <a href='http://twitter.com/#!/netzpirat'>@netzpirat</a>
+  &#10034;
+  <a href='https://mksoft.ch'>mksoft.ch</a>
+</div>
+  </body>
+</html>

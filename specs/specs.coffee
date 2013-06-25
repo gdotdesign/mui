@@ -50,3 +50,9 @@ UI.initialize()
 window.addEventListener 'load', ->
   Test.run()
   document.querySelector('.container').style.display = "block"
+  pager = document.querySelector(UI.Pager.SELECTOR())
+
+  document.addEventListener 'click', (e)->
+    return unless e.target.hasAttribute('target')
+    target = e.target.getAttribute('target')
+    pager.change target

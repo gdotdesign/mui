@@ -9,7 +9,6 @@
     "request"             : "*",
     "async"               : "*",
     "coffee-script"       : "*",
-    "jade"                : "*",
     "node-sass"           : "0.4.4",
     "mincer"              : "*",
     "connect"             : "*",

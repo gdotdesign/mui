@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/assets/flat-ui/theme.css">
+    <script type="text/javascript" src="/assets/mui.js"></script>
+    <script type="text/javascript" src="/assets/specs.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/specs.scss">
+  </head>
+  <body>
+    <div class="container">
+      <h1>MUI - Kitchen Sink / Specs</h1>
+      <ul>
+        <li target="button">Button</li>
+        <li target="modal">Modal</li>
+        <li target="color">Color</li>
+        <li target="checkbox">Checkbox</li>
+        <li target="dropdown">Dropdown</li>
+        <li target="tooltip">Tooltip</li>
+        <li target="toggle">Toggle</li>
+        <li target="radio">Radio</li>
+        <li target="range">Range</li>
+        <li target="slider">Slider</li>
+        <li target="select">Select</li>
+        <li target="text">Text</li>
+        <li target="textarea">Textarea</li>
+        <li target="form">Form</li>
+        <li target="grid">Grid</li>
+      </ul>
+      <ui-pager>
+        <ui-page active="true" name="button">
+          <ui-button>Default button</ui-button>
+          <ui-button type="info"><i class="icon-question"></i><span>Info button</span></ui-button>
+          <ui-button type="success"><i class="icon-ok"></i><span>Success button</span></ui-button>
+          <ui-button type="warning">Warning button</ui-button>
+          <ui-button type="danger">Danger button</ui-button>
+          <ui-button type="inverse"><span>Inverse button</span><i class="icon-chevron-down"></i></ui-button>
+          <ui-button disabled>Default button</ui-button>
+        </ui-page>
+        <ui-page name="modal">
+          <ui-button>Open Modal
+            <ui-modal>
+              <div>
+                <h1>Content</h1>
+                <ui-button>Close</ui-button>
+              </div>
+            </ui-modal>
+          </ui-button>
+        </ui-page>
+        <ui-page name="color">
+          <ui-color></ui-color>
+        </ui-page>
+        <ui-page name="checkbox">
+          <ui-checkbox></ui-checkbox>
+          <ui-checkbox disabled></ui-checkbox>
+        </ui-page>
+        <ui-page name="dropdown">
+          <ui-button type="inverse"><span>Click me!</span>
+            <ui-dropdown>
+              <ui-option>Option 1</ui-option>
+            </ui-dropdown><i class="icon-chevron-down"></i>
+          </ui-button></span>
+        </ui-page>
+        <ui-page name="tooltip">
+          <ui-button>Hover me!
+            <ui-tooltip direction="bottom">
+              <div>Tooltip</div>
+            </ui-tooltip>
+          </ui-button>
+        </ui-page>
+        <ui-page name="toggle">
+          <ui-toggle>
+            <div>ON</div>
+            <div></div>
+            <div>OFF</div>
+          </ui-toggle>
+          <ui-toggle checked="true" disabled="true">
+            <div>ON</div>
+            <div></div>
+            <div>OFF</div>
+          </ui-toggle>
+        </ui-page>
+        <ui-page name="radio">
+          <ui-radio name="radio"></ui-radio>
+          <ui-radio name="radio" checked="true"></ui-radio>
+          <ui-radio name="radio"></ui-radio>
+          <div class="separator"></div>
+          <ui-radio disabled="true"></ui-radio>
+          <ui-radio checked="true" disabled="true"></ui-radio>
+        </ui-page>
+        <ui-page name="range">
+          <ui-range min="-100" max="100" value="0">
+            <div>
+              <div></div>
+            </div>
+          </ui-range>
+          <ui-range min="-100" max="100" value="20" disabled="true">
+            <div>
+              <div></div>
+            </div>
+          </ui-range>
+          </ui-page>
+        <ui-page name="slider">
+          <ui-slider min="-100" max="100" value="-80" name="slider">
+            <div>
+              <div></div>
+            </div>
+          </ui-slider>
+          <ui-slider min="-100" max="100" value="40" disabled="true">
+            <div>
+              <div></div>
+            </div>
+          </ui-slider>
+        </ui-page>
+        <ui-page name="select">
+          <ui-select>
+            <ui-label></ui-label>
+            <ui-dropdown>
+              <ui-option value="option1">Option 1</ui-option>
+              <ui-option value="option2" selected="true">Option 2</ui-option>
+              <ui-option value="option3">Option 3</ui-option>
+            </ui-dropdown>
+          </ui-select>
+          <ui-select disabled>
+            <ui-label></ui-label>
+            <ui-dropdown>
+              <ui-option value="option1">Option 1</ui-option>
+            </ui-dropdown>
+          </ui-select>
+        </ui-page>
+        <ui-page name="text">
+          <ui-text placeholder="Text..." name="text"></ui-text>
+        </ui-page>
+        <ui-page name="textarea">
+          <ui-textarea placeholder="Textarea..."></ui-textarea>
+        </ui-page>
+        <ui-page name="form">
+          <ui-form>
+            <ui-label for="email"></ui-label>
+            <ui-email placeholder="Email" name="email"></ui-email>
+            <input type="password" placeholder="Password" name="password">
+            <ui-color name="color"></ui-color>
+            <ui-button>Submit</ui-button>
+          </ui-form>
+        </ui-page>
+        <ui-page name="pager">
+           <ui-pager name="test">
+            <ui-page name="page1">Page 1</ui-page>
+            <ui-page active="true">Page 2</ui-page>
+          </ui-pager>
+        </ui-page>
+        <ui-page name="grid">
+          <ui-grid columns="3">
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+            <ui-cell></ui-cell>
+          </ui-grid>
+        </ui-page>
+      </ui-pager>
+    </div>
+  </body>
+</html>

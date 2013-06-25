@@ -1,6 +1,6 @@
 --readme     Readme.md
 --title      "MUI Documentation"
 --private
---output-dir ./doc
+--output-dir ./docs
 ./core
 ./components

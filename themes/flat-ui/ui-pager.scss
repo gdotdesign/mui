@@ -20,7 +20,7 @@ ui-pager {
   }
 
   & ui-page[active] {
-    z-index: 9999;
+    z-index: 999;
     opacity: 1;
     transition: opacity 500ms 500ms;
   }
