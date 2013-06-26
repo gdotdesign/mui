@@ -13,6 +13,10 @@ UI =
           @load(el)
           value.wrap el
 
+    setTimeout ->
+      document.body.setAttribute 'loaded', true
+    , 1000
+
   # Initailizeses components (current and in the future)
   initialize: ->
     document.addEventListener 'DOMNodeInserted', @_insert.bind @

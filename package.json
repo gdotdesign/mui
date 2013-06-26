@@ -9,7 +9,7 @@
     "request"             : "*",
     "async"               : "*",
     "coffee-script"       : "*",
-    "node-sass"           : "0.4.4",
+    "node-sass"           : "*",
     "mincer"              : "*",
     "connect"             : "*",
     "autoprefixer"        : "*",

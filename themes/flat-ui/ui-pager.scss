@@ -1,3 +1,21 @@
+@keyframes in {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes out {
+  from {
+    left: 0%;
+  }
+  to {
+    left: -100%;
+  }
+}
+
 ui-pager {
   display: block;
   width: 320px;
@@ -11,17 +29,22 @@ ui-pager {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;
     bottom: 0;
     display: block;
-    transition: opacity 500ms, z-index 1ms 500ms;
-    z-index: -1;
-    opacity: 0;
+    left: 100%;
+    animation: out 1ms 1 both;
   }
 
   & ui-page[active] {
-    z-index: 999;
-    opacity: 1;
-    transition: opacity 500ms 500ms;
+    animation: in 1ms 1 both;
   }
+}
+
+body[loaded] ui-page {
+  animation: out 320ms 1 both;
+}
+
+body[loaded] ui-page[active]  {
+  animation: in 320ms 1 both;
 }

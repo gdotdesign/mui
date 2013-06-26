@@ -1,7 +1,10 @@
 ---
 language: node_js
 node_js:
-- '0.8'
+  - '0.8'
+branches:
+  only:
+    - master
 env:
   global:
   - secure: ! 'FVzwH5cpVIYHTdrR3ZWw5HGkl3phOVgEbp9fLkcFrLXxCY4AVboeTydwTqVZubQ2iXeSxPu3GQ3+NYvVJJROf9KA8pIJ4+0ztfE4Ictx3anmfiJUtoVE4y+Do3aaBRarMBUvZuOVrJdXew/j6SjHN0Lbqke5Sue9DATxpMVpgbc='
