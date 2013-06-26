@@ -50,6 +50,19 @@ You can contribute by:
 * Staring this repo
 * Sharing this repo
 
+## Polyfills / Extensions
+The library provides the following polyfills / extensions (in vendor/shims.js):
+
+* requestAnimationFrame
+* matchesSelector
+* console
+* Element::toggleAttribute 
+* Element::click
+* Function::bind
+* window.scrollY
+* Number::clamp
+* Number::clampRange
+
 ## Browser Support
 
 * IE9+
