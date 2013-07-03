@@ -10,7 +10,7 @@
     "async"               : "*",
     "coffee-script"       : "*",
     "node-sass"           : "*",
-    "mincer"              : "*",
+    "mincer"              : "0.4.6",
     "connect"             : "*",
     "autoprefixer"        : "*",
     "codo"                : "git://github.com/gdotdesign/codo.git"
