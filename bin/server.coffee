@@ -22,3 +22,5 @@ app.use "/", connect.static process.cwd()+"/site"
 app.use connect.static process.cwd()
 app.use "/assets", Mincer.createServer(environment)
 app.listen(process.env.PORT || 4000)
+
+console.log 'MUI running on port 4000...'

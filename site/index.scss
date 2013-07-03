@@ -1,0 +1,93 @@
+p {
+	font-size: 18px
+}
+
+.sidebar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	background: #333;
+	min-width: 200px;
+	color: #eee;
+	box-shadow: -1px 0 0 #555 inset, 2px 0 5px rgba(0,0,0,0.2);
+	border-right: 1px solid #444;
+	.logo, ul {
+		border-bottom: 1px solid #444;
+		box-shadow: 0 -1px 0 #222 inset;
+		text-shadow: 0 -1px 1px #111;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+		li {
+			padding: 10px;
+			font-weight: bold;
+			color: #ddd;
+			cursor: pointer;
+			text-shadow: 0 -1px 1px #111;
+			&:hover {
+				color: #eee
+			}
+			i {
+				font-size: 14px;
+				border-right: 1px solid #444;
+				box-shadow: -1px 0 0 #222 inset;
+				width: 23px;
+				margin-right: 5px;
+				display: inline-block;
+			}
+		}
+	}
+
+	.logo {
+		font-weight: bold;
+		font-size: 22px;
+		padding: 10px;
+		span {
+			font-size: 14px;
+			color: #999;
+		}
+	}
+}
+
+ui-pager {
+	position: absolute;
+	top: 0;
+	left: 200px;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	height: auto;
+	z-index: 0;
+	background: none;
+	ui-page {
+		overflow: auto;
+		width: 100%;
+		height: 100%;
+		background: #ECF0F1;
+		color: #333;
+		padding: 0 40px;
+	}
+}
+
+code {
+	padding: 0
+}
+
+table, pre {
+	border-radius: 2px;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+	background: #fff;
+	padding: 10px;
+}
+table {
+	tr + tr th, td {
+		border-top: 1px solid #eee
+	}
+	th, td {
+		padding: 7px 20px;
+	}
+}

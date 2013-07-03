@@ -3,13 +3,231 @@
   <head>
     <title>MUI - Modern Interfaces</title>
     <link rel='stylesheet' type='text/css' href='/assets/flat-ui/theme.css'/>
-    <link rel='stylesheet' type='text/css' href='/assets/index.css'>
+    <script type='text/javascript' src='/assets/mui.js'></script>
 
-    <script(type='text/javascript' src='/mui.js'></script>
-    <script(type='text/javascript' src='/index.js'></script>
+    <link rel='stylesheet' type='text/css' href='/assets/tomorrow.css'>
+    <script type='text/javascript' src='/assets/highlight.pack.js'></script>
+
+    <link rel='stylesheet' type='text/css' href='/assets/index.css'>
+    <script type='text/javascript' src='/assets/index.js'></script>
   </head>
   <body>
     <a href="/docs">Documentation</a>
     <a href="/specs">Specs</a>
+    <div class="sidebar">
+      <div class="logo">
+        MUI
+        <span>0.2.0</span>
+      </div>
+      <ul>
+        <li target="quickstart">
+          <i class="icon-off"></i>
+          Quickstart
+        </li>
+        <li target="standard">
+          <i class="icon-archive"></i>
+          Std. Components
+        </li>
+        <li target="custom">
+          <i class="icon-puzzle-piece "></i>
+          Custom Component
+        </li>
+        <li>
+          <i class="icon-bug"></i>
+          Issues
+        </li>
+        <li>
+          <i class="icon-th"></i>
+          Kitchen Sink
+        </li>
+      </ul>
+    </div>
+    <ui-pager>
+      <ui-page name="quickstart" active="true">
+        <h2>MUI</h2>
+        <p>MUI is a JS libarary / framework for creating uniform User Interface elements. Uniform as in it acts and looks the same in every browser, platform, environment (touch / mouse / pointer).</p>
+        <h3>Quickstart</h3>
+        <p>Load the Javascript and CSS:</p>
+        <pre><code class="html">&lt;link rel='stylesheet' type='text/css' href='http://mui.org/assets/flat-ui/theme.css'/&gt;
+&lt;script type='text/javascript' src='http://mui.org/assets/mui.js'&gt;&lt;/script&gt;</code></pre>
+        <p>Use the Standard Components:</p>
+        <pre><code>&lt;ui-button&gt;Button&lt;/ui-button&gt;
+&lt;ui-checkbox&gt;&lt;/ui-checkbox&gt;</code></pre>
+        <h3>A Component</h3>
+        <p>In MUI a component is basically a custom HTML Element. The structure of a component is fairly simple, it consits of three parts described below.</p>
+        <h4>CoffeeScript Class</h4>
+        <pre><code class="coffeescript"># A Component is a CoffeeScript class that extends UI.Abstract
+# or any other component
+class UI.Modal extends UI.Abstract
+  # This specifies the tagname for the component
+  # but remember that tagnames are namespaced
+  # so the real tagname is ui-modal
+  @TAGNAME: 'modal'
+
+  # Defiene an API
+  # You can specify getters, setters and methods
+  # that will be available for the component
+  # and the scope will be the component
+  @get 'isOpen', -> @hasAttribute 'open'
+
+  close: ->
+    return if @disabled
+    @removeAttribute 'open'
+
+  open: ->
+    return if @disabled
+    @setAttribute 'open', true
+
+  toggle: ->
+    return if @disabled
+    @toggleAttribute 'open'
+
+  # Initialize will run when the component is
+  # inserted into the document
+  initialize: ->
+    document.body.appendChild(@)</code></pre>
+        <h4>CSS</h4>
+        <pre><code class="css">ui-modal {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  transition: opacity 600ms, z-index 1ms 600ms;
+}
+ui-modal[disabled] {
+    opacity: 0;
+}
+ui-modal[open] {
+  opacity: 1;
+  z-index: 9999;
+  transition: opacity 600ms;
+}</code></pre>
+        <h4>Use it</h4>
+        <pre><code class="html">&lt;ui-modal&gt;Content&lt;/ui-modal&gt;
+&lt;script&gt;
+  modal = document.querySelector('ui-modal')
+  modal.open()
+&lt;/script&gt;</code></pre>
+      </ui-page>
+      <ui-page name="custom">
+        <h2>Custom Component</h2>
+      </ui-page>
+      <ui-page name="standard">
+        <h2>Standard Components</h2>
+        <p>MUI provides the following standard components, you can try all of them in the kithcen sink page.</p>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>HTML Counterpart</th>
+          </tr>
+          <tr>
+            <td>UI.Button</td>
+            <td>Clickable compontent that calls for action.</td>
+            <td>input[type=button], button</td>
+          </tr>
+          <tr>
+            <td>UI.Checkbox</td>
+            <td>A compontent that has two states.</td>
+            <td>input[type=checkbox]</td>
+          </tr>
+          <tr>
+            <td>UI.Color</td>
+            <td>Color picker component.</td>
+            <td>input[type=color]</td>
+          </tr>
+          <tr>
+            <td>UI.Dropdown</td>
+            <td>General dropdown component (used in UI.Select).</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Email</td>
+            <td>A component for email input.</td>
+            <td>input[type=email]</td>
+          </tr>
+          <tr>
+            <td>UI.Form</td>
+            <td>Form component that geathers data.</td>
+            <td>form</td>
+          </tr>
+          <tr>
+            <td>UI.Grid</td>
+            <td>For multi column data.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Label</td>
+            <td>Contains text that describes an other component.</td>
+            <td>label</td>
+          </tr>
+          <tr>
+            <td>UI.Modal</td>
+            <td>Customizable dialog component.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Option</td>
+            <td>Option component.</td>
+            <td>option</td>
+          </tr>
+          <tr>
+            <td>UI.Page</td>
+            <td>Page component (used in UI.Pager).</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Pager</td>
+            <td>Pager component, for multipage content.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Radio</td>
+            <td>A components that allows election from different values.</td>
+            <td>input[type=radio]</td>
+          </tr>
+          <tr>
+            <td>UI.Range</td>
+            <td>A component for setting numerical value between two values.</td>
+            <td>input[type=range]</td>
+          </tr>
+          <tr>
+            <td>UI.Select</td>
+            <td>A component for selecting one from different values.</td>
+            <td>select</td>
+          </tr>
+          <tr>
+            <td>UI.Slider</td>
+            <td>Slider component.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Text</td>
+            <td>A component for one line text input.</td>
+            <td>input[type=text]</td>
+          </tr>
+          <tr>
+            <td>UI.Textarea</td>
+            <td>A component for text input.</td>
+            <td>textarea</td>
+          </tr>
+          <tr>
+            <td>UI.Toggle</td>
+            <td>A compontent that has two states and displayed separatly.</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>UI.Tooltip</td>
+            <td>Show an informative text on hover.</td>
+            <td></td>
+          </tr>
+        </table>
+      </ui-page>
+    </ui-pager>
   </body>
 </html>
