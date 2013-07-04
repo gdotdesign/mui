@@ -20,17 +20,18 @@ ui-modal {
   }
   &[open] > *{
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%) translateX(-50%);
   }
   & > * {
     opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transition: 600ms;
-    transform: translateY(-150px);
+    transform: translateY(-100%) translateX(-50%);
     background: #fff;
     display: inline-block;
-    margin-top: 150px;
     border-radius: 5px;
-    max-width: 60%;
     text-align: left;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0,0,0,0.6)

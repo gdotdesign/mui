@@ -37,11 +37,11 @@
           <ui-button disabled>Default button</ui-button>
         </ui-page>
         <ui-page name="modal">
-          <ui-button>Open Modal
+          <ui-button onclick="document.querySelector('ui-modal').open()">Open Modal
             <ui-modal>
               <div>
-                <h1>Content</h1>
-                <ui-button>Close</ui-button>
+                <h3>Content</h3>
+                <ui-button onclick="document.querySelector('ui-modal').close()">Close</ui-button>
               </div>
             </ui-modal>
           </ui-button>

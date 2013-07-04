@@ -2,6 +2,16 @@ html {
   -ms-touch-action: none;
 }
 
+ui-modal {
+  h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+  ui-button {
+    margin-right: 0;
+  }
+}
+
 .container {
   width: 960px;
   margin: 0 auto;

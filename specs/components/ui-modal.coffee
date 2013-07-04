@@ -46,4 +46,5 @@ Test.add 'Modal',->
     modal.disabled = true
     modal.open()
     @assert !modal.hasAttribute('open')
+    modal.disabled = false
 
