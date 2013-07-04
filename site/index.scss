@@ -1,5 +1,6 @@
-p {
-	font-size: 18px
+p, section li {
+	font-size: 18px;
+	line-height: 30px;
 }
 
 .sidebar {
@@ -11,7 +12,7 @@ p {
 	background: #333;
 	min-width: 200px;
 	color: #eee;
-	box-shadow: -1px 0 0 #555 inset, 2px 0 5px rgba(0,0,0,0.2);
+	box-shadow: -1px 0 0 #555 inset, 2px 0 6px rgba(0,0,0,0.2);
 	border-right: 1px solid #444;
 	.logo, ul {
 		border-bottom: 1px solid #444;
@@ -22,12 +23,15 @@ p {
 	ul {
 		padding: 0;
 		margin: 0;
+		a {
+			text-decoration: none;
+		}
 		li {
 			padding: 10px;
 			font-weight: bold;
-			color: #ddd;
 			cursor: pointer;
 			text-shadow: 0 -1px 1px #111;
+			color: #ddd;
 			&:hover {
 				color: #eee
 			}
@@ -63,6 +67,11 @@ ui-pager {
 	height: auto;
 	z-index: 0;
 	background: none;
+
+	section {
+		max-width: 960px
+	}
+
 	ui-page {
 		overflow: auto;
 		width: 100%;

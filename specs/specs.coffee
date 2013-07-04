@@ -56,3 +56,5 @@ window.addEventListener 'load', ->
     return unless e.target.hasAttribute('target')
     target = e.target.getAttribute('target')
     pager.change target
+    document.querySelector('[target].active').classList.remove 'active'
+    e.target.classList.add 'active'

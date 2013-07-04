@@ -13,7 +13,7 @@ ui-tooltip[open] {
   transition: opacity 600ms;
 }
 ui-tooltip > * {
-  background: #2C3E50;
+  background: rgba(0,0,0,0.8);
   color: #ECF0F1;
   font-size: 13px;
   padding: 10px;
@@ -41,7 +41,7 @@ ui-tooltip[direction=left] {
 ui-tooltip[direction=left] > *:before{
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-left: 6px solid #2C3E50;
+  border-left: 6px solid rgba(0,0,0,0.8);
   right: -6px;
   top: 8px;
 }
@@ -55,7 +55,7 @@ ui-tooltip[direction=right] {
 ui-tooltip[direction=right] > *:before{
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 6px solid #2C3E50;
+  border-right: 6px solid rgba(0,0,0,0.8);
   left: -6px;
   top: 8px;
 }
@@ -70,8 +70,8 @@ ui-tooltip[direction=top] {
 ui-tooltip[direction=top] > *:before{
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 6px solid #2C3E50;
-  bottom: -6px;
+  border-top: 6px solid rgba(0,0,0,0.8);
+  bottom: -5px;
   margin-left: -6px;
   left: 50%;
 }
@@ -86,8 +86,8 @@ ui-tooltip[direction=bottom], ui-tooltip:not([direction]) {
 ui-tooltip[direction=bottom] > *:before, ui-tooltip:not([direction]) > *:before{
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #2C3E50;
-  top: -6px;
+  border-bottom: 6px solid rgba(0,0,0,0.8);
+  top: -5px;
   margin-left: -6px;
   left: 50%;
 }

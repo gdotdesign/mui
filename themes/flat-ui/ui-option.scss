@@ -3,7 +3,6 @@ ui-option {
   padding: 0 10px;
   height: 40px;
   line-height: 40px;
-  background: #2C3E50;
   text-overflow: ellipsis;
   overflow: hidden;
   color: #ECF0F1;
@@ -11,6 +10,6 @@ ui-option {
   font-weight: bold;
 
   &:hover {
-    background: #34495E;
+    background: rgba(255,255,255,0.1);
   }
 }

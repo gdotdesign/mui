@@ -20,15 +20,18 @@ ui-range > *:first-child > *:first-child{
 	top: 10px;
 	width: 20px;
 	height: 20px;
-	background-color: #2C3E50;
+	background-color: #666;
 	border-radius: 50%;
+	background-image: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.4));
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
 ui-range:before {
 	content: "";
 	display: block;
-	background-color: #95A5A6;
+	background-color: #999;
 	height: 12px;
 	position: relative;
 	top: 14px;
 	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
 }

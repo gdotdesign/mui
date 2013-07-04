@@ -11,7 +11,9 @@ class UI.Button extends UI.Abstract
 
   # @property [Type] Alias for type attrbiute. Default is `default`.
   @get 'type', ->  @getAttribute('type') or 'default'
-  @set 'type', (value) -> @setAttribute 'type', value
+  @set 'type', (value) ->
+    return @removeAttribute('type') unless value
+    @setAttribute 'type', value
 
   # Cancels and event if the component is disabled
   # @param [Event] e

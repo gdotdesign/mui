@@ -9,7 +9,8 @@ ui-slider {
   display: inline-block;
   position: relative;
 	cursor: pointer;
-	background-color: #95A5A6;
+	background-color: #999;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
 	border-radius: 10px;
 }
 ui-slider > *:first-child {
@@ -26,6 +27,8 @@ ui-slider > *:first-child > *:first-child{
 	top: -4px;
 	width: 20px;
 	height: 20px;
-	background-color: #2C3E50;
+	background-color: #666;
 	border-radius: 50%;
+	background-image: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.4));
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }

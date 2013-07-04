@@ -4,7 +4,7 @@ ui-dropdown {
   margin-top: 3px;
   left: 0;
   min-width: 100%;
-  background: #2C3E50;
+  background: rgba(0,0,0,0.85);
   overflow: auto;
   max-height: 0;
   border-radius: 3px;
@@ -13,7 +13,9 @@ ui-dropdown {
   transform: translateY(5px);
   pointer-events: none;
   transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
-  box-shadow: 0 5px 0 rgba(120,120,120,0.5);
+  box-shadow: 0 2px 5px rgba(120,120,120,0.5);
+  text-shadow: none;
+
 
   &[direction=top] {
     top: auto;
