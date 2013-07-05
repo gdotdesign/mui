@@ -50,16 +50,11 @@ $inverse-color: #ECF0F1;
 $inverse-color-hover: #FFFFFF;
 
 
-body {
-  color: #333;
-  font-family: Lato;
-  padding: 30px;
-  background-color: #ECF0F1;
-}
+body { font-family: Lato; }
 
 body * {
-  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
   user-select: none;
 }
 
@@ -67,24 +62,40 @@ body * {
   opacity: 0.5;
 }
 
-ui-input {
-	background: #FFF;
-	padding: 10px 10px;
-	width: 300px;
-	overflow: hidden;
-	white-space: nowrap;
-	font-size: 16px;
-	display: inline-block;
-	border-radius: 3px;
-	position: relative;
-	vertical-align: top;
-	user-select: auto;
+input[type=password] {
+  margin: 0;
+  line-height: 17px;
 }
 
-ui-input:empty:after {
-  content: attr(placeholder);
-  color: #ccc;
+ui-input, input[type=password] {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  user-select: auto;
+
+  padding: $base-height / 4;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2) inset, 0 0 0 1px #fff, 0 0 10px rgba(0,0,0,0.2);
+  width: 300px;
+  color: #333;
+
+  border-radius: $border-radius;
+  font-size: $font-size;
+
+  &:focus {
+    outline: none;
+    border-color: $info-color-hover;
+    box-shadow: 0 0 5px rgba($info-color-hover,0.7) inset, 0 0 0 1px rgba(#fff,0.6), 0 0 10px rgba($info-color-hover,0.7);
+  }
+  &:empty:after {
+    content: attr(placeholder);
+    color: #bbb;
+  }
 }
+
 
 @import "ui-button.scss";
 @import "ui-checkbox.scss";

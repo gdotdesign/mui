@@ -54,13 +54,30 @@ ui-modal {
     }
   }
 
-  ui-pager {
+  > ui-pager {
     height: 794px;
     width: 754px;
     background: #fcfcfc;
     ui-page {
       background: #fcfcfc;
-      padding: 20px;
+      section {
+        padding: 20px;
+      }
+      .showcase {
+        position: relative;
+        height: 300px;
+        border-bottom: 1px solid #ddd;
+        box-shadow: 0 -3px 5px rgba(0,0,0,0.05) inset;
+        margin: -20px;
+        margin-bottom: 0;
+        background-image: url(/assets/graphy.png);
+      }
+      .showcase > *:first-child {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%)
+      }
     }
     &:after {
       content: "";

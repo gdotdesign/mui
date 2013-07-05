@@ -33,7 +33,10 @@ ui-tooltip {
   }
 
   /* STATES */
-  &[open] {
+  &[disabled]:not([open]) {
+    opacity: 0;
+  }
+  &:not([disabled])[open] {
     opacity: 1;
     z-index: 9999;
     transition: opacity 600ms;

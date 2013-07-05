@@ -19,7 +19,8 @@ class UI.Dropdown extends UI.iOpenable
   # Action event handler for document
   # @private
   _close: (e)->
-    @close() if getParent(e.target, UI.Dropdown.SELECTOR()) isnt @ and e.target isnt @parentNode
+    return if @parentNode.hasAttribute('disabled') or @disabled
+    @close() if getParent(e.target, UI.Dropdown.SELECTOR()) isnt @ and getParent(e.target,@parentNode.tagName) isnt @parentNode
 
   # Runs when the element is inserted into the DOM
   # @private
@@ -31,4 +32,4 @@ class UI.Dropdown extends UI.iOpenable
   # @private
   initialize: ->
     super ['top','bottom']
-    document.addEventListener UI.Events.action, @_close.bind(@), true
+    document.addEventListener UI.Events.action, @_close.bind(@)

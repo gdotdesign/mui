@@ -1,18 +1,19 @@
 ui-color {
-  width: 100px;
-  height: 40px;
-  background: #fff;
-  border-radius: 3px;
+  @extend ui-input;
+
   text-align: center;
-  line-height: 40px;
-  font-weight: bold;
-  display: block;
-  user-select: auto;
+  width: 100px;
+
+  &:focus {
+    @extend ui-input:focus;
+  }
+  &:empty:after {
+    @extend ui-input:empty:after;
+  }
   &:before {
     content: "#"
   }
 }
-
 
 point {
   pointer-events: none;

@@ -20,7 +20,7 @@ ui-dropdown {
   background: $opaque-color;
   border-radius: $border-radius;
   box-shadow: $shadow;
-  transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
+  transition: opacity 160ms, transform 160ms, max-height 1ms 160ms;
 
   /* DEFAULT STATE */
   margin-top: $dropdown-gap;
@@ -42,7 +42,7 @@ ui-dropdown {
     pointer-events: auto;
     transform: translateY(0);
     max-height: $dropdown-max-height;
-    transition: opacity 320ms, transform 320ms;
+    transition: opacity 160ms, transform 160ms;
   }
 
   /* CHILDREN STATES */

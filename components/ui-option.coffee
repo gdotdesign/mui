@@ -8,3 +8,9 @@ class UI.Option extends UI.Abstract
   # @property [Boolean] Returns true if the component is selected false otherwise
   @get 'selected', -> @hasAttribute 'selected'
   @set 'selected', (value) -> @toggleAttribute 'selected', !!value
+
+  @create: (value)->
+    el = super
+    el.setAttribute 'value', value
+    el.textContent = value
+    el

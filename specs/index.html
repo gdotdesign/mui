@@ -24,150 +24,200 @@
         <li target="text">Text</li>
         <li target="textarea">Textarea</li>
         <li target="form">Form</li>
+        <li target="pager">Pager</li>
         <li target="grid">Grid</li>
       </ul>
       <ui-pager>
+
         <ui-page active="true" name="button">
-          <ui-button>Default button</ui-button>
-          <ui-button type="info"><i class="icon-question"></i><span>Info button</span></ui-button>
-          <ui-button type="success"><i class="icon-ok"></i><span>Success button</span></ui-button>
-          <ui-button type="warning">Warning button</ui-button>
-          <ui-button type="danger">Danger button</ui-button>
-          <ui-button type="inverse"><span>Inverse button</span><i class="icon-chevron-down"></i></ui-button>
-          <ui-button disabled>Default button</ui-button>
+          <section>
+            <div class="showcase"><ui-button>Default button</ui-button></div>
+            <div class="controls"></div>
+          </section>
         </ui-page>
+
+
         <ui-page name="modal">
-          <ui-button onclick="document.querySelector('ui-modal').open()">Open Modal
+          <section>
+            <ui-button onclick="document.querySelector('ui-modal').open()">Open Modal</ui-button>
             <ui-modal>
               <div>
                 <h3>Content</h3>
                 <ui-button onclick="document.querySelector('ui-modal').close()">Close</ui-button>
               </div>
             </ui-modal>
-          </ui-button>
+          </section>
         </ui-page>
+
+
         <ui-page name="color">
-          <ui-color></ui-color>
+          <section>
+            <ui-color></ui-color>
+          </section>
         </ui-page>
+
+
         <ui-page name="checkbox">
-          <ui-checkbox></ui-checkbox>
-          <ui-checkbox disabled></ui-checkbox>
+          <section>
+            <div class="showcase"><ui-checkbox></ui-checkbox></div>
+          </section>
         </ui-page>
+
+
         <ui-page name="dropdown">
-          <ui-button type="inverse"><span>Click me!</span>
-            <ui-dropdown>
-              <ui-option>Option 1</ui-option>
-            </ui-dropdown><i class="icon-chevron-down"></i>
-          </ui-button></span>
+          <section>
+            <div class="showcase"><ui-button type="inverse"><span>Click me!</span>
+              <ui-dropdown>
+                <ui-option>Option 1</ui-option>
+              </ui-dropdown><i class="icon-chevron-down"></i>
+            </ui-button></div>
+          </section>
         </ui-page>
+
+
         <ui-page name="tooltip">
-          <ui-button node="tooltip" style="margin: 60px">Hover me!
-            <ui-tooltip direction="bottom">
-              Tooltip
-            </ui-tooltip>
-          </ui-button>
-
-          <select onchange="this.previousElementSibling.querySelector('ui-tooltip').setAttribute('direction',this.value)">
-            <option>bottom</option>
-            <option>top</option>
-            <option>left</option>
-            <option>right</option>
-          <select>
-
+          <section>
+            <div class="showcase">
+              <ui-button node="tooltip">Hover me!
+                <ui-tooltip direction="bottom">
+                  Tooltip
+                </ui-tooltip>
+              </ui-button>
+            </div>
+          </section>
         </ui-page>
+
+
         <ui-page name="toggle">
-          <ui-toggle>
-            <div>ON</div>
-            <div></div>
-            <div>OFF</div>
-          </ui-toggle>
-          <ui-toggle checked="true" disabled="true">
-            <div>ON</div>
-            <div></div>
-            <div>OFF</div>
-          </ui-toggle>
+          <section>
+            <ui-toggle>
+              <div>ON</div>
+              <div></div>
+              <div>OFF</div>
+            </ui-toggle>
+            <ui-toggle checked="true" disabled="true">
+              <div>ON</div>
+              <div></div>
+              <div>OFF</div>
+            </ui-toggle>
+          </section>
         </ui-page>
+
+
         <ui-page name="radio">
-          <ui-radio name="radio"></ui-radio>
-          <ui-radio name="radio" checked="true"></ui-radio>
-          <ui-radio name="radio"></ui-radio>
-          <div class="separator"></div>
-          <ui-radio disabled="true"></ui-radio>
-          <ui-radio checked="true" disabled="true"></ui-radio>
+          <section>
+            <ui-radio name="radio"></ui-radio>
+            <ui-radio name="radio" checked="true"></ui-radio>
+            <ui-radio name="radio"></ui-radio>
+            <div class="separator"></div>
+            <ui-radio disabled="true"></ui-radio>
+            <ui-radio checked="true" disabled="true"></ui-radio>
+          </section>
         </ui-page>
+
+
         <ui-page name="range">
-          <ui-range min="-100" max="100" value="0">
-            <div>
-              <div></div>
-            </div>
-          </ui-range>
-          <ui-range min="-100" max="100" value="20" disabled="true">
-            <div>
-              <div></div>
-            </div>
-          </ui-range>
-          </ui-page>
+          <section>
+            <ui-range min="-100" max="100" value="0">
+              <div>
+                <div></div>
+              </div>
+            </ui-range>
+            <ui-range min="-100" max="100" value="20" disabled="true">
+              <div>
+                <div></div>
+              </div>
+            </ui-range>
+          </section>
+        </ui-page>
+
+
         <ui-page name="slider">
-          <ui-slider min="-100" max="100" value="-80" name="slider">
-            <div>
-              <div></div>
-            </div>
-          </ui-slider>
-          <ui-slider min="-100" max="100" value="40" disabled="true">
-            <div>
-              <div></div>
-            </div>
-          </ui-slider>
+          <section>
+            <ui-slider min="-100" max="100" value="-80" name="slider">
+              <div>
+                <div></div>
+              </div>
+            </ui-slider>
+            <ui-slider min="-100" max="100" value="40" disabled="true">
+              <div>
+                <div></div>
+              </div>
+            </ui-slider>
+          </section>
         </ui-page>
+
+
         <ui-page name="select">
-          <ui-select>
-            <ui-label></ui-label>
-            <ui-dropdown>
-              <ui-option value="option1">Option 1</ui-option>
-              <ui-option value="option2" selected="true">Option 2</ui-option>
-              <ui-option value="option3">Option 3</ui-option>
-            </ui-dropdown>
-          </ui-select>
-          <ui-select disabled>
-            <ui-label></ui-label>
-            <ui-dropdown>
-              <ui-option value="option1">Option 1</ui-option>
-            </ui-dropdown>
-          </ui-select>
+          <section>
+            <ui-select>
+              <ui-label></ui-label>
+              <ui-dropdown>
+                <ui-option value="option1">Option 1</ui-option>
+                <ui-option value="option2" selected="true">Option 2</ui-option>
+                <ui-option value="option3">Option 3</ui-option>
+              </ui-dropdown>
+            </ui-select>
+            <ui-select disabled>
+              <ui-label></ui-label>
+              <ui-dropdown>
+                <ui-option value="option1">Option 1</ui-option>
+              </ui-dropdown>
+            </ui-select>
+          </section>
         </ui-page>
+
+
         <ui-page name="text">
-          <ui-text placeholder="Text..." name="text"></ui-text>
+          <section>
+           <ui-text placeholder="Text..." name="text"></ui-text>
+          </section>
         </ui-page>
+
         <ui-page name="textarea">
-          <ui-textarea placeholder="Textarea..."></ui-textarea>
+          <section>
+            <ui-textarea placeholder="Textarea..."></ui-textarea>
+          </section>
         </ui-page>
+
+
         <ui-page name="form">
-          <ui-form>
-            <ui-label for="email"></ui-label>
-            <ui-email placeholder="Email" name="email"></ui-email>
-            <input type="password" placeholder="Password" name="password">
-            <ui-color name="color"></ui-color>
-            <ui-button>Submit</ui-button>
-          </ui-form>
+          <section>
+            <ui-form>
+              <ui-label for="email"></ui-label>
+              <ui-email placeholder="Email" name="email"></ui-email>
+              <input type="password" placeholder="Password" name="password">
+              <ui-color name="color"></ui-color>
+              <ui-button>Submit</ui-button>
+            </ui-form>
+          </section>
         </ui-page>
+
+
         <ui-page name="pager">
-           <ui-pager name="test">
-            <ui-page name="page1">Page 1</ui-page>
-            <ui-page active="true">Page 2</ui-page>
-          </ui-pager>
+          <section>
+            <ui-pager name="test">
+              <ui-page name="page1">Page 1</ui-page>
+              <ui-page active="true">Page 2</ui-page>
+            </ui-pager>
+          </section>
         </ui-page>
+
+
         <ui-page name="grid">
-          <ui-grid columns="3">
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-            <ui-cell></ui-cell>
-          </ui-grid>
+          <section>
+            <ui-grid columns="3">
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+              <ui-cell></ui-cell>
+            </ui-grid>
+          </section>
         </ui-page>
       </ui-pager>
     </div>

@@ -5,6 +5,10 @@ class UI.Tooltip extends UI.iOpenable
   # The tagname of the component
   @TAGNAME: 'tooltip'
 
+  # @property [Object] The label of the component
+  @get 'label', -> @textContent
+  @set 'label', (value)-> @textContent = value
+
   # Enter event hanlder
   # @private
   _enter: (e)->
