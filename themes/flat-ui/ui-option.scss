@@ -1,14 +1,20 @@
 ui-option {
+
+  /* DEFAULTS */
   display: block;
-  padding: 0 10px;
-  height: 40px;
-  line-height: 40px;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: #ECF0F1;
   white-space: nowrap;
+  cursor: pointer;
+
+  /* DESIGN */
+  padding: 0 $base-height / 3;
+  height: $base-height;
+  line-height: $base-height;
+  color: $color;
   font-weight: bold;
 
+  /* STATES */
   &:hover {
     background: rgba(255,255,255,0.1);
   }

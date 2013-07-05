@@ -1,51 +1,58 @@
 ui-dropdown {
+
+  /* VARIABLES */
+  $dropdown-gap: 3px;
+  $dropdown-max-height: 200px;
+  $dropdown-z-index: 99999;
+
+  /* DEFAULTS */
   position: absolute;
-  top: 100%;
-  margin-top: 3px;
-  left: 0;
   min-width: 100%;
-  background: rgba(0,0,0,0.85);
   overflow: auto;
   max-height: 0;
-  border-radius: 3px;
-  z-index: 99999;
-  opacity: 0;
-  transform: translateY(5px);
-  pointer-events: none;
-  transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
-  box-shadow: 0 2px 5px rgba(120,120,120,0.5);
   text-shadow: none;
+  pointer-events: none;
+  z-index: $dropdown-z-index;
+  opacity: 0;
 
+  /* DESIGN */
+  transform: translateY($dropdown-gap);
+  background: $opaque-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow;
+  transition: opacity 320ms, transform 320ms, max-height 1ms 320ms;
 
+  /* DEFAULT STATE */
+  margin-top: $dropdown-gap;
+  top: 100%;
+  left: 0;
+
+  /* TOP */
   &[direction=top] {
     top: auto;
     bottom: 100%;
     margin-top: 0;
-    margin-bottom: 3px;
-    transform: translateY(-5px);
+    margin-bottom: $dropdown-gap;
+    transform: translateY(-$dropdown-gap);
   }
 
+  /* STATES */
   &[open] {
-    max-height: 200px;
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 320ms, transform 320ms;
     pointer-events: auto;
+    transform: translateY(0);
+    max-height: $dropdown-max-height;
+    transition: opacity 320ms, transform 320ms;
   }
 
-  & ui-option {
-    cursor: pointer;
-  }
-
+  /* CHILDREN STATES */
   & > *:first-child{
-    border-radius: 3px 3px  0 0;
+    border-radius: $border-radius $border-radius  0 0;
   }
-
   & > *:last-child{
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 $border-radius $border-radius;
   }
-
   & > *:last-child:first-child{
-    border-radius: 3px;
+    border-radius: $border-radius;
   }
 }

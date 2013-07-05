@@ -1,40 +1,36 @@
 ui-radio {
-	background: #95A5A6;
-	width: 30px;
-	height: 30px;
+
+	/* DEFAULTS */
 	display: inline-block;
 	border-radius: 50%;
 	position: relative;
-	cursor: pointer;
-}
-ui-radio:after {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 5px;
-	left: 5px;
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background: #ECF0F1;
-}
-ui-radio:before {
-	content: "";
-	display: block;
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	z-index: 1;
-	background: #95A5A6;
-	display: none;
-}
-ui-radio[checked] {
-	background: #2C3E50;
-}
-ui-radio[checked]:before {
-	background: #2C3E50;
-	display: block;
+
+	/* DESIGN */
+	background-image: radial-gradient($background-color-hover,$background-color);
+	width: $base-height;
+	height: $base-height;
+	box-shadow: $plastic-shadow;
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: $base-height/4;
+		left: $base-height/4;
+		width: $base-height/2;
+		height: $base-height/2;
+		border-radius: 50%;
+		z-index: 1;
+		display: none;
+		background: $color;
+		box-shadow: $shadow;
+	}
+
+	/* STATES */
+	&:not([disabled]) {
+		cursor: pointer;
+	}
+
+	&[checked]:before {
+		display: block;
+	}
 }

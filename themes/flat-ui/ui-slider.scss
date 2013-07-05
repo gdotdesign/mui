@@ -1,34 +1,60 @@
+/* TODO: Fix when node sass supports nested extend */
 ui-slider {
-  height: 12px;
-  margin: 10px 0;
-  background-image: linear-gradient(#3498DB,#3498DB);
-  background-size: 0 100%;
-  background-repeat: no-repeat;
-  min-width: 300px;
-  margin: 0 10px;
+
+  /* VARIABLES */
+  $range-width: 150px;
+  $range-knob-size: 20px;
+  $range-track-color: #777;
+
+  /* DEFAULTS */
   display: inline-block;
   position: relative;
-	cursor: pointer;
-	background-color: #999;
-	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
-	border-radius: 10px;
-}
-ui-slider > *:first-child {
-	position: absolute;
-	top: 0;
-	width: 0;
-	height: 0;
-}
-ui-slider > *:first-child > *:first-child{
-	content: "";
-	display: block;
-	position: relative;
-	left: -10px;
-	top: -4px;
-	width: 20px;
-	height: 20px;
-	background-color: #666;
-	border-radius: 50%;
-	background-image: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,0.4));
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+
+
+  /* STYLE */
+  box-shadow: $inset-shadow;
+  background-color: $range-track-color;
+  height: $base-height/3;
+  border-radius: $base-height/3;
+  min-width: $range-width;
+  margin: 0 $range-knob-size/2;
+  background-image: linear-gradient(#3498DB,#3498DB);
+
+  &> *:first-child {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: $base-height / 3;
+  }
+  /* KNOB */
+  & > *:first-child > *:first-child{
+    content: "";
+    display: block;
+    position: relative;
+    border-radius: 50%;
+
+    left: -$range-knob-size / 2;
+    top: 50%;
+    transform: translateY(-50%);
+    width: $range-knob-size;
+    height: $range-knob-size;
+    box-shadow: $shadow;
+    background-color: $background-color;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: $range-knob-size/4;
+      left: $range-knob-size/4;
+      width: $range-knob-size/2;
+      height: $range-knob-size/2;
+      border-radius: 50%;
+      z-index: 1;
+      background: $color;
+      box-shadow: $shadow;
+    }
+  }
 }

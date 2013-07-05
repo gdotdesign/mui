@@ -1,47 +1,54 @@
 ui-toggle {
-	border-radius: 3px;
+
+	/* VARIABLES */
+	$toggle-width: 100px;
+
+	/* DEFAULTS */
 	overflow: hidden;
-  background-color: #2C3E50;
   display: inline-block;
-  height: 35px;
-  width: 100px;
-	color: #ECF0F1;
-	border: 3px solid #2C3E50;
 	text-align: center;
-	line-height: 29px;
 	position: relative;
 	cursor: pointer;
-}
-
-ui-toggle > * {
-	width: 50%;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
 	font-weight: bold;
-	transition: 320ms;
+
+	/* STYLE */
+	font-size: $font-size;
+  height: $base-height;
+  line-height: $base-height;
+	border-radius: $border-radius;
+  background-color: $background-color;
+  background-image: $gradient;
+  box-shadow: $plastic-shadow, $inset-shadow;
+  text-shadow: $text-shadow;
+  width: $toggle-width;
+	color: $color;
+
+	/* CHILDREN */
+	& > * {
+		width: 50%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		transition: 320ms;
+
+		/* SEPARATOR */
+		&:nth-child(2) {
+			background: $info-color-hover;
+			background-image: $gradient;
+			border-radius: $border-radius - 1px;
+			box-shadow: $shadow-flat;
+			transform: translateX(100%);
+		}
+
+		&:nth-child(3) { transform: translateX(200%) }
+	}
+
+	/* STATES */
+	&[checked] {
+		& > *:nth-child(1) { transform: translateX(-100%)	}
+		& > *:nth-child(2) { transform: translateX(0%)  	}
+		& > *:nth-child(3) { transform: translateX(100%)	}
+	}
 }
 
-ui-toggle > *:nth-child(2) {
-	background: #3498DB;
-	border-radius: 2px;
-	transform: translateX(100%)
-}
-
-ui-toggle > *:nth-child(3) {
-	transform: translateX(200%)
-}
-
-ui-toggle[checked] > *:nth-child(1) {
-	transform: translateX(-100%)
-}
-
-ui-toggle[checked] > *:nth-child(2) {
-	background: #7F8C8D;
-	transform: translateX(0%)
-}
-
-ui-toggle[checked] > *:nth-child(3) {
-	transform: translateX(100%)
-}

@@ -1,50 +1,50 @@
-@keyframes in {
-  from {
-    left: 100%;
-  }
-  to {
-    left: 0;
-  }
+/* ANIMATIONS */
+@keyframes pager-in {
+  from { left: 100%; }
+  to   { left: 0;    }
 }
-
-@keyframes out {
-  from {
-    left: 0%;
-  }
-  to {
-    left: -100%;
-  }
+@keyframes pager-out {
+  from { left: 0%;    }
+  to   { left: -100%; }
 }
 
 ui-pager {
+
+  /* VARIABLES */
+  $pager-width: 320px;
+  $pager-height: 480px;
+
+  /* DEFAULTS */
   display: block;
-  width: 320px;
-  height: 480px;
   position: relative;
   overflow: hidden;
-  background: #333;
-  color: #eee;
 
+  /* DESIGN */
+  background: $background-color;
+  color: $color;
+  width: $pager-width;
+  height: $pager-height;
+
+  /* CHILDREN */
   & ui-page {
     position: absolute;
+    display: block;
     top: 0;
     left: 0;
-    width: 100%;
     bottom: 0;
-    display: block;
+    width: 100%;
     left: 100%;
-    animation: out 1ms 1 both;
+    animation: pager-out 1ms 1 both;
   }
-
   & ui-page[active] {
-    animation: in 1ms 1 both;
+    animation: pager-in 1ms 1 both;
   }
 }
 
+/* STATES */
 body[loaded] ui-page {
-  animation: out 320ms 1 both;
+  animation: pager-out 320ms 1 both;
 }
-
 body[loaded] ui-page[active]  {
-  animation: in 320ms 1 both;
+  animation: pager-in 320ms 1 both;
 }

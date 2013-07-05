@@ -61,11 +61,19 @@
           </ui-button></span>
         </ui-page>
         <ui-page name="tooltip">
-          <ui-button>Hover me!
+          <ui-button node="tooltip" style="margin: 60px">Hover me!
             <ui-tooltip direction="bottom">
-              <div>Tooltip</div>
+              Tooltip
             </ui-tooltip>
           </ui-button>
+
+          <select onchange="this.previousElementSibling.querySelector('ui-tooltip').setAttribute('direction',this.value)">
+            <option>bottom</option>
+            <option>top</option>
+            <option>left</option>
+            <option>right</option>
+          <select>
+
         </ui-page>
         <ui-page name="toggle">
           <ui-toggle>
