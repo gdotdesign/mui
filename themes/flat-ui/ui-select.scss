@@ -3,11 +3,13 @@ ui-select {
   display: inline-block;
   position: relative;
   font-weight: bold;
+  vertical-align: top;
 
   /* STYLE */
   height: $base-height;
   line-height: $base-height - 2px;
   padding: 0 $base-height/2;
+  padding-right: $base-height;
   font-size: $font-size;
   border-radius: $border-radius;
   background-image: $gradient;
@@ -29,6 +31,9 @@ ui-select {
     content: "\f0dc";
     font-family: FontAwesome;
     font-size: $font-size - 2px;
-    margin-left: $base-height / 5;
+    position: absolute;
+    top: 50%;
+    right: $base-height/2;
+    transform: translateY(-50%)
   }
 }

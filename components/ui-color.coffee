@@ -173,6 +173,7 @@ class UI.Color extends UI.Text
 
     @addEventListener UI.Events.action, (e)->
       e.stopPropagation()
+      return if @disabled
       ColorPicker.show @
 
     @addEventListener UI.Events.keypress, (e)->

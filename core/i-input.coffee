@@ -8,6 +8,10 @@ class UI.iInput extends UI.Abstract
   @get 'value', ->  @textContent
   @set 'value', (value)-> @textContent = value
 
+  # @property [String] value The placeholder of the component
+  @get 'placeholder', ->  @getAttribute('placeholder')
+  @set 'placeholder', (value)-> @setAttribute 'placeholder', value
+
   # @property [Boolean] The component is disabled or not
   @get 'disabled', -> @hasAttribute 'disabled'
   @set 'disabled', (value) ->

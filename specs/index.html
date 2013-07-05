@@ -3,11 +3,15 @@
   <head>
     <link rel="stylesheet" type="text/css" href="/assets/flat-ui/theme.css">
     <script type="text/javascript" src="/assets/mui.js"></script>
-    <script type="text/javascript" src="/assets/specs.js"></script>
     <link rel="stylesheet" type="text/css" href="/assets/specs.scss">
+
+    <link rel='stylesheet' type='text/css' href='/assets/tomorrow.css'>
+    <script type='text/javascript' src='/assets/highlight.pack.js'></script>
+
+    <script type="text/javascript" src="/assets/specs.js"></script>
+    <title>MUI - Kitchen Sink / Specs</title>
   </head>
   <body>
-    <h1>MUI - Kitchen Sink / Specs</h1>
     <div class="container">
       <ul>
         <li target="button" class="active">Button</li>
@@ -31,11 +35,16 @@
 
         <ui-page active="true" name="button">
           <section>
-            <div class="showcase"><ui-button>Default button</ui-button></div>
-            <div class="controls"></div>
+            <ui-button>Default button</ui-button>
           </section>
+          <pre><code class="html">
+&lt;ui-button type="info"&gt;Info&lt;/ui-button&gt;
+&lt;ui-button type="danger"&gt;Danger&lt;/ui-button&gt;
+&lt;ui-button type="warning"&gt;Warning&lt;/ui-button&gt;
+&lt;ui-button type="success"&gt;Success&lt;/ui-button&gt;
+&lt;ui-button disabled="true"&gt;Disabled&lt;/ui-button&gt;
+          </code></pre>
         </ui-page>
-
 
         <ui-page name="modal">
           <section>
@@ -47,44 +56,92 @@
               </div>
             </ui-modal>
           </section>
+          <pre><code class="html">
+&lt;ui-modal&gt;
+  &lt;div&gt;
+    &lt;h3&gt;Content&lt;/h3&gt;
+    &lt;ui-button&gt;Close&lt;/ui-button&gt;
+  &lt;/div&gt;
+&lt;/ui-modal&gt;
+          </code></pre>
         </ui-page>
-
 
         <ui-page name="color">
           <section>
             <ui-color></ui-color>
           </section>
+          <pre><code class="html">
+&lt;ui-color&gt;&lt;/ui-color&gt;
+&lt;ui-color value="#FF0000"&gt;&lt;/ui-color&gt;
+&lt;ui-color value="rgba(0,0,0,0.2)"&gt;&lt;/ui-color&gt;
+&lt;ui-color value="hsla(0,100%,100%,0.2)"&gt;&lt;/ui-color&gt;
+          </code></pre>
         </ui-page>
 
 
         <ui-page name="checkbox">
           <section>
-            <div class="showcase"><ui-checkbox></ui-checkbox></div>
+            <ui-checkbox></ui-checkbox>
           </section>
+          <pre><code class="html">
+&lt;ui-checkbox&gt;&lt;/ui-checkbox&gt;
+&lt;ui-checkbox checked="true"&gt;&lt;/ui-checkbox&gt;
+&lt;ui-checkbox disabled="true"&gt;&lt;/ui-checkbox&gt;
+          </code></pre>
         </ui-page>
 
 
         <ui-page name="dropdown">
           <section>
-            <div class="showcase"><ui-button type="inverse"><span>Click me!</span>
+            <ui-button type="inverse">
+              <span>Click me!</span>
               <ui-dropdown>
                 <ui-option>Option 1</ui-option>
               </ui-dropdown><i class="icon-chevron-down"></i>
-            </ui-button></div>
+            </ui-button>
           </section>
+          <pre><code class="html">
+&lt;ui-button type="inverse"&gt;
+  &lt;span&gt;Click me!&lt;/span&gt;
+  &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+  &lt;ui-dropdown&gt;
+    &lt;ui-option&gt;Option 1&lt;/ui-option&gt;
+  &lt;/ui-dropdown&gt;
+&lt;/ui-button&gt;
+
+&lt;ui-button type="info"&gt;
+  &lt;span&gt;Screen Size&lt;/span&gt;
+  &lt;i class="icon-chevron-down"&gt;&lt;/i&gt;
+  &lt;ui-dropdown&gt;
+    &lt;ui-option&gt;1280x720&lt;/ui-option&gt;
+    &lt;ui-option&gt;1920x1020&lt;/ui-option&gt;
+  &lt;/ui-dropdown&gt;
+&lt;/ui-button&gt;
+          </code></pre>
         </ui-page>
 
 
         <ui-page name="tooltip">
           <section>
-            <div class="showcase">
-              <ui-button node="tooltip">Hover me!
-                <ui-tooltip direction="bottom">
-                  Tooltip
-                </ui-tooltip>
-              </ui-button>
-            </div>
+            <ui-button node="tooltip">Hover me!
+              <ui-tooltip direction="bottom">
+                Tooltip
+              </ui-tooltip>
+            </ui-button>
           </section>
+          <pre><code class="html">
+&lt;ui-button node="tooltip"&gt;Hover me!
+  &lt;ui-tooltip direction="bottom"&gt;
+    Tooltip
+  &lt;/ui-tooltip&gt;
+&lt;/ui-button&gt;
+
+&lt;ui-button node="tooltip"&gt;Hover me!
+  &lt;ui-tooltip direction="left"&gt;
+    Tooltip
+  &lt;/ui-tooltip&gt;
+&lt;/ui-button&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -95,23 +152,17 @@
               <div></div>
               <div>OFF</div>
             </ui-toggle>
-            <ui-toggle checked="true" disabled="true">
-              <div>ON</div>
-              <div></div>
-              <div>OFF</div>
-            </ui-toggle>
           </section>
         </ui-page>
 
 
         <ui-page name="radio">
           <section>
-            <ui-radio name="radio"></ui-radio>
-            <ui-radio name="radio" checked="true"></ui-radio>
-            <ui-radio name="radio"></ui-radio>
-            <div class="separator"></div>
-            <ui-radio disabled="true"></ui-radio>
-            <ui-radio checked="true" disabled="true"></ui-radio>
+            <div>
+              <ui-radio name="radio"></ui-radio>
+              <ui-radio name="radio" checked="true"></ui-radio>
+              <ui-radio name="radio"></ui-radio>
+            </div>
           </section>
         </ui-page>
 
@@ -123,11 +174,6 @@
                 <div></div>
               </div>
             </ui-range>
-            <ui-range min="-100" max="100" value="20" disabled="true">
-              <div>
-                <div></div>
-              </div>
-            </ui-range>
           </section>
         </ui-page>
 
@@ -135,11 +181,6 @@
         <ui-page name="slider">
           <section>
             <ui-slider min="-100" max="100" value="-80" name="slider">
-              <div>
-                <div></div>
-              </div>
-            </ui-slider>
-            <ui-slider min="-100" max="100" value="40" disabled="true">
               <div>
                 <div></div>
               </div>
@@ -156,12 +197,6 @@
                 <ui-option value="option1">Option 1</ui-option>
                 <ui-option value="option2" selected="true">Option 2</ui-option>
                 <ui-option value="option3">Option 3</ui-option>
-              </ui-dropdown>
-            </ui-select>
-            <ui-select disabled>
-              <ui-label></ui-label>
-              <ui-dropdown>
-                <ui-option value="option1">Option 1</ui-option>
               </ui-dropdown>
             </ui-select>
           </section>

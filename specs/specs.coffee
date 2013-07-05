@@ -53,6 +53,15 @@ Controls =
     close: ->
     toggle: ->
     disabled: false
+  color:
+    value: "#f00"
+    disabled: false
+  modal:
+    target: -> document.querySelector('ui-modal')
+    open: ->
+    close: ->
+    toggle: ->
+    disabled: false
   button:
     type: ['default','info','success','warning','danger','inverse']
     label: 'Button'
@@ -61,17 +70,30 @@ Controls =
     checked: true
     disabled: false
     toggle: ->
+  toggle:
+    checked: true
+    disabled: false
+    toggle: ->
   tooltip:
+    label: 'Tooltip'
+    direction: ['bottom', 'top', 'left', 'right']
     disabled: false
     open: ->
     close: ->
     toggle: ->
-    label: 'Tooltip'
-    direction: ['bottom', 'top', 'left', 'right']
+  textarea:
+    placeholder: 'Textarea...'
+    value: ''
+    disabled: false
 
 UI.initialize()
+
 window.addEventListener 'load', ->
   Test.run()
+
+  for code in document.querySelectorAll('code')
+    code.innerHTML = code.innerHTML.trim()
+
   document.querySelector('.container').style.display = "block"
   pager = document.querySelector(UI.Pager.SELECTOR())
 
@@ -84,10 +106,24 @@ window.addEventListener 'load', ->
 
   for name, controls of Controls
     do (name, controls) ->
+      p = document.querySelector("ui-page[name=#{name}]")
       page = document.querySelector("ui-page[name=#{name}] section")
-      element = page.querySelector("ui-#{name}")
+      dl = document.createElement('dl')
+      code = document.createElement('code')
+      code.classList.add 'html'
+      p.appendChild dl
+      if controls.target
+        element = controls.target()
+        delete controls.target
+      else
+        element = page.querySelector("ui-#{name}")
       for key, value of controls
         do (key, value) ->
+          dt = document.createElement 'dt'
+          label = UI.Label.create()
+          label.textContent = key
+          dt.appendChild label
+          dd = document.createElement 'dd'
           if value instanceof Function
             btn = UI.Button.create()
             btn.label = key
@@ -95,28 +131,31 @@ window.addEventListener 'load', ->
             btn.addEventListener UI.Events.action, (e)->
               e.stopPropagation()
               element[key]()
-            page.appendChild btn
+            dd.appendChild btn
           else if typeof value is 'boolean'
             toggle = UI.Toggle.create()
             toggle.value = element[key] = value
+            element.addEventListener 'change', ->
+              toggle.value = element[key]
             toggle.addEventListener 'change', ->
               element[key] = toggle.value
-            page.appendChild toggle
+            dd.appendChild toggle
           else if typeof value is 'string'
             input = UI.Text.create()
             input.value = value
             element[key] = value
             input.addEventListener 'input', ->
               element[key] = input.value
-            page.appendChild input
+            dd.appendChild input
           else if value.length
             select = UI.Select.create()
             for item in value
               select.dropdown.appendChild UI.Option.create(item)
             select.addEventListener 'change', ->
               element[key] = select.value
-            page.appendChild select
+            dd.appendChild select
+          dl.appendChild dt
+          dl.appendChild dd
 
-
-
-
+hljs.tabReplace = '    '
+hljs.initHighlightingOnLoad()

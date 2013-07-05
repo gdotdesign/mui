@@ -84,6 +84,7 @@ ui-input, input[type=password] {
 
   border-radius: $border-radius;
   font-size: $font-size;
+  line-height: $font-size;
 
   &:focus {
     outline: none;
