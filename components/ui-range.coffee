@@ -30,7 +30,7 @@ class UI.Range extends UI.Abstract
   # @property [Number] The value of the component
   @get 'value', ->
     percent = parseFloat @knob.style.left
-    @range*(percent/100)+@min
+    Math.round(@range*(percent/100)+@min)
   @set 'value', (value)->
     value = parseFloat(value).clamp(@min,@max)
     return if @value is value

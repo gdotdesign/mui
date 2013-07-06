@@ -81,9 +81,30 @@ Controls =
     open: ->
     close: ->
     toggle: ->
+  text:
+    placeholder: 'Text...'
+    value: ''
+    disabled: false
   textarea:
     placeholder: 'Textarea...'
     value: ''
+    disabled: false
+  radio:
+    checked: true
+    disabled: false
+    toggle: ->
+  range:
+    min: -100
+    max: 100
+    value: 0
+    disabled: false
+  slider:
+    min: -100
+    max: 100
+    value: 0
+    disabled: false
+  select:
+    value: ['option1', 'option2', 'option4']
     disabled: false
 
 UI.initialize()
@@ -140,10 +161,13 @@ window.addEventListener 'load', ->
             toggle.addEventListener 'change', ->
               element[key] = toggle.value
             dd.appendChild toggle
-          else if typeof value is 'string'
+          else if typeof value is 'string' or typeof value is 'number'
             input = UI.Text.create()
             input.value = value
             element[key] = value
+            if key is 'value'
+              element.addEventListener 'change', ->
+                input.value = element[key]
             input.addEventListener 'input', ->
               element[key] = input.value
             dd.appendChild input
@@ -153,6 +177,9 @@ window.addEventListener 'load', ->
               select.dropdown.appendChild UI.Option.create(item)
             select.addEventListener 'change', ->
               element[key] = select.value
+            if key is 'value'
+              element.addEventListener 'change', ->
+                select.value = element[key]
             dd.appendChild select
           dl.appendChild dt
           dl.appendChild dd
