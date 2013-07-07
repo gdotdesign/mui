@@ -2,22 +2,24 @@
 <html>
   <head>
     <title>MUI - Modern Interfaces</title>
+
+    <!-- Load MUI -->
     <link rel='stylesheet' type='text/css' href='/assets/default/theme.css'/>
     <script type='text/javascript' src='/assets/mui.js'></script>
 
-    <link rel='stylesheet' type='text/css' href='/assets/tomorrow.css'>
-    <script type='text/javascript' src='/assets/highlight.pack.js'></script>
+    <!-- Load Static assets -->
+    <link rel='stylesheet' type='text/css' href='/assets/static/tomorrow.css'>
+    <script type='text/javascript' src='/assets/static/highlight.pack.js'></script>
 
+    <!-- Load page styles & css -->
     <link rel='stylesheet' type='text/css' href='/assets/index.css'>
     <script type='text/javascript' src='/assets/index.js'></script>
   </head>
   <body>
-    <a href="/docs">Documentation</a>
-    <a href="/specs">Specs</a>
     <div class="sidebar">
       <div class="logo">
         MUI
-        <span>0.2.0</span>
+        <span>0.1.0-RC1</span>
       </div>
       <ul>
         <li target="quickstart">
@@ -67,7 +69,7 @@
         <section>
           <h2>MUI</h2>
           <p>MUI is a JS libarary / framework for creating uniform User Interface elements. Uniform as in it acts and looks the same in every browser, platform, environment (touch / mouse / pointer).</p>
-          <p>If you are sick of jQuery plugins that doesn't work half the time, or doesn't understand how big frameworks (Ember, Angular) works, this is for you.</p>
+          <p>If you are sick of jQuery plugins that doesn't work half the time, or doesn't understand how big libraries (Ember, Angular) works, this is for you.</p>
           <h4>How is it different from Polymer / X-Tag ?</h4>
           <ul>
             <li>It doesn't require any experimental techonolgy (web components, shadow-dom, scoped styles).</li>
@@ -82,8 +84,8 @@
           <p><a href="https://saucelabs.com/u/gdotdesign"><img src="https://saucelabs.com/browser-matrix/gdotdesign.svg" alt="SauceLabs Test Status"></a></p>
           <h3>Quickstart</h3>
           <p>Just load the Javascript and CSS:</p>
-          <pre><code class="html">&lt;link rel='stylesheet' type='text/css' href='http://mui.org/assets/flat-ui/theme.css'/&gt;
-&lt;script type='text/javascript' src='http://mui.org/assets/mui.js'&gt;&lt;/script&gt;</code></pre>
+          <pre><code class="html">&lt;link rel='stylesheet' type='text/css' href='http://m-ui.org/assets/default/theme.css'/&gt;
+&lt;script type='text/javascript' src='http://m-ui.org/assets/mui.js'&gt;&lt;/script&gt;</code></pre>
           <p>You are good to go, you can now use the Standard Components:</p>
           <pre><code>&lt;ui-button&gt;Button&lt;/ui-button&gt;
 &lt;ui-checkbox&gt;&lt;/ui-checkbox&gt;</code></pre>
@@ -95,7 +97,8 @@
           <p>In MUI every component is basically a custom HTML Element. You can create as many elements as you like and they will behave exactly as you expect. The structure of a component is fairly simple, it consits of three parts described below.</p>
           <h4>CoffeeScript Class</h4>
           <pre><code class="coffeescript"># A Component is a CoffeeScript class that extends UI.Abstract
-# or any other component
+# or any other component,
+# and it must be created in the UI object
 class UI.Modal extends UI.Abstract
   # This specifies the tagname for the component
   # but remember that tagnames are namespaced
@@ -138,7 +141,7 @@ class UI.Modal extends UI.Abstract
   transition: opacity 600ms, z-index 1ms 600ms;
 }
 ui-modal[disabled] {
-    opacity: 0;
+  opacity: 0;
 }
 ui-modal[open] {
   opacity: 1;

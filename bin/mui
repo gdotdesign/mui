@@ -19,6 +19,7 @@ nconf.argv
     describe: 'Runs specs on saucelabs.'
 
 if nconf.get('doc')
+  console.log 'Generating documentation...\n'
   codo = require('codo')
   codo.run()
 else if nconf.get('server')
@@ -46,7 +47,7 @@ else if nconf.get('server')
   app.use "/assets", Mincer.createServer(environment)
   app.listen(process.env.PORT || 4000)
 
-  console.log 'MUI running on port 4000...'
+  console.log 'MUI developmen server running on port 4000...'
 else if nconf.get('test')
   request   = require "request"
   async     = require "async"

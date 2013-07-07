@@ -4,6 +4,7 @@
 UI =
   verbose: false
   namespace: 'ui'
+  version: '0.1.0-RC1'
   # Loads components (first initialization)
   load: (base = document)->
     for key, value of UI

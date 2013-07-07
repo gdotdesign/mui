@@ -13,6 +13,7 @@ ui-form {
 
   /* CHILDREN */
   ui-label, ui-input, ui-color, input[type=password] {
+    display: block;
     margin-bottom: $form-element-margin !important;
     width: 100%;
   }

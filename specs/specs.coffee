@@ -117,8 +117,6 @@ Controls =
     method: ['post','put','get','patch','delete']
     submit: ->
 
-UI.initialize()
-
 window.addEventListener 'load', ->
   Test.run()
 

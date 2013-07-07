@@ -10,10 +10,10 @@ ui-select {
   line-height: $base-height - 2px;
   transition: $transition-normal;
   border-radius: $border-radius;
+  padding: 0 $base-height/2;
   padding-right: $base-height;
   background-image: $gradient;
   box-shadow: $plastic-shadow;
-  padding: 0 $base-height/2;
   text-shadow: $text-shadow;
   font-size: $font-size;
   height: $base-height;
