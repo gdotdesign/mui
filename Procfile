@@ -1,1 +1,1 @@
-web: coffee bin/server.coffee
+web: coffee bin/mui -s
