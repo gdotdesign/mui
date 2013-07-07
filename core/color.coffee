@@ -60,6 +60,7 @@ class Color
   # @param [String] color The string representation of the color
   # @throw [Error] When the color is incorrect
   constructor: (color = "FFFFFF") ->
+    color = "FFFFFF" unless color.trim()
     color = "rgba(0,0,0,0)" if color is 'transparent'
     color = color.trim().toString()
     color = color.replace /\s/g, ''
