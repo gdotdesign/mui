@@ -193,6 +193,20 @@
               </div>
             </ui-range>
           </section>
+          <pre><code class="html">
+&lt;ui-range min="-100" max="100" value="0"&gt;
+  &lt;!-- Knob --&gt;
+  &lt;div&gt;
+    &lt;div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ui-range&gt;
+
+&lt;ui-range min="0" max="100" value="25"&gt;
+  &lt;div&gt;
+    &lt;div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ui-range&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -204,6 +218,20 @@
               </div>
             </ui-slider>
           </section>
+          <pre><code class="html">
+&lt;ui-slider min="-100" max="100" value="0"&gt;
+  &lt;!-- Knob --&gt;
+  &lt;div&gt;
+    &lt;div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ui-slider&gt;
+
+&lt;ui-slider min="0" max="100" value="25"&gt;
+  &lt;div&gt;
+    &lt;div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ui-slider&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -218,6 +246,19 @@
               </ui-dropdown>
             </ui-select>
           </section>
+          <pre><code class="html">
+&lt;ui-select&gt;
+  &lt;!-- Label --&gt;
+  &lt;ui-label&gt;&lt;/ui-label&gt;
+  &lt;!-- Dropdown --&gt;
+  &lt;ui-dropdown&gt;
+    &lt;!-- Options --&gt;
+    &lt;ui-option value="option1"&gt;Option 1&lt;/ui-option&gt;
+    &lt;ui-option value="option2" selected="true"&gt;Option 2&lt;/ui-option&gt;
+    &lt;ui-option value="option3"&gt;Option 3&lt;/ui-option&gt;
+  &lt;/ui-dropdown&gt;
+&lt;/ui-select&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -225,25 +266,42 @@
           <section>
            <ui-text placeholder="Text..." name="text"></ui-text>
           </section>
+          <pre><code class="html">
+&lt;ui-text placeholder="Text..." name="text"&gt;&lt;/ui-text&gt;
+&lt;ui-text placeholder="Text..." name="text"&gt;Value&lt;/ui-text&gt;
+          </code></pre>
         </ui-page>
 
         <ui-page name="textarea">
           <section>
             <ui-textarea placeholder="Textarea..."></ui-textarea>
           </section>
+          <pre><code class="html">
+&lt;ui-textarea placeholder="Textarea..." name="textarea"&gt;&lt;/ui-text&gt;
+&lt;ui-textarea placeholder="Textarea..." name="textarea"&gt;Value&lt;/ui-text&gt;
+          </code></pre>
         </ui-page>
 
 
         <ui-page name="form">
           <section>
             <ui-form>
-              <ui-label for="email"></ui-label>
+              <ui-label for="email">Email</ui-label>
               <ui-email placeholder="Email" name="email"></ui-email>
+              <ui-label for="password">Password</ui-label>
               <input type="password" placeholder="Password" name="password">
-              <ui-color name="color"></ui-color>
-              <ui-button>Submit</ui-button>
+              <ui-button onclick="this.parentNode.submit()">Submit</ui-button>
             </ui-form>
           </section>
+          <pre><code class="html">
+&lt;ui-form&gt;
+  &lt;ui-label for="email"&gt;Email&lt;/ui-label&gt;
+  &lt;ui-email placeholder="Email" name="email"&gt;&lt;/ui-email&gt;
+  &lt;ui-label for="password"&gt;Password&lt;/ui-label&gt;
+  &lt;input type="password" placeholder="Password" name="password"&gt;
+  &lt;ui-button onclick="this.parentNode.submit()"&gt;Submit&lt;/ui-button&gt;
+&lt;/ui-form&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -251,9 +309,15 @@
           <section>
             <ui-pager name="test">
               <ui-page name="page1">Page 1</ui-page>
-              <ui-page active="true">Page 2</ui-page>
+              <ui-page name="page2" active="true">Page 2</ui-page>
             </ui-pager>
           </section>
+          <pre><code class="html">
+&lt;ui-pager name="test"&gt;
+  &lt;ui-page name="page1" active="true"&gt;Page 1&lt;/ui-page&gt;
+  &lt;ui-page name="page2"&gt;Page 2&lt;/ui-page&gt;
+&lt;/ui-pager&gt;
+          </code></pre>
         </ui-page>
 
 
@@ -271,6 +335,19 @@
               <ui-cell></ui-cell>
             </ui-grid>
           </section>
+          <pre><code class="html">
+&lt;ui-grid columns="3"&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+  &lt;ui-cell&gt;Cell&lt;/ui-cell&gt;
+&lt;/ui-grid&gt;
+          </code></pre>
         </ui-page>
       </ui-pager>
     </div>

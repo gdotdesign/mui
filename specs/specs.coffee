@@ -106,11 +106,27 @@ Controls =
   select:
     value: ['option1', 'option2', 'option4']
     disabled: false
+  pager:
+    next: ->
+    prev: ->
+    activePage: ['page1','page2']
+  grid:
+    columns: 3
+  form:
+    action: '/upload'
+    method: ['post','put','get','patch','delete']
+    submit: ->
 
 UI.initialize()
 
 window.addEventListener 'load', ->
   Test.run()
+
+  form = document.querySelector('ui-form')
+  form.addEventListener 'submit', (e)->
+    e.preventDefault()
+    data = "#{@method.toUpperCase()}::#{@action} -> #{JSON.stringify(@data)}"
+    alert(data)
 
   for code in document.querySelectorAll('code')
     code.innerHTML = code.innerHTML.trim()
@@ -166,6 +182,8 @@ window.addEventListener 'load', ->
             input.value = value
             element[key] = value
             if key is 'value'
+              element.addEventListener 'input', ->
+                input.value = element[key]
               element.addEventListener 'change', ->
                 input.value = element[key]
             input.addEventListener 'input', ->
@@ -177,6 +195,9 @@ window.addEventListener 'load', ->
               select.dropdown.appendChild UI.Option.create(item)
             select.addEventListener 'change', ->
               element[key] = select.value
+            if key is 'activePage'
+              element.addEventListener 'change', ->
+                select.value = element[key].getAttribute('name')
             if key is 'value'
               element.addEventListener 'change', ->
                 select.value = element[key]

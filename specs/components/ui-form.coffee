@@ -7,15 +7,13 @@ Test.add 'Form', ->
     obj = form.data
     @assert obj.email is undefined
     @assert obj.password is undefined
-    @assert obj.color is "#FFFFFF"
 
   @case "Data should return elements with value", ->
-    email.value = "cyber.gusztav@gmail.com"
+    email.value = "test@user.com"
     password.value = "123456"
     obj = form.data
-    @assert obj.email is "cyber.gusztav@gmail.com"
+    @assert obj.email is "test@user.com"
     @assert obj.password is "123456"
-    @assert obj.color is "#FFFFFF"
 
   @case "Method should return get if not specified", ->
     @assert form.method is "get"
