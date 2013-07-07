@@ -38,7 +38,7 @@ else if nconf.get('server')
   environment.appendPath('core')
   environment.appendPath('components')
   environment.appendPath('themes')
-  environment.appendPath('vendor')
+  environment.appendPath('polyfills')
   environment.appendPath('specs')
 
   app = connect()
