@@ -1,0 +1,52 @@
+ui-dropdown {
+
+  /* VARIABLES */
+  $dropdown-max-height: 200px;
+  $dropdown-z-index: 99999;
+  $dropdown-gap: 3px;
+
+  /* DEFAULTS */
+  z-index: $dropdown-z-index;
+  pointer-events: none;
+  position: absolute;
+  text-shadow: none;
+  min-width: 100%;
+  overflow: auto;
+  max-height: 0;
+  opacity: 0;
+
+  /* STYLES */
+  transition: opacity $transition-short, transform $transition-short, max-height 1ms $transition-short;
+  transform: translateY($dropdown-gap);
+  border-radius: $border-radius;
+  background: $opaque-color;
+  box-shadow: $shadow;
+
+  /* DEFAULT STATE */
+  margin-top: $dropdown-gap;
+  top: 100%;
+  left: 0;
+
+  /* TOP */
+  &[direction=top] {
+    transform: translateY(-$dropdown-gap);
+    margin-bottom: $dropdown-gap;
+    margin-top: 0;
+    bottom: 100%;
+    top: auto;
+  }
+
+  /* STATES */
+  &[open] {
+    transition: opacity $transition-short, transform $transition-short;
+    max-height: $dropdown-max-height;
+    transform: translateY(0);
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  /* CHILDREN STATES */
+  & > *:first-child             { border-radius: $border-radius $border-radius  0 0; }
+  & > *:last-child              { border-radius: 0 0 $border-radius $border-radius;  }
+  & > *:last-child:first-child  { border-radius: $border-radius;                     }
+}

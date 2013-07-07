@@ -11,40 +11,34 @@
 ui-pager {
 
   /* VARIABLES */
-  $pager-width: 320px;
   $pager-height: 480px;
+  $pager-width: 320px;
 
   /* DEFAULTS */
-  display: block;
   position: relative;
   overflow: hidden;
+  display: block;
 
-  /* DESIGN */
+  /* STYLES */
   background: $background-color;
-  color: $color;
-  width: $pager-width;
   height: $pager-height;
+  width: $pager-width;
+  color: $color;
 
   /* CHILDREN */
   & ui-page {
+    animation: pager-out 1ms 1 both;
     position: absolute;
     display: block;
-    top: 0;
-    left: 0;
-    bottom: 0;
     width: 100%;
     left: 100%;
-    animation: pager-out 1ms 1 both;
+    bottom: 0;
+    left: 0;
+    top: 0;
   }
-  & ui-page[active] {
-    animation: pager-in 1ms 1 both;
-  }
+  & ui-page[active] { animation: pager-in 1ms 1 both; }
 }
 
 /* STATES */
-body[loaded] ui-page {
-  animation: pager-out 320ms 1 both;
-}
-body[loaded] ui-page[active]  {
-  animation: pager-in 320ms 1 both;
-}
+body[loaded] ui-page          { animation: pager-out $transition-normal 1 both; }
+body[loaded] ui-page[active]  { animation: pager-in $transition-normal 1 both;  }

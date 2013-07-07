@@ -1,0 +1,15 @@
+ui-color {
+  @extend ui-input;
+
+  /* VARIABLES */
+  $color-width: 100px;
+
+  /* STYLES */
+  width: $color-width;
+  text-align: center;
+
+  /* STATES */
+  &:focus { @extend ui-input:focus;}
+  &:empty:after { @extend ui-input:empty:after; }
+  &:before { content: "#" }
+}

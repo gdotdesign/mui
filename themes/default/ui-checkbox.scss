@@ -1,0 +1,30 @@
+ui-checkbox {
+
+  /* DEFAULTS */
+  display: inline-block;
+  text-align: center;
+
+  /* STYLES */
+  background-color: $background-color;
+  text-shadow: $text-shadow-inverse;
+  transition: $transition-normal;
+  border-radius: $border-radius;
+  color: rgba(255,255,255,0.3);
+  box-shadow: $plastic-shadow;
+  background-image: $gradient;
+  line-height: $base-height;
+  font-size: $font-size;
+  height: $base-height;
+  width: $base-height;
+
+  /* STATES */
+  &:not([disabled]){ cursor: pointer; }
+  &:not([disabled]):hover { background-color: $background-color-hover; }
+  &[checked]{ color: $color; }
+
+  /* CHECKMARK */
+  &:after{
+    font-family: FontAwesome;
+    content: "\f00c";
+  }
+}

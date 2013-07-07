@@ -1,0 +1,36 @@
+ui-select {
+  /* DEFAULTS */
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  font-weight: bold;
+
+  /* STYLES */
+  background-color: $background-color;
+  line-height: $base-height - 2px;
+  transition: $transition-normal;
+  border-radius: $border-radius;
+  padding-right: $base-height;
+  background-image: $gradient;
+  box-shadow: $plastic-shadow;
+  padding: 0 $base-height/2;
+  text-shadow: $text-shadow;
+  font-size: $font-size;
+  height: $base-height;
+  color: $color;
+
+  /* STATES */
+  &:not([disabled]){ cursor: pointer; }
+  &:not([disabled]):hover { background-color: $background-color-hover; }
+
+  /* TOGGLE ICON */
+  &:after {
+    font-size: $font-size - 2px;
+    transform: translateY(-50%);
+    font-family: FontAwesome;
+    right: $base-height/2;
+    position: absolute;
+    content: "\f0dc";
+    top: 50%;
+  }
+}

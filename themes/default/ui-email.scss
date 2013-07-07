@@ -1,0 +1,5 @@
+ui-email {
+  @extend ui-input;
+  &:focus { @extend ui-input:focus; }
+  &:empty:after { @extend ui-input:empty:after; }
+}

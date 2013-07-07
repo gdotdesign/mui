@@ -1,0 +1,19 @@
+ui-form {
+
+  /* VARIABLES */
+  $form-element-margin: 10px;
+  $form-background: #fff;
+  $form-padding: 20px;
+
+  /* STYLES */
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2) inset, 0 0 0 1px rgba(0,0,0,0.2);
+  background: $form-background;
+  padding: $form-padding;
+  border: 5px solid #eee;
+
+  /* CHILDREN */
+  ui-label, ui-input, ui-color, input[type=password] {
+    margin-bottom: $form-element-margin !important;
+    width: 100%;
+  }
+}

@@ -1,0 +1,31 @@
+ui-radio {
+
+  /* DEFAULTS */
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+
+  /* STYLES */
+  background-image: radial-gradient($background-color-hover,$background-color);
+  box-shadow: $plastic-shadow;
+  height: $base-height;
+  width: $base-height;
+
+  &:before {
+    height: $base-height/2;
+    width: $base-height/2;
+    left: $base-height/4;
+    top: $base-height/4;
+    box-shadow: $shadow;
+    position: absolute;
+    border-radius: 50%;
+    background: $color;
+    display: none;
+    content: "";
+    z-index: 1;
+  }
+
+  /* STATES */
+  &:not([disabled]) { cursor: pointer; }
+  &[checked]:before { display: block;  }
+}

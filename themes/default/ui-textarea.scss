@@ -1,0 +1,11 @@
+ui-textarea {
+  @extend ui-input;
+
+  /* DEFAULTS */
+  min-height:  200px;
+  overflow: auto;
+  resize: both;
+
+  &:focus { @extend ui-input:focus; }
+  &:empty:after { @extend ui-input:empty:after; }
+}

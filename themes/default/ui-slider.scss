@@ -1,0 +1,63 @@
+/* TODO: Fix when node sass supports nested extend */
+ui-slider {
+
+  /* VARIABLES */
+  $slider-track-color: #777;
+  $slider-knob-size: 20px;
+  $slider-width: 150px;
+
+  /* DEFAULTS */
+  background-repeat: no-repeat;
+  background-size: 0 100%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+
+  /* STYLES */
+  background-image: linear-gradient(90deg, $info-color,$info-color-hover);
+  background-color: $slider-track-color;
+  border-radius: $base-height/3;
+  margin: 0 $slider-knob-size/2;
+  box-shadow: $inset-shadow;
+  min-width: $slider-width;
+  height: $base-height/3;
+
+  &> *:first-child {
+    height: $base-height / 3;
+    position: absolute;
+    width: 0;
+    top: 0;
+  }
+
+  /* KNOB */
+  & > *:first-child > *:first-child{
+
+    /* DEFAULTS */
+    position: relative;
+    display: block;
+    content: "";
+
+    /* STYLES */
+    background-color: $background-color;
+    left: -$slider-knob-size / 2;
+    transform: translateY(-50%);
+    height: $slider-knob-size;
+    width: $slider-knob-size;
+    box-shadow: $shadow;
+    border-radius: 50%;
+    top: 50%;
+
+    &:before {
+      height: $slider-knob-size/2;
+      width: $slider-knob-size/2;
+      left: $slider-knob-size/4;
+      top: $slider-knob-size/4;
+      box-shadow: $shadow;
+      position: absolute;
+      border-radius: 50%;
+      background: $color;
+      content: "";
+      z-index: 1;
+    }
+  }
+}

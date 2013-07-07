@@ -1,0 +1,42 @@
+ui-input, input[type=password] {
+
+  /* VARIABLES */
+  $input-placeholder-color: #bbb;
+  $input-color: $background-color;
+  $input-background: #fcfcfc;
+  $input-width: 300px;
+
+  /* DEFAULTS */
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  position: relative;
+  user-select: auto;
+  overflow: hidden;
+
+  /* STYLES */
+  box-shadow: 0 0 5px rgba(0,0,0,0.2) inset, 0 0 0 1px #fff, 0 0 10px rgba(0,0,0,0.2);
+  border: 1px solid rgba(0,0,0,0.2);
+  background: $input-background;
+  border-radius: $border-radius;
+  padding: $base-height / 4;
+  line-height: $font-size;
+  font-size: $font-size;
+  width: $input-width;
+  color: $input-color;
+
+  /* STATES */
+  &:focus {
+    box-shadow: 0 0 5px rgba($info-color-hover,0.7) inset, 0 0 0 1px rgba(#fff,0.6), 0 0 10px rgba($info-color-hover,0.7);
+    border-color: $info-color-hover;
+    outline: none;
+  }
+  &:empty:after {
+    content: attr(placeholder);
+    color: $input-placeholder-color;
+  }
+  &[type=password] {
+    line-height: 17px;
+    margin: 0;
+  }
+}
