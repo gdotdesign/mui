@@ -47,7 +47,7 @@ else if nconf.get('server')
   app.use "/assets", Mincer.createServer(environment)
   app.listen(process.env.PORT || 4000)
 
-  console.log 'MUI developmen server running on port 4000...'
+  console.log 'MUI development server running on port 4000...'
 else if nconf.get('test')
   request   = require "request"
   async     = require "async"

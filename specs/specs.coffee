@@ -1,6 +1,7 @@
 #= require_self
 #= require_tree ./
 
+# Replace XMLHTTPRequest for test
 window.XMLHttpRequest = class XMLHttpRequest
   open: ->
   getAllResponseHeaders: -> ""
@@ -8,6 +9,7 @@ window.XMLHttpRequest = class XMLHttpRequest
     @readyState = 4
     @onreadystatechange.call @
 
+# Test "framework"
 Test =
   tests: {}
   assert: (condition)->
@@ -46,6 +48,7 @@ Test =
   add: (name, fn)->
     @tests[name] = fn
 
+# Controls for kitchen sink
 Controls =
   dropdown:
     direction: ['bottom','top']
@@ -117,27 +120,40 @@ Controls =
     method: ['post','put','get','patch','delete']
     submit: ->
 
+hljs.tabReplace = '    '
+hljs.initHighlightingOnLoad()
+
 window.addEventListener 'load', ->
   Test.run()
 
+  # Show action - method - data on submit
   form = document.querySelector('ui-form')
   form.addEventListener 'submit', (e)->
     e.preventDefault()
     data = "#{@method.toUpperCase()}::#{@action} -> #{JSON.stringify(@data)}"
     alert(data)
 
+  # Trim ends for code highlight
   for code in document.querySelectorAll('code')
     code.innerHTML = code.innerHTML.trim()
 
   document.querySelector('.container').style.display = "block"
-  pager = document.querySelector(UI.Pager.SELECTOR())
+  @pager = document.querySelector(UI.Pager.SELECTOR())
+
+  change = ->
+    target = @location.hash[1..]
+    @pager.change target
+    document.querySelector('[target].active').classList.remove 'active'
+    document.querySelector("[target=#{target}]").classList.add 'active'
+
+  @addEventListener 'hashchange', ->
+    change()
+
+  change()
 
   document.addEventListener 'click', (e)->
     return unless e.target.hasAttribute('target')
-    target = e.target.getAttribute('target')
-    pager.change target
-    document.querySelector('[target].active').classList.remove 'active'
-    e.target.classList.add 'active'
+    @location.hash = e.target.getAttribute('target')
 
   for name, controls of Controls
     do (name, controls) ->
@@ -203,5 +219,3 @@ window.addEventListener 'load', ->
           dl.appendChild dt
           dl.appendChild dd
 
-hljs.tabReplace = '    '
-hljs.initHighlightingOnLoad()
