@@ -66,6 +66,14 @@ ui-pager {
 
   section { max-width: 960px }
 
+  ui-button[type=info] {
+    margin-right: 10px;
+  }
+
+  a {
+    text-decoration:none;
+  }
+
   p, section li {
     line-height: 30px;
     font-size: 18px;

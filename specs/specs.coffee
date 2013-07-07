@@ -142,6 +142,7 @@ window.addEventListener 'load', ->
 
   change = ->
     target = @location.hash[1..]
+    return unless target
     @pager.change target
     document.querySelector('[target].active').classList.remove 'active'
     document.querySelector("[target=#{target}]").classList.add 'active'

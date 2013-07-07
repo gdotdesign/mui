@@ -17,12 +17,15 @@ nconf.argv
   t:
     alias: 'test'
     describe: 'Runs specs on saucelabs.'
+  b:
+    alias: 'build'
+    describe: 'Build release files.'
 
 if nconf.get('doc')
   console.log 'Generating documentation...\n'
   codo = require('codo')
   codo.run()
-else if nconf.get('server')
+else if nconf.get('server') or nconf.get('build')
   connect      = require("connect")
   Mincer       = require("mincer")
   autoprefixer = require('autoprefixer')
@@ -41,13 +44,29 @@ else if nconf.get('server')
   environment.appendPath('polyfills')
   environment.appendPath('specs')
 
-  app = connect()
-  app.use "/", connect.static process.cwd()+"/site"
-  app.use connect.static process.cwd()
-  app.use "/assets", Mincer.createServer(environment)
-  app.listen(process.env.PORT || 4000)
+  if nconf.get('server')
+    app = connect()
+    app.use "/", connect.static process.cwd()+"/site"
+    app.use connect.static process.cwd()
+    app.use "/assets", Mincer.createServer(environment)
+    app.listen(process.env.PORT || 4000)
 
-  console.log 'MUI development server running on port 4000...'
+    console.log 'MUI development server running on port 4000...'
+  else
+    fs = require 'fs'
+    unless fs.existsSync('release')
+      console.log 'Creating release directory...'
+      fs.mkdirSync('release')
+    console.log 'Compiling source...'
+    environment.findAsset('mui.js').compile (err, asset) ->
+      code = asset.toString()
+      fs.writeFileSync('release/mui.js', code, 'utf-8')
+      console.log 'Compiling default theme...'
+      environment.findAsset('default/theme.css').compile (err, asset) ->
+        code = asset.toString()
+        fs.writeFileSync('release/theme.css', code, 'utf-8')
+        console.log 'Done'
+
 else if nconf.get('test')
   request   = require "request"
   async     = require "async"
