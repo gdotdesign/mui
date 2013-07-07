@@ -9,6 +9,8 @@ class UI.Option extends UI.Abstract
   @get 'selected', -> @hasAttribute 'selected'
   @set 'selected', (value) -> @toggleAttribute 'selected', !!value
 
+  # Creates the specifiec component.
+  # @return [UI.Option] The component element
   @create: (value)->
     el = super
     el.setAttribute 'value', value

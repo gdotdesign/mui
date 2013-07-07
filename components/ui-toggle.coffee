@@ -5,6 +5,8 @@ class UI.Toggle extends UI.iCheckable
   # The tagname of the component
   @TAGNAME: 'toggle'
 
+  # Creates the specifiec component.
+  # @return [UI.Toggle] The component element
   @create: ->
     el = super
     _on = document.createElement('div')

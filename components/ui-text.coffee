@@ -7,8 +7,7 @@ class UI.Text extends UI.iInput
 
   # BeforeInput event handler
   # @private
-  _keydown: (e) ->
-    e.preventDefault() if e.keyCode is 13
+  _keydown: (e) -> e.preventDefault() if e.keyCode is 13
 
   # Initializes the component
   # @private

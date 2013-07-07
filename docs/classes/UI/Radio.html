@@ -130,6 +130,16 @@
 <div class='tags'>
 </div>
       <h2>Property Summary</h2>
+      <dl class='properties'>
+        <dtchecked'-property'>
+          <span class='signature'>
+            (Boolean) <strong>'checked'</strong>
+          </span>
+        </dt>
+        <dd class='desc'>
+          <p>Returns true if the component is checked otherwise false</p>
+        </dd>
+      </dl>
       <h3 class='inherited'>
         Properties inherited from
         <a href='../../classes/UI/iCheckable.html'>UI.iCheckable</a>
@@ -138,7 +148,6 @@
                 <a href='../../classes/UI/iCheckable.html#'value'-property'>&#39;value&#39;</a>,
         <a href='../../classes/UI/iCheckable.html#'checked'-property'>&#39;checked&#39;</a>
       </p>
-      <h2>Property Summary</h2>
       <h3 class='inherited'>
         Properties inherited from
         <a href='../../classes/UI/Abstract.html'>UI.Abstract</a>
@@ -165,12 +174,13 @@
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#toggle-instance'>
-        - (Boolean) <strong>toggle</strong>()
+      <a href='#_toggle-instance'>
+        - (void) <strong>_toggle</strong>()
       </a>
     </span>
+    <span class='note private title'>Private</span>
     <span class='desc'>
-      Toggles the component checked state unless disabled.
+      Action event handler
     </span>
   </li>
 </ul>
@@ -182,6 +192,7 @@
         <a href='../../classes/UI/iCheckable.html'>UI.iCheckable</a>
       </h3>
       <p class='inherited'>
+                <a href='../../classes/UI/iCheckable.html#_toggle-instance'>#_toggle</a>,
                 <a href='../../classes/UI/iCheckable.html#toggle-instance'>#toggle</a>,
         <a href='../../classes/UI/iCheckable.html#initialize-instance'>#initialize</a>
       </p>
@@ -199,30 +210,21 @@
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='toggle-instance'>
-      - (Boolean) <strong>toggle</strong>()
+    <p class='signature' id='_toggle-instance'>
+      - (void) <strong>_toggle</strong>()
+      (private)
     </p>
     <div class='docstring'>
-  <p>Toggles the component checked state unless disabled.
-Unchecks any other radio components with the same name.</p>
+  <p>Action event handler</p>
 </div>
 <div class='tags'>
-  <h3>Returns:</h3>
-  <ul class='return'>
-    <li>
-      <span class='type'></span>
-      (<tt>Boolean</tt>)
-      &mdash;
-      <span class='desc'>The new state</span>
-    </li>
-  </ul>
 </div>
   </div>
 </div>
     </div>
     <div id='footer'>
   Generated on
-  Thu Jul 04 2013 10:52:45 GMT+0200 (CEST)
+  Sun Jul 07 2013 13:27:19 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v1.7.0

@@ -39,8 +39,7 @@ class UI.Form extends UI.Abstract
         headers = {}
         oReq.getAllResponseHeaders().split("\n").map (item) ->
           [key,value] = item.split(": ")
-          if key and value
-            headers[key] = value
+          headers[key] = value if key and value
         body = oReq.response
         status = oReq.status
         @fireEvent 'complete', {response: {headers: headers, body: body, status: status}}

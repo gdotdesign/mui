@@ -1,6 +1,7 @@
 #= require ui-text
 #= require ../core/color
 
+# TODO: Move it to own file somewhere
 picker = class
   constructor: ->
     @el = document.createElement 'picker'
@@ -146,8 +147,7 @@ class UI.Color extends UI.Text
   @TAGNAME: 'color'
 
   # @property [String] The hex reperesentation of the color
-  @get 'value', ->
-    new color(getComputedStyle(@).backgroundColor).hex
+  @get 'value', -> new color(getComputedStyle(@).backgroundColor).hex
   @set 'value', (value)->
     last = @value
     if document.querySelector(':focus') isnt @
@@ -157,12 +157,8 @@ class UI.Color extends UI.Text
     try
       c = new color(value)
       @style.backgroundColor = c.hex
-      if c.lightness < 50
-        @style.color = "#fff"
-      else
-        @style.color = "#000"
-      if @value isnt last
-        @fireEvent 'change'
+      @style.color =  if c.lightness < 50 then "#fff" else "#000"
+      @fireEvent 'change' if @value isnt last
 
   # Initializes the component
   # @private
@@ -177,15 +173,12 @@ class UI.Color extends UI.Text
       ColorPicker.show @
 
     @addEventListener UI.Events.keypress, (e)->
+      # FIX: Enable arrow keys in Firefox
       return if [39,37,8,46].indexOf(e.keyCode) isnt -1
-      unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
-        return e.preventDefault()
+      return e.preventDefault() unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
       @value = @textContent
 
-    @addEventListener UI.Events.keyup, (e)->
-      @value = @textContent
-
-    @addEventListener UI.Events.blur, ->
-      @value = @textContent
+    @addEventListener UI.Events.keyup, (e)->  @value = @textContent
+    @addEventListener UI.Events.blur, -> @value = @textContent
 
     @value = @getAttribute('value') or '#fff'
