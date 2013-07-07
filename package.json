@@ -1,24 +1,36 @@
 {
   "name": "mui",
-  "version": "0.1.0",
-  "author": "",
-  "description": "",
-  "dependencies" : {
-    "wd"                  : "*",
-    "q"                   : "*",
-    "request"             : "*",
-    "async"               : "*",
-    "coffee-script"       : "*",
-    "node-sass"           : "*",
-    "mincer"              : "0.4.6",
-    "connect"             : "*",
-    "autoprefixer"        : "*",
-    "codo"                : "git://github.com/gdotdesign/codo.git"
-  },
+  "version": "0.2.0",
+  "description": "Modern User Interfaces",
+  "homepage": "http://m-ui.org",
   "license": "MIT",
+  "contributors": [{
+    "name": "Szikszai Gusztáv",
+    "email": "guszti5@hotmail.com"
+  }],
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/gdotdesign/mui.git"
+  },
+  "bugs": {
+    "url" : "http://github.com/gdotdesign/mui/issues"
+  },
+  "dependencies" : {
+    "codo"                : "git://github.com/gdotdesign/codo.git",
+    "wd"                  : "0.0.32",
+    "q"                   : "0.9.6",
+    "request"             : "2.22.0",
+    "async"               : "0.2.9",
+    "coffee-script"       : "1.6.3",
+    "node-sass"           : "0.5.2",
+    "mincer"              : "0.4.6",
+    "connect"             : "2.8.3",
+    "autoprefixer"        : "0.5.20130629",
+    "nconf"               : "0.6.7"
+  },
   "scripts": {
-    "test": "coffee bin/spec.coffee",
-    "start": "coffee bin/server.coffee"
+    "test": "coffee bin/mui -t",
+    "start": "coffee bin/mui -s"
   },
   "engines": {
     "node": ">=0.8"

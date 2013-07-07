@@ -1,0 +1,137 @@
+#!/usr/bin/env coffee
+
+# CLI for MUI development
+# -----------------------
+# Start site / spec server -> mui -s, mui --server
+# Run specs                -> mui -t, mui --test
+# Generate documentation   -> mui -d, mui --doc
+
+nconf = require 'nconf'
+nconf.argv
+  s:
+    alias: 'server'
+    describe: 'Starts site / pec server.'
+  d:
+    alias: 'doc'
+    describe: 'Generate documentation.'
+  t:
+    alias: 'test'
+    describe: 'Runs specs on saucelabs.'
+
+if nconf.get('doc')
+  codo = require('codo')
+  codo.run()
+else if nconf.get('server')
+  connect      = require("connect")
+  Mincer       = require("mincer")
+  autoprefixer = require('autoprefixer')
+
+  class AutoPrefix extends Mincer.Template
+    evaluate: (context, locals, callback)->
+      callback null, autoprefixer.compile @data
+
+  Mincer.registerPostProcessor('text/css', AutoPrefix)
+
+  environment = new Mincer.Environment()
+  environment.appendPath('site')
+  environment.appendPath('core')
+  environment.appendPath('components')
+  environment.appendPath('themes')
+  environment.appendPath('vendor')
+  environment.appendPath('specs')
+
+  app = connect()
+  app.use "/", connect.static process.cwd()+"/site"
+  app.use connect.static process.cwd()
+  app.use "/assets", Mincer.createServer(environment)
+  app.listen(process.env.PORT || 4000)
+
+  console.log 'MUI running on port 4000...'
+else if nconf.get('test')
+  request   = require "request"
+  async     = require "async"
+  wd        = require "wd"
+  Q         = require "q"
+
+  host      = "ondemand.saucelabs.com"
+  port      = 80
+  username  = process.env.SAUCE_USERNAME
+  accessKey = process.env.SAUCE_ACCESS_KEY
+  browser   = wd.promiseRemote(host, port, username, accessKey)
+
+  OSX10_8  = 'OS X 10.8'
+  OSX10_6  = 'OS X 10.6'
+  WIN7     = 'Windows 7'
+  WINXP    = 'Windows XP'
+  WIN8     = 'Windows 8'
+  LINUX    = 'Linux'
+  TEST_URL = "http://mui-test.herokuapp.com/specs/"
+
+  browsers = {
+    'android|4':            [LINUX]
+    'android|4|tablet':     [LINUX]
+    'iphone':               [OSX10_8]
+    'ipad':                 [OSX10_8]
+    'internet explorer|10': [WIN8]
+    'internet explorer|9':  [WIN7]
+    'firefox|21':           [WIN8,WIN7,WINXP,LINUX,OSX10_6]
+    'opera|12':             [WIN7,WINXP,LINUX]
+    'safari|5':             [WIN7,OSX10_6]
+    'safari|6':             [OSX10_8]
+    'chrome':               [WIN7,WINXP,LINUX,OSX10_6]
+  }
+
+  api = (url, method, data) ->
+    deferred = Q.defer()
+    request
+      method: method
+      uri: ["https://", username, ":", accessKey, "@saucelabs.com/rest", url].join("")
+      headers: { "Content-Type": "application/json" }
+      body: JSON.stringify(data)
+    , (error, response, body) -> deferred.resolve response.body
+    deferred.promise
+
+  failed = 0
+  tests = []
+
+  for bw, platforms of browsers
+    do (bw, platforms) ->
+      [bw,version,deviceType] = bw.split('|')
+      platforms.forEach (platform) ->
+        tests.push (callback)->
+          console.log bw+" - "+platform
+          opts =
+            browserName: bw
+            platform: platform
+            name: "MUI - Modern User Interfaces"
+            build: process.env.TRAVIS_BUILD_NUMBER
+          if deviceType
+            opts.deviceType = deviceType
+          if version
+            opts.version = version
+          browser.init(opts).then(->
+            browser.get(TEST_URL).delay 3000
+          ).then(->
+            browser.eval "window.results"
+          ).then((results) ->
+            unless results
+              passed = false
+              failed = 1
+            else
+              passed = results.failed is 0
+              failed = 1 unless passed
+
+            data =
+              passed: passed
+              "custom-data":
+                test: results
+
+            api ["/v1/", username, "/jobs/", browser.sessionID].join(""), "PUT", data
+          ).fin(->
+            browser.quit()
+          ).then(->
+            callback()
+          ).done()
+
+  tests.push -> process.exit failed
+  async.series(tests)
