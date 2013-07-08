@@ -10,8 +10,8 @@ no shadow dom, no scoped style, no voodoo nor magic, and still works in every mo
 * Simple
 * Only Custom Elements ( no input, textarea, select, etc...)
 * Modular
-* Keyboard Support (v0.3.0)
-* Touch Support (v0.2.0)
+* Keyboard Support
+* Touch Support
 * Same Look and Feel everywhere
 * Test (CI)
 * Modern
