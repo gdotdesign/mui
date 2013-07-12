@@ -5,6 +5,7 @@
 #= depend_on ./ui-select
 #= depend_on ./ui-tooltip
 #= depend_on ./ui-text
+#= depend_on ./ui-number
 #= depend_on ./ui-email
 #= depend_on ./ui-textarea
 #= depend_on ./ui-option
@@ -84,6 +85,7 @@ body {
 @import "ui-select.scss";
 @import "ui-tooltip.scss";
 @import "ui-text.scss";
+@import "ui-number.scss";
 @import "ui-email.scss";
 @import "ui-textarea.scss";
 @import "ui-option.scss";

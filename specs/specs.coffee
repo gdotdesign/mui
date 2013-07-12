@@ -88,6 +88,10 @@ Controls =
     placeholder: 'Text...'
     value: ''
     disabled: false
+  number:
+    placeholder: 'Number...'
+    value: ''
+    disabled: false
   textarea:
     placeholder: 'Textarea...'
     value: ''
