@@ -1,0 +1,27 @@
+ui-context {
+
+  /* DEFAULTS */
+  position: absolute;
+  z-index: -9999;
+  opacity: 0;
+
+  /* STYLES */
+  background-color: $opaque-color;
+  border-radius: $border-radius;
+  transform: perspective(300px) translateY(-10px) rotateX(-30deg);
+  transition: 1ms z-index $transition-short, transform $transition-short, opacity $transition-short;
+  transform-origin: 50% 0;
+
+  /* STATES */
+  &[open] {
+    z-index: 9999;
+    opacity: 1;
+    transform: perspective(300px);
+    transition: 1ms z-index, transform $transition-short, opacity $transition-short;
+  }
+
+  /* CHILDREN */
+  ui-option i {
+    margin-right: 10px;
+  }
+}
