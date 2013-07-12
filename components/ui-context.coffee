@@ -10,13 +10,15 @@ class UI.Context extends UI.Abstract
   _open: (e)->
     return if @disabled
     e.stopPropagation()
+    e.stopImmediatePropagation()
     e.preventDefault()
     {pageX, pageY} = e
     @open pageX, pageY
 
   # Close Event handler
   # @private
-  _close: ->
+  _close: (e)->
+    return if e.button is 2
     return if @disabled
     @close()
 
