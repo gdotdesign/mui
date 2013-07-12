@@ -19,11 +19,12 @@ ui-input, input[type=password] {
   border: 1px solid rgba(0,0,0,0.2);
   background: $input-background;
   border-radius: $border-radius;
-  padding: $base-height / 4;
+  padding: $base-height / 3.5;
   line-height: $font-size;
   font-size: $font-size;
   width: $input-width;
   color: $input-color;
+  min-height: $base-height;
 
   /* STATES */
   &:focus {
