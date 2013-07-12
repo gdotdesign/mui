@@ -17,6 +17,9 @@ class Drag
     @reset()
     @base.addEventListener UI.Events.dragStart, @start
 
+  destroy: ->
+    @base.removeEventListener UI.Events.dragStart, @start
+
   # Resets internal variables
   # @private
   reset: ->
@@ -45,7 +48,7 @@ class Drag
     return if event.stopped
 
     @mouseIsDown = true
-
+    e.preventDefault()
     document.addEventListener UI.Events.dragMove, @pos
     document.addEventListener UI.Events.dragEnd, @up
 
@@ -68,6 +71,7 @@ class Drag
   # Complete event handler
   # @private
   up: (e)=>
+    e.preventDefault()
     @reset()
     document.removeEventListener UI.Events.dragMove, @pos
     document.removeEventListener UI.Events.dragEnd, @up

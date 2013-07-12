@@ -4,6 +4,7 @@
 class UI.Button extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'button'
+  @TABABLE: true
 
   # @property [String] Alias for textContent property.
   @get 'label', -> @textContent
@@ -25,4 +26,6 @@ class UI.Button extends UI.Abstract
 
   # Initializes the component
   # @private
-  initialize: ->  @addEventListener UI.Events.action, @_cancel
+  initialize: ->
+    @addEventListener UI.Events.action, @_cancel
+    @addEventListener 'keydown', (e)->@fireEvent UI.Events.action if e.keyCode is 13

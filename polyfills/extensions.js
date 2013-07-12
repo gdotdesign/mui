@@ -130,3 +130,7 @@ Number.prototype.clampRange = function(min, max) {
     return val;
   }
 };
+
+Element.prototype.index = function(){
+  return Array.prototype.slice.call(this.parentNode.children).indexOf(this)
+}

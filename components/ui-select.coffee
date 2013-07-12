@@ -4,6 +4,7 @@
 class UI.Select extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'select'
+  @TABABLE: true
 
   # @property [String] The current value of the component
   @set 'value', (value)-> @select value
@@ -56,6 +57,26 @@ class UI.Select extends UI.Abstract
     @addEventListener UI.Events.action, @_select
 
     @selectDefault()
+
+    @addEventListener 'blur', ->
+      return if @disabled
+      @dropdown?.close()
+
+    @addEventListener 'focus', ->
+      return if @disabled
+      @dropdown?.open()
+
+    @addEventListener 'keydown', (e)->
+      return if [37,38,39,40].indexOf(e.keyCode) is -1
+      parent = @selectedOption.parentNode
+      index = @selectedOption.index()
+      switch e.keyCode
+        when 37, 38 # LEFT
+          e.preventDefault()
+          @select parent.children[(--index).clamp(0,parent.children.length-1)]
+        when 39, 40 # RIGHT
+          e.preventDefault()
+          @select parent.children[(++index).clamp(0,parent.children.length-1)]
 
   # Select option by default algorithm:
   #

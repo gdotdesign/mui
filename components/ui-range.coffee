@@ -5,6 +5,7 @@
 class UI.Range extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'range'
+  @TABABLE: true
 
   # @property [Number] The range of the component
   @get 'range', -> Math.abs(@min-@max)
@@ -90,3 +91,11 @@ class UI.Range extends UI.Abstract
 
     @addEventListener 'dragstart', @_start.bind(@)
     @addEventListener 'dragmove', @_move.bind(@)
+
+    @addEventListener 'keydown', (e)->
+      percent = @range*(if e.shiftKey then 0.1 else 0.01)
+      switch e.keyCode
+        when 37 # LEFT
+          @value -= percent
+        when 39 # RIGHT
+          @value += percent

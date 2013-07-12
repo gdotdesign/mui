@@ -9,8 +9,8 @@ picker = class
 
     document.addEventListener UI.Events.action, (e)=>
       picker = getParent(e.target,'picker')
-      unless picker
-        @hide()
+      if picker
+        e.preventDefault()
     @circleCanvas = document.createElement 'canvas'
     @triangle = document.createElement 'triangle'
     @triangle.appendChild document.createElement 'gradient'
@@ -150,15 +150,14 @@ class UI.Color extends UI.Text
   @get 'value', -> new color(getComputedStyle(@).backgroundColor).hex
   @set 'value', (value)->
     last = @value
-    if document.querySelector(':focus') isnt @
-      @textContent = value.replace("#",'')
-    else
+    unless document.querySelector(':focus') isnt @
       ColorPicker.fromColor value, false
     try
       c = new color(value)
       @style.backgroundColor = c.hex
       @style.color =  if c.lightness < 50 then "#fff" else "#000"
       @fireEvent 'change' if @value isnt last
+      @textContent = value.replace("#",'')
 
   # Initializes the component
   # @private
@@ -167,7 +166,7 @@ class UI.Color extends UI.Text
     @setAttribute 'contenteditable', true
     @setAttribute 'spellcheck', false
 
-    @addEventListener UI.Events.action, (e)->
+    @addEventListener 'focus', (e)->
       e.stopPropagation()
       return if @disabled
       ColorPicker.show @
@@ -179,6 +178,8 @@ class UI.Color extends UI.Text
       @value = @textContent
 
     @addEventListener UI.Events.keyup, (e)->  @value = @textContent
-    @addEventListener UI.Events.blur, -> @value = @textContent
+    @addEventListener UI.Events.blur, ->
+      ColorPicker.hide()
+      @value = @textContent
 
     @value = @getAttribute('value') or '#fff'

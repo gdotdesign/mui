@@ -81,3 +81,5 @@ Test.add 'Drag',->
     @assert drag.position is null
     @assert drag.startPosition is null
     @assert drag.mouseIsDown is false
+
+    drag.destroy()

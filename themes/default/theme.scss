@@ -77,6 +77,10 @@ body {
 }
 
 [disabled] { opacity: 0.5; }
+*:focus{
+  outline: none;
+  box-shadow: 0 0 10px $warning-color-hover;
+}
 
 @import "ui-input.scss";
 @import "ui-button.scss";

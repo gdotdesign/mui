@@ -5,6 +5,18 @@ class UI.Toggle extends UI.iCheckable
   # The tagname of the component
   @TAGNAME: 'toggle'
 
+
+  initialize: ->
+    super
+
+    @addEventListener 'keydown', (e)->
+      return if [37,38,39,40].indexOf(e.keyCode) is -1
+      switch e.keyCode
+        when 37, 38 # LEFT
+          @checked = false
+        when 39, 40 # RIGHT
+          @checked = true
+
   # Creates the specifiec component.
   # @return [UI.Toggle] The component element
   @create: ->

@@ -3,7 +3,8 @@
 # Fires `change` event.
 # @abstract
 class UI.iCheckable extends UI.Abstract
-
+  @TABABLE: true
+  
   # @property [Boolean] Returns the value of the component
   @get 'value', -> @hasAttribute 'checked'
   @set 'value', (value) -> @checked = value
@@ -27,4 +28,6 @@ class UI.iCheckable extends UI.Abstract
 
   # Initializes the component
   # @private
-  initialize: -> @addEventListener UI.Events.action, @_toggle
+  initialize: ->
+    @addEventListener UI.Events.action, @_toggle
+    @addEventListener 'keydown', (e)-> @_toggle() if e.keyCode is 13
