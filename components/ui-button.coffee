@@ -4,6 +4,7 @@
 class UI.Button extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'button'
+  # Whether the component can receive focus
   @TABABLE: true
 
   # @property [String] Alias for textContent property.
@@ -24,8 +25,14 @@ class UI.Button extends UI.Abstract
     e.stopImmediatePropagation()
     e.stopPropagation()
 
+  # Keydown event handler
+  # @param [Event] e
+  # @private
+  _keydown: (e)->
+    @fireEvent UI.Events.action if e.keyCode is 13
+
   # Initializes the component
   # @private
   initialize: ->
     @addEventListener UI.Events.action, @_cancel
-    @addEventListener 'keydown', (e)->@fireEvent UI.Events.action if e.keyCode is 13
+    @addEventListener 'keydown', @_keydown

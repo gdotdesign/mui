@@ -3,6 +3,7 @@
 # Fires `change` event.
 # @abstract
 class UI.iCheckable extends UI.Abstract
+  # Whether the component can receive focus
   @TABABLE: true
   
   # @property [Boolean] Returns the value of the component

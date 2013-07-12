@@ -4,6 +4,7 @@
 class UI.Select extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'select'
+  # Whether the component can receive focus
   @TABABLE: true
 
   # @property [String] The current value of the component
@@ -38,6 +39,33 @@ class UI.Select extends UI.Abstract
     @select e.target
     @dropdown.close()
 
+  # Blur event handler
+  # @private
+  _blur: ->
+    return if @disabled
+    @dropdown?.close()
+
+  # Focus event handler
+  # @private
+  _focus: ->
+    return if @disabled
+    @dropdown?.open()
+
+  # Keydown event handler
+  # @param [Event] e
+  # @private
+  _keydown: (e)->
+    return if [37,38,39,40].indexOf(e.keyCode) is -1
+    parent = @selectedOption.parentNode
+    index = @selectedOption.index()
+    switch e.keyCode
+      when 37, 38 # LEFT
+        e.preventDefault()
+        @select parent.children[(--index).clamp(0,parent.children.length-1)]
+      when 39, 40 # RIGHT
+        e.preventDefault()
+        @select parent.children[(++index).clamp(0,parent.children.length-1)]
+
   # Initializez to component
   # @private
   initialize: ->
@@ -55,28 +83,12 @@ class UI.Select extends UI.Abstract
     @addEventListener 'DOMNodeRemoved', @_nodeRemoved
     @addEventListener 'DOMNodeInserted', @_nodeAdded
     @addEventListener UI.Events.action, @_select
+    @addEventListener 'blur', @_blur
+    @addEventListener 'focus', @_focus
+    @addEventListener 'keydown', @_keydown
 
     @selectDefault()
 
-    @addEventListener 'blur', ->
-      return if @disabled
-      @dropdown?.close()
-
-    @addEventListener 'focus', ->
-      return if @disabled
-      @dropdown?.open()
-
-    @addEventListener 'keydown', (e)->
-      return if [37,38,39,40].indexOf(e.keyCode) is -1
-      parent = @selectedOption.parentNode
-      index = @selectedOption.index()
-      switch e.keyCode
-        when 37, 38 # LEFT
-          e.preventDefault()
-          @select parent.children[(--index).clamp(0,parent.children.length-1)]
-        when 39, 40 # RIGHT
-          e.preventDefault()
-          @select parent.children[(++index).clamp(0,parent.children.length-1)]
 
   # Select option by default algorithm:
   #

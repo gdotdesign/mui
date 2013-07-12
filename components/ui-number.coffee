@@ -12,17 +12,22 @@ class UI.Number extends UI.Text
     value = '' if isNaN(value)
     @textContent = value
 
+  # Keypress event handler
+  # @param [Event] e
+  # @private
+  _keypress: (e)->
+    # BUGFIX[Firefox] Allow arrows to work
+    return if [39,37,8,46].indexOf(e.keyCode) isnt -1
+    unless /^[0-9.]$/.test String.fromCharCode(e.charCode)
+      e.preventDefault()
+
+  # Shortcut for change event
+  _change: -> @fireEvent 'change'
+
   # Initializes the component
   # @private
   initialize: ->
     super
-
-    # Only allow [0-9.] to be added
-    @addEventListener 'keypress', (e)->
-      # BUGFIX[Firefox] Allow arrows to work
-      return if [39,37,8,46].indexOf(e.keyCode) isnt -1
-      unless /^[0-9.]$/.test String.fromCharCode(e.charCode)
-        e.preventDefault()
-
-    @addEventListener 'keyup', -> @fireEvent 'change'
-    @addEventListener 'blur', -> @fireEvent 'change'
+    @addEventListener 'keypress', @_keypress
+    @addEventListener 'keyup', @_change
+    @addEventListener 'blur', @_change

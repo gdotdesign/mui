@@ -17,6 +17,7 @@ class Drag
     @reset()
     @base.addEventListener UI.Events.dragStart, @start
 
+  # Destroys the instance - remove event listener
   destroy: ->
     @base.removeEventListener UI.Events.dragStart, @start
 

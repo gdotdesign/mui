@@ -39,5 +39,4 @@ class UI.Tooltip extends UI.iOpenable
 
   # Initializes the component
   # @private
-  initialize: ->
-    super ['top','bottom','left','right']
+  initialize: -> super ['top','bottom','left','right']
