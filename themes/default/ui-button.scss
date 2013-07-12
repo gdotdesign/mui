@@ -25,6 +25,7 @@ ui-button {
   /* STATES */
   &:not([disabled]){ cursor: pointer; }
   &:not([disabled]):hover { background-color: $background-color-hover; }
+  &:focus{ box-shadow: $plastic-shadow-focus; }
 
   /* ICONS */
   i:first-child { margin-right: 5px; }
