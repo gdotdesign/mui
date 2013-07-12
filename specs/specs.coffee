@@ -51,7 +51,7 @@ Test =
 # Controls for kitchen sink
 Controls =
   dropdown:
-    direction: ['bottom','top']
+    direction: ['bottom','top','left','right']
     open: ->
     close: ->
     toggle: ->

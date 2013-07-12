@@ -31,5 +31,5 @@ class UI.Dropdown extends UI.iOpenable
   # Initializes the component
   # @private
   initialize: ->
-    super ['top','bottom']
+    super ['top','bottom','left','right']
     document.addEventListener UI.Events.action, @_close.bind(@)
