@@ -17,7 +17,7 @@
     &raquo;
     <span class='title'>UI</span>
     &raquo;
-    <span class='title'>iOpenable</span>
+    <span class='title'>Context</span>
     <nav>
       <ul>
         <li class='noframes'>
@@ -109,12 +109,12 @@
     <div id='content'>
       <h1>
         Class:
-        UI.iOpenable
+        UI.Context
       </h1>
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>core&#47;i-openable.coffee</td>
+          <td>components&#47;ui-context.coffee</td>
         </tr>
         <tr>
           <td>Inherits:</td>
@@ -125,35 +125,11 @@
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>Openable Interface</p>
+  <p>Context menu component</p>
 </div>
 <div class='tags'>
 </div>
-      <h2>Direct Known Subclasses</h2>
-      <p class='children'>
-                <a href='../../classes/UI/Dropdown.html'>UI.Dropdown</a>,
-        <a href='../../classes/UI/Tooltip.html'>UI.Tooltip</a>
-      </p>
       <h2>Property Summary</h2>
-      <dl class='properties'>
-        <dtisOpen'-property'>
-          <span class='signature'>
-            (Boolean) <strong>'isOpen'</strong>
-          </span>
-          <span class='note readonly title'>Readonly</span>
-        </dt>
-        <dd class='desc'>
-          <p>Wheter the component is open or not</p>
-        </dd>
-        <dtdirection'-property'>
-          <span class='signature'>
-            (String) <strong>'direction'</strong>
-          </span>
-        </dt>
-        <dd class='desc'>
-          <p>The direction in which the component opens</p>
-        </dd>
-      </dl>
       <h3 class='inherited'>
         Properties inherited from
         <a href='../../classes/UI/Abstract.html'>UI.Abstract</a>
@@ -161,27 +137,53 @@
       <p class='inherited'>
         <a href='../../classes/UI/Abstract.html#'disabled'-property'>&#39;disabled&#39;</a>
       </p>
+      <h2>Constant Summary</h2>
+      <dl class='constants'>
+        <dt id='TAGNAME-constant'>
+          TAGNAME
+          =
+          <div class='docstring'>
+  <p>The tagname of the component</p>
+</div>
+<div class='tags'>
+</div>
+        </dt>
+        <dd>
+          <pre><code class='coffee'>'context'</code></pre>
+        </dd>
+      </dl>
       <h2>Instance Method Summary</h2>
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#onAdded-instance'>
-        - (void) <strong>onAdded</strong>()
+      <a href='#_open-instance'>
+        - (void) <strong>_open</strong>(e)
       </a>
     </span>
     <span class='note private title'>Private</span>
     <span class='desc'>
-      Runs when the element is inserted into the DOM
+      Open Event handler
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#_close-instance'>
+        - (void) <strong>_close</strong>(e)
+      </a>
+    </span>
+    <span class='note private title'>Private</span>
+    <span class='desc'>
+      Close Event handler
     </span>
   </li>
   <li>
     <span class='signature'>
       <a href='#open-instance'>
-        - (void) <strong>open</strong>()
+        - (void) <strong>open</strong>(left, top)
       </a>
     </span>
     <span class='desc'>
-      Opens the component
+      Opens the context menu at the specified points
     </span>
   </li>
   <li>
@@ -191,28 +193,18 @@
       </a>
     </span>
     <span class='desc'>
-      Closes the component
+      Closes the context menu
     </span>
   </li>
   <li>
     <span class='signature'>
-      <a href='#toggle-instance'>
-        - (void) <strong>toggle</strong>()
-      </a>
-    </span>
-    <span class='desc'>
-      Toggles the component
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#initialize-instance'>
-        - (void) <strong>initialize</strong>(_directions = [])
+      <a href='#onAdded-instance'>
+        - (void) <strong>onAdded</strong>()
       </a>
     </span>
     <span class='note private title'>Private</span>
     <span class='desc'>
-      Initializes the component
+      Runs when the element is inserted into the DOM
     </span>
   </li>
 </ul>
@@ -233,6 +225,67 @@
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
+    <p class='signature' id='_open-instance'>
+      - (void) <strong>_open</strong>(e)
+      (private)
+    </p>
+    <div class='docstring'>
+  <p>Open Event handler</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='_close-instance'>
+      - (void) <strong>_close</strong>(e)
+      (private)
+    </p>
+    <div class='docstring'>
+  <p>Close Event handler</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='open-instance'>
+      - (void) <strong>open</strong>(left, top)
+    </p>
+    <div class='docstring'>
+  <p>Opens the context menu at the specified points</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>left</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The left position of the menu</span>
+    </li>
+    <li>
+      <span class='name'>top</span>
+      <span class='type'>
+        (<tt>Number</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>The top position of the menu</span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='close-instance'>
+      - (void) <strong>close</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Closes the context menu</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
     <p class='signature' id='onAdded-instance'>
       - (void) <strong>onAdded</strong>()
       (private)
@@ -241,58 +294,6 @@
   <p>Runs when the element is inserted into the DOM</p>
 </div>
 <div class='tags'>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='open-instance'>
-      - (void) <strong>open</strong>()
-    </p>
-    <div class='docstring'>
-  <p>Opens the component</p>
-</div>
-<div class='tags'>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='close-instance'>
-      - (void) <strong>close</strong>()
-    </p>
-    <div class='docstring'>
-  <p>Closes the component</p>
-</div>
-<div class='tags'>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='toggle-instance'>
-      - (void) <strong>toggle</strong>()
-    </p>
-    <div class='docstring'>
-  <p>Toggles the component</p>
-</div>
-<div class='tags'>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='initialize-instance'>
-      - (void) <strong>initialize</strong>(_directions = [])
-      (private)
-    </p>
-    <div class='docstring'>
-  <p>Initializes the component</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>@_direction</span>
-      <span class='type'>
-        (<tt>Array</tt>)
-      </span>
-      &mdash;
-      <span class='desc'>The directions that the component can open</span>
-    </li>
-  </ul>
 </div>
   </div>
 </div>
