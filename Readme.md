@@ -1,4 +1,4 @@
-# MUI
+# MUI ![Trending](https://d2weczhvl823v0.cloudfront.net/gdotdesign/mui/trend.png)
 MUI is a UI Libarary / Framework that doesn't suck. It offers Custom Elements with just vanilla JavaScript & CSS and nothing else,
 no shadow dom, no scoped style, no voodoo nor magic, and still works in every modern browser.
 
