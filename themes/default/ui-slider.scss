@@ -29,6 +29,9 @@ ui-slider {
     top: 0;
   }
 
+  /* STATES */
+  &:focus { box-shadow: $inset-shadow, $focus-shadow; }
+
   /* KNOB */
   & > *:first-child > *:first-child{
 

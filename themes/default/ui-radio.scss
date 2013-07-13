@@ -28,4 +28,5 @@ ui-radio {
   /* STATES */
   &:not([disabled]) { cursor: pointer; }
   &[checked]:before { display: block;  }
+  &:focus{ box-shadow: $plastic-shadow-focus; }
 }

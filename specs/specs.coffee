@@ -155,6 +155,12 @@ window.addEventListener 'load', ->
     document.querySelector('[target].active').classList.remove 'active'
     document.querySelector("[target=#{target}]").classList.add 'active'
 
+  document.addEventListener 'focus', (e)->
+    pg = getParent(e.target,UI.Page.SELECTOR())
+    return unless pg
+    window.location.hash = pg.getAttribute('name')
+  ,true
+
   @addEventListener 'hashchange', ->
     change()
 

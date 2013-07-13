@@ -24,6 +24,7 @@ class UI.Abstract
       continue if key is 'initialize' or key is 'constructor'
       Object.defineProperty el, key, desc
 
+    el.setAttribute 'tabindex', 0 if @TABABLE
     el._processed = true
     @::initialize?.call el
     el.onAdded?() if el.parentNode

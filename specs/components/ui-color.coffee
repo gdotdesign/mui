@@ -25,3 +25,11 @@ Test.add 'Color', ->
     component.addEventListener 'change', fn
     component.value = "#FFFFFF"
     @assert x
+
+  @case "Focus should open color picker", ->
+    component.fireEvent 'focus'
+    @assert ColorPicker.el.style.display isnt 'none'
+
+  @case "Blur should close color picker", ->
+    component.fireEvent 'blur'
+    @assert ColorPicker.el.style.display is 'none'

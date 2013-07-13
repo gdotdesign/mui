@@ -23,3 +23,9 @@ Test.add 'Button',->
     @assert x
     button.type = null
     button.disabled = false
+
+  @case "Enter should trigger action event", ->
+    x = false
+    button.addEventListener UI.Events.action, (e)=> x = true
+    button.fireEvent 'keydown', {keyCode: 13}
+    @assert x
