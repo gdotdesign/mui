@@ -172,7 +172,7 @@ class UI.Color extends UI.Text
   # @private
   _keypress: (e)->
     # FIX: Enable arrow keys in Firefox
-    return if [39,37,8,46].indexOf(e.keyCode) isnt -1
+    return if [39,37,8,46,9].indexOf(e.keyCode) isnt -1
     return e.preventDefault() unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
     @value = @textContent
 

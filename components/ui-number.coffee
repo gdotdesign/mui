@@ -6,7 +6,10 @@ class UI.Number extends UI.Text
   @TAGNAME: 'number'
 
   # @property [String] value The value of the component
-  @get 'value', -> parseFloat(@textContent)
+  @get 'value', ->
+    value = parseFloat(@textContent)
+    return '' if isNaN(value)
+    value
   @set 'value', (value)->
     value = parseFloat(value)
     value = '' if isNaN(value)
@@ -17,7 +20,7 @@ class UI.Number extends UI.Text
   # @private
   _keypress: (e)->
     # BUGFIX[Firefox] Allow arrows to work
-    return if [39,37,8,46].indexOf(e.keyCode) isnt -1
+    return if [39,37,8,46,9].indexOf(e.keyCode) isnt -1
     unless /^[0-9.]$/.test String.fromCharCode(e.charCode)
       e.preventDefault()
 
