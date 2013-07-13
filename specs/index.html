@@ -30,7 +30,9 @@
         <li target="range">Range</li>
         <li target="slider">Slider</li>
         <li target="select">Select</li>
+        <li target="context">Context</li>
         <li target="text">Text</li>
+        <li target="number">Number</li>
         <li target="textarea">Textarea</li>
         <li target="form">Form</li>
         <li target="pager">Pager</li>
@@ -266,6 +268,38 @@
           </code></pre>
         </ui-page>
 
+        <ui-page name="context">
+          <section>
+            <ui-button type="danger">
+              Right click me!
+              <ui-context>
+                <ui-option>
+                  <i class="icon-dashboard"></i>
+                  Dashboard
+                </ui-option>
+                <ui-option>
+                  <i class="icon-unlink"></i>
+                  Disconnect
+                </ui-option>
+              </ui-context>
+            </ui-button>
+          </section>
+          <pre><code class="html">
+&lt;ui-button type="danger"&gt;
+  Right click me!
+  &lt;ui-context&gt;
+    &lt;ui-option&gt;
+      &lt;i class="icon-dashboard"&gt;&lt;/i&gt;
+      Dashboard
+    &lt;/ui-option&gt;
+    &lt;ui-option&gt;
+      &lt;i class="icon-unlink"&gt;&lt;/i&gt;
+      Disconnect
+    &lt;/ui-option&gt;
+  &lt;/ui-context&gt;
+&lt;/ui-button&gt;
+          </code></pre>
+        </ui-page>
 
         <ui-page name="text">
           <section>
@@ -274,6 +308,16 @@
           <pre><code class="html">
 &lt;ui-text placeholder="Text..." name="text"&gt;&lt;/ui-text&gt;
 &lt;ui-text placeholder="Text..." name="text"&gt;Value&lt;/ui-text&gt;
+          </code></pre>
+        </ui-page>
+
+        <ui-page name="number">
+          <section>
+           <ui-number placeholder="Number..." name="number"></ui-number>
+          </section>
+          <pre><code class="html">
+&lt;ui-number placeholder="Number..." name="number"&gt;&lt;/ui-number&gt;
+&lt;ui-number placeholder="Number..." name="number"&gt;10.1&lt;/ui-number&gt;
           </code></pre>
         </ui-page>
 

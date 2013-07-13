@@ -5,6 +5,8 @@
 class UI.Range extends UI.Abstract
   # The tagname of the component
   @TAGNAME: 'range'
+  # Whether the component can receive focus
+  @TABABLE: true
 
   # @property [Number] The range of the component
   @get 'range', -> Math.abs(@min-@max)
@@ -50,10 +52,10 @@ class UI.Range extends UI.Abstract
   # @param [Event] e DragStart event
   # @private
   _start: (e)->
+    @focus()
     e.stopPropagation()
     rect = @getBoundingClientRect()
     knobRect = @knob.getBoundingClientRect()
-
     @startPosition = @drag.startPosition.diff new Point(rect.left,rect.top)
     percent = @startPosition.x / @offsetWidth
     @_setValue percent
@@ -67,6 +69,17 @@ class UI.Range extends UI.Abstract
     current = diff.x.clamp(0,@offsetWidth)
     percent = (current / @offsetWidth)
     @_setValue percent
+
+  # Keydown event handler
+  # @param [Event] e
+  # @private
+  _keydown: (e)->
+    percent = @range*(if e.shiftKey then 0.1 else 0.01)
+    switch e.keyCode
+      when 37 # LEFT
+        @value -= percent
+      when 39 # RIGHT
+        @value += percent
 
   # Initializes the component
   # @private
@@ -88,5 +101,6 @@ class UI.Range extends UI.Abstract
 
     @drag = new Drag @
 
-    @addEventListener 'dragstart', @_start.bind(@)
-    @addEventListener 'dragmove', @_move.bind(@)
+    @addEventListener 'dragstart', @_start
+    @addEventListener 'dragmove', @_move
+    @addEventListener 'keydown', @_keydown

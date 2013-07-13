@@ -36,6 +36,24 @@ ui-dropdown {
     top: auto;
   }
 
+  /* RIGHT */
+  &[direction=right] {
+    transform: translateY(-$dropdown-gap);
+    left: 100%;
+    margin-left: $dropdown-gap;
+    margin-top: 0;
+    top: 0;
+  }
+
+  /* LEFT */
+  &[direction=left] {
+    transform: translateY(-$dropdown-gap);
+    left: -100%;
+    margin-left: -$dropdown-gap;
+    margin-top: 0;
+    top: 0;
+  }
+
   /* STATES */
   &[open] {
     transition: opacity $transition-short, transform $transition-short;

@@ -50,8 +50,12 @@ Test =
 
 # Controls for kitchen sink
 Controls =
+  context:
+    open: ->
+    close: ->
+    target: -> document.querySelector('ui-context')
   dropdown:
-    direction: ['bottom','top']
+    direction: ['bottom','top','left','right']
     open: ->
     close: ->
     toggle: ->
@@ -86,6 +90,10 @@ Controls =
     toggle: ->
   text:
     placeholder: 'Text...'
+    value: ''
+    disabled: false
+  number:
+    placeholder: 'Number...'
     value: ''
     disabled: false
   textarea:
@@ -146,6 +154,12 @@ window.addEventListener 'load', ->
     @pager.change target
     document.querySelector('[target].active').classList.remove 'active'
     document.querySelector("[target=#{target}]").classList.add 'active'
+
+  document.addEventListener 'focus', (e)->
+    pg = getParent(e.target,UI.Page.SELECTOR())
+    return unless pg
+    window.location.hash = pg.getAttribute('name')
+  ,true
 
   @addEventListener 'hashchange', ->
     change()
