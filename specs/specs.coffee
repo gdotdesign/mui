@@ -50,6 +50,10 @@ Test =
 
 # Controls for kitchen sink
 Controls =
+  context:
+    open: ->
+    close: ->
+    target: -> document.querySelector('ui-context')
   dropdown:
     direction: ['bottom','top','left','right']
     open: ->
