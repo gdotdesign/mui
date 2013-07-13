@@ -28,3 +28,10 @@ Test.add 'iCheckable',->
     checkbox.click()
     @assert checkbox.hasAttribute('checked')
     checkbox.disabled = false
+
+  @case "Enter should toggle the component", ->
+    @assert checkbox.checked
+    checkbox.fireEvent 'keydown', {keyCode: 13}
+    @assert !checkbox.checked
+    checkbox.fireEvent 'keydown', {keyCode: 13}
+    @assert checkbox.checked

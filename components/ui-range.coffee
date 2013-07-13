@@ -76,9 +76,9 @@ class UI.Range extends UI.Abstract
   _keydown: (e)->
     percent = @range*(if e.shiftKey then 0.1 else 0.01)
     switch e.keyCode
-      when 37 # LEFT
+      when 37, 38 # LEFT
         @value -= percent
-      when 39 # RIGHT
+      when 39, 40 # RIGHT
         @value += percent
 
   # Initializes the component

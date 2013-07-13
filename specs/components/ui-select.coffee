@@ -77,3 +77,37 @@ Test.add 'Select',->
     select.select(null)
     @assert !x
     select.selectDefault()
+
+  @case "Focus should open color picker", ->
+    @assert !select.dropdown.isOpen
+    select.fireEvent 'focus'
+    @assert select.dropdown.isOpen
+
+  @case "Blur should close color picker", ->
+    select.fireEvent 'blur'
+    @assert !select.dropdown.isOpen
+
+  @case 'Right / Up button should select next option', ->
+    @assert select.selectedOption.index() is 0
+    select.fireEvent 'keydown', {keyCode: 39}
+    @assert select.selectedOption.index() is 1
+    select.fireEvent 'keydown', {keyCode: 40}
+    @assert select.selectedOption.index() is 2
+
+  @case 'Right / Up button shouldnot select anything if the last option is selected', ->
+    @assert select.selectedOption.index() is 2
+    select.fireEvent 'keydown', {keyCode: 40}
+    select.fireEvent 'keydown', {keyCode: 39}
+    @assert select.selectedOption.index() is 2
+
+  @case 'Left / Down button should select previous option', ->
+    select.fireEvent 'keydown', {keyCode: 37}
+    @assert select.selectedOption.index() is 1
+    select.fireEvent 'keydown', {keyCode: 38}
+    @assert select.selectedOption.index() is 0
+
+  @case 'Left / Down button shouldnot select anything if the fisrt option is selected', ->
+    @assert select.selectedOption.index() is 0
+    select.fireEvent 'keydown', {keyCode: 37}
+    select.fireEvent 'keydown', {keyCode: 38}
+    @assert select.selectedOption.index() is 0
