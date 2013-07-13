@@ -52,10 +52,10 @@ class UI.Range extends UI.Abstract
   # @param [Event] e DragStart event
   # @private
   _start: (e)->
+    @focus()
     e.stopPropagation()
     rect = @getBoundingClientRect()
     knobRect = @knob.getBoundingClientRect()
-
     @startPosition = @drag.startPosition.diff new Point(rect.left,rect.top)
     percent = @startPosition.x / @offsetWidth
     @_setValue percent

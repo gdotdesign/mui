@@ -26,7 +26,8 @@ class UI.Dropdown extends UI.iOpenable
   # @private
   onAdded: ->
     super
-    @parentNode.addEventListener UI.Events.action, @_toggle.bind(@)
+    if @parentNode.tagName.toLowerCase() isnt UI.Select.SELECTOR()
+      @parentNode.addEventListener UI.Events.action, @_toggle.bind(@)
 
   # Initializes the component
   # @private
