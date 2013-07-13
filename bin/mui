@@ -73,8 +73,8 @@ else if nconf.get('test')
   wd        = require "wd"
   Q         = require "q"
 
-  host      = "ondemand.saucelabs.com"
-  port      = 80
+  host      = "localhost"
+  port      = 4445
   username  = process.env.SAUCE_USERNAME
   accessKey = process.env.SAUCE_ACCESS_KEY
   browser   = wd.promiseRemote(host, port, username, accessKey)
@@ -85,7 +85,7 @@ else if nconf.get('test')
   WINXP    = 'Windows XP'
   WIN8     = 'Windows 8'
   LINUX    = 'Linux'
-  TEST_URL = "http://mui-test.herokuapp.com/specs/"
+  TEST_URL = "http://localhost:4000/specs/"
 
   browsers = {
     'android|4':            [LINUX]
@@ -125,6 +125,7 @@ else if nconf.get('test')
             platform: platform
             name: "MUI - Modern User Interfaces"
             build: process.env.TRAVIS_BUILD_NUMBER
+            "tunnel-identifier": process.env.TRAVIS_JOB_NUMBER
           if deviceType
             opts.deviceType = deviceType
           if version

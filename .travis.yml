@@ -1,10 +1,14 @@
 ---
 language: node_js
 node_js:
-  - '0.8'
+  - '0.10.0'
 branches:
   only:
     - master
+before_script:
+  - curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash
+  - npm start &
+  - sleep 5s
 env:
   global:
   - secure: ! 'FVzwH5cpVIYHTdrR3ZWw5HGkl3phOVgEbp9fLkcFrLXxCY4AVboeTydwTqVZubQ2iXeSxPu3GQ3+NYvVJJROf9KA8pIJ4+0ztfE4Ictx3anmfiJUtoVE4y+Do3aaBRarMBUvZuOVrJdXew/j6SjHN0Lbqke5Sue9DATxpMVpgbc='
