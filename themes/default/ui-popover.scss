@@ -1,0 +1,110 @@
+ui-popover {
+
+  /* VARIABLES */
+  $popover-color: #ccc;
+  $popover-max-size: 200px;
+  $popover-arrow-size: 6px;
+  $popover-gap: 10px;
+  $popover-arrow-color: #333;
+
+  /* DEFAULTS */
+  transition: opacity $transition-normal, z-index 1ms $transition-normal;
+  max-width: $popover-max-size;
+  background: $popover-color;
+  position: absolute;
+  display: block;
+  z-index: -1;
+  text-shadow: none;
+  opacity: 0;
+
+  /* STYLES */
+  border: 3px solid #333;
+  border-radius: $border-radius * 2;
+  line-height: $base-height / 2;
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 10px;
+  color: $background-color;
+
+  /* ARROW */
+  &:before {
+    position: absolute;
+    content: "";
+    height: 0;
+    width: 0;
+  }
+
+  /* STATES */
+  &[disabled]:not([open]) { opacity: 0; }
+  &:not([disabled])[open] {
+    transition: opacity 600ms;
+    z-index: 9999;
+    opacity: 1;
+  }
+
+  /* TOP / BOTTOM */
+  &[direction=top], &[direction=bottom], &:not([direction]){
+    transform: translateX(-50%);
+    left: 50%;
+    &:before {
+      border-right: $popover-arrow-size solid transparent;
+      border-left: $popover-arrow-size solid transparent;
+      transform: translateX(-50%);
+      left: 50%;
+    }
+  }
+
+  /* LEFT / RIGHT */
+  &[direction=left], &[direction=right] {
+    transform: translateY(-50%);
+    top: 50%;
+    &:before {
+      border-bottom: $popover-arrow-size solid transparent;
+      border-top: $popover-arrow-size solid transparent;
+      transform: translateY(-50%);
+      top: 50%;
+    }
+  }
+
+  /* BOTTOM */
+  &[direction=bottom], &:not([direction]) {
+    margin-top: $popover-gap + 3px;
+    top: 100%;
+    &:before {
+      border-bottom: $popover-arrow-size solid $popover-arrow-color;
+      top: -$popover-arrow-size - 3px;
+    }
+  }
+
+  /* TOP */
+  &[direction=top] {
+    margin-bottom: $popover-gap + 3px;
+    bottom: 100%;
+    &:before{
+      border-top: $popover-arrow-size solid $popover-arrow-color;
+      bottom: -$popover-arrow-size - 3px;
+    }
+  }
+
+  /* RIGHT */
+  &[direction=right] {
+    margin-left: $popover-gap + 3px;
+    left: 100%;
+    &:before {
+      border-right: $popover-arrow-size solid $popover-arrow-color;
+      left: -$popover-arrow-size - 3px;
+    }
+  }
+
+  /* LEFT */
+  &[direction=left] {
+    margin-right: $popover-gap + 3px;
+    right: 100%;
+    &:before {
+      border-left: $popover-arrow-size solid $popover-arrow-color;
+      right: -$popover-arrow-size - 3px;
+    }
+  }
+
+}

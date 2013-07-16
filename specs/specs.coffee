@@ -127,7 +127,13 @@ Controls =
     action: '/upload'
     method: ['post','put','get','patch','delete']
     submit: ->
-
+  popover:
+    direction: ['bottom','top','left','right']
+    open: ->
+    close: ->
+    toggle: ->
+    disabled: false
+    
 hljs.tabReplace = '    '
 hljs.initHighlightingOnLoad()
 
