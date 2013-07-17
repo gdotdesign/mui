@@ -1,7 +1,10 @@
 #= require ../core/abstract
+#= require i-validable
 
 # Select component
 class UI.Select extends UI.Abstract
+  implements: [UI.iValidable]
+
   # The tagname of the component
   @TAGNAME: 'select'
   # Whether the component can receive focus

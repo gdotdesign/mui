@@ -26,7 +26,11 @@ class UI.Abstract
 
     el.setAttribute 'tabindex', 0 if @TABABLE
     el._processed = true
+
     @::initialize?.call el
+    if @::implements
+      for cls in @::implements
+        cls::initialize.call el
     el.onAdded?() if el.parentNode
 
   # Creates the specifiec component.

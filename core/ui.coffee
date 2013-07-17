@@ -41,7 +41,12 @@ UI =
   _geather: (obj)->
     ret = {}
     for key in Object.keys(obj)
-      ret[key] = Object.getOwnPropertyDescriptor(obj,key)
+      if key is 'implements'
+        for object in obj[key]
+          for k, d of @_geather(object::)
+            ret[k] ?= d
+      else
+        ret[key] = Object.getOwnPropertyDescriptor(obj,key)
     if (proto = Object.getPrototypeOf(obj)) isnt Object::
       for key, desc of @_geather(proto)
         ret[key] ?= desc
