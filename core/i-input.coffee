@@ -4,6 +4,26 @@
 # @abstract
 class UI.iInput extends UI.Abstract
 
+  @get 'required', -> @hasAttribute 'required'
+  @get 'maxlength', -> parseInt(@getAttribute('maxlength')) or 0
+  @get 'valid', -> @hasAttribute 'valid'
+  @get 'invalid', -> @hasAttribute 'invalid'
+
+  @get 'pattern', -> 
+    pattern = @getAttribute('pattern') or ".*"
+    try
+      return new RegExp "^#{pattern}$"
+    catch
+      return /^.*$/
+
+  validate: ->
+    @toggleAttribute 'invalid', false
+    @toggleAttribute 'valid', false
+
+    if (@required and not @value) or (@maxlength < @value.toString().length) or (not @pattern.test @value) or (not (@validator?() or true))
+      return @toggleAttribute('invalid', true) 
+    @toggleAttribute 'valid', true
+
   # @property [String] value The value of the component
   @get 'value', ->  @textContent
   @set 'value', (value)-> @textContent = value
@@ -31,4 +51,5 @@ class UI.iInput extends UI.Abstract
   # @private
   initialize: ->
     @setAttribute 'contenteditable', true
-    @addEventListener UI.Events.blur, @cleanup.bind(@)
+    @addEventListener UI.Events.blur, @cleanup
+    @addEventListener 'input', @validate
