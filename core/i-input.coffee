@@ -38,4 +38,4 @@ class UI.iInput extends UI.Abstract
   # @private
   initialize: ->
     @setAttribute 'contenteditable', true
-    @addEventListener UI.Events.blur, @cleanup()
+    @addEventListener UI.Events.blur, @cleanup

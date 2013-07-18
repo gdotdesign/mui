@@ -1,4 +1,4 @@
-7#= require ../core/i-openable
+#= require ../core/i-openable
 
 # Tooltip Component
 class UI.Tooltip extends UI.iOpenable

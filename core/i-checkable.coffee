@@ -1,8 +1,17 @@
+#= require abstract
+#= require i-validable
+
 # Checkable Interface
 #
 # Fires `change` event.
 # @abstract
 class UI.iCheckable extends UI.Abstract
+  # Mixin implementations
+  implements: [UI.iValidable]
+
+  # Validators
+  validators: [UI.validators.required]
+
   # Whether the component can receive focus
   @TABABLE: true
   

@@ -5,6 +5,25 @@ UI =
   verbose: false
   namespace: 'ui'
   version: '0.1.0-RC1'
+
+  validators:
+    required:
+      condition: -> @required
+      validate: -> !!@value
+      message: 'This field is required!'
+    maxlength:
+      condition: -> @maxlength isnt Infinity
+      validate: -> @maxlength >= @value.toString().length
+      message: -> 'Length cannot be bigger then '+@maxlength+"!"
+    pattern:
+      condition: -> @pattern.toString() isnt "/^.*$/"
+      validate: -> @pattern.test @value.toString()
+      message: 'Value must match the provided pattern!'
+    email:
+      condition: -> @required
+      validate: -> /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])/.test @value.toString()
+      message: 'Must be an email address!'
+
   # Loads components (first initialization)
   load: (base = document)->
     for key, value of UI

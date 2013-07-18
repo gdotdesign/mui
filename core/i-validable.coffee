@@ -16,15 +16,19 @@ class UI.iValidable
     @toggleAttribute 'invalid', false
     @toggleAttribute 'valid', false
 
-    validatePattern = @pattern.toString() isnt "/^.*$/"
-    validateMaxLength = @maxlength isnt Infinity
-    validate = @required or @validator instanceof Function
+    shouldValidate = false
+    for validator in @validators
+      if validator.condition.call @
+        shouldValidate = true
+        break
 
-    return undefined if not validatePattern and not validateMaxLength and not validate
+    return undefined unless shouldValidate
     
-    if (@required and not @value) or (@maxlength < @value.toString().length) or (not @pattern.test @value) or (@validator?.call(@) or false)
-      @toggleAttribute('invalid', true)
-      return false
+    for validator in @validators
+      continue unless validator.condition.call @
+      unless validator.validate.call @
+        @toggleAttribute 'invalid', true
+        return false
 
     @toggleAttribute 'valid', true
     true
@@ -32,3 +36,4 @@ class UI.iValidable
   initialize: ->
     @addEventListener 'input', @validate
     @addEventListener 'change', @validate
+    @validate()
