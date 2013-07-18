@@ -142,6 +142,7 @@ picker = class
 
 color = Color
 # Color component
+# TODO: Validations...
 class UI.Color extends UI.Text
   # The tagname of the component
   @TAGNAME: 'color'

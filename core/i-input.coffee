@@ -4,7 +4,7 @@
 # Input base Class
 # @abstract
 class UI.iInput extends UI.Abstract
-
+  # Mixin implementations
   implements: [UI.iValidable]
 
   # @property [String] value The value of the component

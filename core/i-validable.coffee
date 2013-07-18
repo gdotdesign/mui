@@ -1,10 +1,19 @@
+# Validable mixin
 class UI.iValidable
 
+  # @property [Boolean] Whether the component value is required or not
   @get 'required', -> @hasAttribute 'required'
+
+  # @property [Number] Maximum length allows fot the components value
   @get 'maxlength', -> parseInt(@getAttribute('maxlength')) or Infinity
+
+  # @property [Boolean] Whether the component is valid
   @get 'valid', -> @hasAttribute 'valid'
+
+  # @property [Boolean] Whether the component is invalid
   @get 'invalid', -> @hasAttribute 'invalid'
 
+  # @property [RegExp] The pattern to match against the value
   @get 'pattern', -> 
     pattern = @getAttribute('pattern') or ".*"
     try
@@ -12,6 +21,7 @@ class UI.iValidable
     catch
       return /^.*$/
 
+  # Validates to components value based on @validators
   validate: ->
     @toggleAttribute 'invalid', false
     @toggleAttribute 'valid', false
@@ -33,6 +43,8 @@ class UI.iValidable
     @toggleAttribute 'valid', true
     true
 
+  # Initailizes the mixin
+  # @private
   initialize: ->
     @addEventListener 'input', @validate
     @addEventListener 'change', @validate
