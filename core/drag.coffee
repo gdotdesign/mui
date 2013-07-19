@@ -45,7 +45,7 @@ class Drag
 
     @position = @startPosition = @getPosition(e)
 
-    event = UI.Abstract::fireEvent.call @base, 'dragstart', {_target: e.target, shiftKey: e.shiftKey}
+    event = @base.fireEvent 'dragstart', {_target: e.target, shiftKey: e.shiftKey}
     return if event.stopped
 
     @mouseIsDown = true
@@ -60,7 +60,7 @@ class Drag
   move: =>
     requestAnimationFrame @move if @mouseIsDown
     return unless @position
-    UI.Abstract::fireEvent.call @base, 'dragmove'
+    @base.fireEvent 'dragmove'
 
   # Sets curent position from event
   # @param [e] Event
@@ -76,4 +76,4 @@ class Drag
     @reset()
     document.removeEventListener UI.Events.dragMove, @pos
     document.removeEventListener UI.Events.dragEnd, @up
-    UI.Abstract::fireEvent.call @base, 'dragend'
+    @base.fireEvent 'dragend'

@@ -118,3 +118,29 @@ Test.add 'iValidable',->
     @assert component.valid
     delete UI.Text::validators.splice(UI.Text::validators.length-1,1)
     component.value = ''
+
+  @case 'Input should fire validate event when validating (true)', ->
+    x = false
+    e = null
+    fn = (ev)->
+      x = true
+      e = ev
+    component.setAttribute 'required', true
+    component.addEventListener 'validate', fn
+    component.value = 'a'
+    @assert x
+    @assert e.valid
+    component.removeEventListener 'validate', fn
+
+  @case 'Input should fire validate event when validating (false)', ->
+    x = false
+    e = null
+    fn = (ev)->
+      x = true
+      e = ev
+    component.setAttribute 'required', true
+    component.addEventListener 'validate', fn
+    component.value = ''
+    @assert x
+    @assert !e.valid
+    component.removeEventListener 'validate', fn

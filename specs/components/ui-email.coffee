@@ -44,7 +44,6 @@ Test.add 'Email', ->
   @case "Component should be invalid for the following test cases", ->
     for test in invalidTestCases
       email.value = 'test@test.com'
-      console.log test
       @assert email.valid
       @assert !email.invalid
       email.value = test

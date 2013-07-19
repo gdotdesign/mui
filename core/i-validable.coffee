@@ -38,9 +38,11 @@ class UI.iValidable
       continue unless validator.condition.call @
       unless validator.validate.call @
         @toggleAttribute 'invalid', true
+        @fireEvent 'validate', {valid: false}
         return false
 
     @toggleAttribute 'valid', true
+    @fireEvent 'validate', {valid: true}
     true
 
   # Initailizes the mixin
