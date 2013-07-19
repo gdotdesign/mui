@@ -54,7 +54,7 @@ Test.add 'Form', ->
     @assert x
 
   @case "Submit should not run if the form is invaild (component)", ->
-    email.setAttribute('required')
+    email.setAttribute('required', true)
     email.value = ""
     email.validate()
     @assert !form.submit()
@@ -62,7 +62,7 @@ Test.add 'Form', ->
   @case "Submit should not run if the form is invaild (password)", ->
     email.removeAttribute('required')
     email.validate()
-    password.setAttribute('required')
+    password.setAttribute('required', true)
     password.validate()
     @assert !form.submit()
 
@@ -77,7 +77,7 @@ Test.add 'Form', ->
     @assert !form.invalid
 
   @case "Valid should return false if one of the inputs are invalid", ->
-    email.setAttribute('required')
+    email.setAttribute('required', true)
     email.validate()
     @assert form.invalid
     @assert !form.valid
