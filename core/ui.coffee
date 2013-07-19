@@ -16,8 +16,12 @@ UI =
       validate: -> @maxlength >= @value.toString().length
       message: -> 'Length cannot be bigger then '+@maxlength+"!"
     pattern:
-      condition: -> @pattern.toString() isnt "/^.*$/"
-      validate: -> @pattern.test @value.toString()
+      condition: ->
+        return false unless @pattern
+        @pattern.toString() isnt "/^.*$/"
+      validate: ->
+        return false unless @pattern
+        @pattern.test @value.toString()
       message: 'Value must match the provided pattern!'
     email:
       condition: -> @required
@@ -29,6 +33,8 @@ UI =
       el.validators ?= UI.Text::validators
       for key, desc of UI._geather UI.iValidable::
         continue if key is 'initialize' or key is 'constructor'
+        originDesc = Object.getOwnPropertyDescriptor(el,key)
+        continue if originDesc and not originDesc.configurable
         Object.defineProperty el, key, desc
       UI.iValidable::initialize.call el
       el._processed = true
