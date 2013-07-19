@@ -11,12 +11,6 @@ class UI.Popover extends UI.iOpenable
     return if @parentNode.hasAttribute('disabled') or @disabled
     @toggle()
 
-  # Action event handler
-  # @private
-  _open: ->
-    return if @parentNode.hasAttribute('disabled') or @disabled
-    @open()
-
   # Action event handler for document
   # @private
   _close: (e)->
