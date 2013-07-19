@@ -27,8 +27,20 @@ class UI.Form extends UI.Abstract
     value = "get" if ['get','post','delete','patch', 'put'].indexOf(value.toLowerCase()) is -1
     @setAttribute 'method', value.toLowerCase()
 
+  # Whehter the form is valid
+  @get 'valid', -> @querySelectorAll('[invalid],:invalid').length is 0
+
+  # Whehter the form is invalid
+  @get 'invalid', -> !@valid
+
+  # Validates all input fields inside the form
+  validate: ->
+    input.validate?() for input in @querySelectorAll('[name]')
+    @valid
+
   # Submits the form and class submit and complete events.
   submit: (callback)->
+    return false if @invalid
     event = @fireEvent 'submit'
     return if event.defaultPrevented
 

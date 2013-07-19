@@ -14,6 +14,8 @@ Test.add 'Form', ->
     obj = form.data
     @assert obj.email is "test@user.com"
     @assert obj.password is "123456"
+    email.value = ""
+    password.value = ""
 
   @case "Method should return get if not specified", ->
     @assert form.method is "get"
@@ -50,3 +52,34 @@ Test.add 'Form', ->
     form.addEventListener 'complete', fn
     form.submit()
     @assert x
+
+  @case "Submit should not run if the form is invaild (component)", ->
+    email.setAttribute('required')
+    email.value = ""
+    email.validate()
+    @assert !form.submit()
+
+  @case "Submit should not run if the form is invaild (password)", ->
+    email.removeAttribute('required')
+    email.validate()
+    password.setAttribute('required')
+    password.validate()
+    @assert !form.submit()
+
+  @case "Validate should return valid property", ->
+    @assert !form.validate()
+    password.removeAttribute('required')
+    password.validate()
+    @assert form.validate()
+
+  @case "Valid should return true if all inputs are valid", ->
+    @assert form.valid
+    @assert !form.invalid
+
+  @case "Valid should return false if one of the inputs are invalid", ->
+    email.setAttribute('required')
+    email.validate()
+    @assert form.invalid
+    @assert !form.valid
+    email.removeAttribute('required')
+    email.validate()
