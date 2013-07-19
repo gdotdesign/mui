@@ -28,7 +28,14 @@ class UI.Form extends UI.Abstract
     @setAttribute 'method', value.toLowerCase()
 
   # Whehter the form is valid
-  @get 'valid', -> @querySelectorAll('[invalid]').length is 0
+  @get 'valid', ->
+    # BUGFIX[Opera(12)] 
+    # Opera doesn't find [invalid] elements in that has been set the same loop
+    # el.setAttribute('invalid',true)
+    # el.parentNode.querySelectorAll('[invalid]')
+    # => 0
+    return false if el.hasAttribute('invalid') for el in @querySelectorAll("*")
+    return true
 
   # Whehter the form is invalid
   @get 'invalid', -> !@valid
@@ -40,6 +47,8 @@ class UI.Form extends UI.Abstract
 
   # Submits the form and class submit and complete events.
   submit: (callback)->
+    console.log @innerHTML
+    console.log @valid
     return false if @invalid
     event = @fireEvent 'submit'
     return if event.defaultPrevented

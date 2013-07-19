@@ -25,7 +25,7 @@ Test.add 'iValidable',->
     @assert component.pattern.toString() is "/^.*$/"
 
   @case "Pattern should return empty regexp if attribute is present and not valid", ->
-    component.setAttribute 'pattern', "*"
+    component.setAttribute 'pattern', ".*"
     @assert component.pattern instanceof RegExp
     @assert component.pattern.toString() is "/^.*$/"
 
