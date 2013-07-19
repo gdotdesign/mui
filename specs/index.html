@@ -34,6 +34,7 @@
         <li target="text">Text</li>
         <li target="number">Number</li>
         <li target="popover">Popover</li>
+        <li target="email">Email</li>
         <li target="textarea">Textarea</li>
         <li target="form">Form</li>
         <li target="pager">Pager</li>
@@ -251,6 +252,7 @@
                 <ui-option value="option1">Option 1</ui-option>
                 <ui-option value="option2" selected="true">Option 2</ui-option>
                 <ui-option value="option3">Option 3</ui-option>
+                <ui-option value="">Option 4</ui-option>
               </ui-dropdown>
             </ui-select>
           </section>
@@ -330,6 +332,16 @@
           <pre><code class="html">
 &lt;ui-number placeholder="Number..." name="number"&gt;&lt;/ui-number&gt;
 &lt;ui-number placeholder="Number..." name="number"&gt;10.1&lt;/ui-number&gt;
+          </code></pre>
+        </ui-page>
+
+        <ui-page name="email">
+          <section>
+           <ui-email placeholder="Email..." required></ui-email>
+          </section>
+          <pre><code class="html">
+&lt;ui-email placeholder="Email..." name="email" &gt;&lt;/ui-email&gt;
+&lt;ui-email placeholder="Email..." name="email" &gt;test@test.com&lt;/ui-email&gt;
           </code></pre>
         </ui-page>
 

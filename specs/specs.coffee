@@ -100,6 +100,10 @@ Controls =
     placeholder: 'Textarea...'
     value: ''
     disabled: false
+  email:
+    placeholder: 'Email...'
+    value: ''
+    disabled: false
   radio:
     checked: true
     disabled: false

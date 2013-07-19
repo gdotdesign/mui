@@ -6,6 +6,7 @@ ui-radio {
   border-radius: 50%;
 
   /* STYLES */
+  background-color: $background-color;
   background-image: radial-gradient($background-color-hover,$background-color);
   box-shadow: $plastic-shadow;
   height: $base-height;

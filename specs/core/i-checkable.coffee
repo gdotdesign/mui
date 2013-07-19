@@ -1,37 +1,51 @@
 Test.add 'iCheckable',->
-  checkbox = document.querySelector(UI.Checkbox.SELECTOR())
+  component = document.querySelector(UI.Checkbox.SELECTOR())
 
-  @case "Checked should set checked attribute of the checkbox", ->
-    checkbox.checked = false
-    @assert !checkbox.hasAttribute('checked')
-    checkbox.checked = true
-    @assert checkbox.hasAttribute('checked')
-  @case "Checked should return checked attribute of the checkbox", ->
-    @assert checkbox.hasAttribute('checked') is checkbox.checked
+  @case "Checked should set checked attribute of the component", ->
+    component.checked = false
+    @assert !component.hasAttribute('checked')
+    component.checked = true
+    @assert component.hasAttribute('checked')
+  @case "Checked should return checked attribute of the component", ->
+    @assert component.hasAttribute('checked') is component.checked
 
   @case "It should not trigger change event if the checked is the same ", ->
     x = false
-    checkbox.addEventListener 'change', -> x = true
-    checkbox.checked = true
+    component.addEventListener 'change', -> x = true
+    component.checked = true
     @assert !x
 
   @case "It should trigger change event if the checked changes", ->
     x = false
-    checkbox.addEventListener 'change', -> x = true
-    checkbox.checked = false
+    component.addEventListener 'change', -> x = true
+    component.checked = false
     @assert x
-    checkbox.checked = true
+    component.checked = true
 
   @case "It should not change if it is disabled", ->
-    @assert checkbox.hasAttribute('checked')
-    checkbox.disabled = true
-    checkbox.click()
-    @assert checkbox.hasAttribute('checked')
-    checkbox.disabled = false
+    @assert component.hasAttribute('checked')
+    component.disabled = true
+    component.click()
+    @assert component.hasAttribute('checked')
+    component.disabled = false
 
   @case "Enter should toggle the component", ->
-    @assert checkbox.checked
-    checkbox.fireEvent 'keydown', {keyCode: 13}
-    @assert !checkbox.checked
-    checkbox.fireEvent 'keydown', {keyCode: 13}
-    @assert checkbox.checked
+    @assert component.checked
+    component.fireEvent 'keydown', {keyCode: 13}
+    @assert !component.checked
+    component.fireEvent 'keydown', {keyCode: 13}
+    @assert component.checked
+
+  @case 'Checkbox should be valid if required and checked', ->
+    component.setAttribute 'required', true
+    component.checked = true
+    component.validate()
+    @assert !component.invalid
+    @assert component.valid
+    component.value = false
+    
+  @case 'Checkbox should be invalid if required and not checked', ->
+    component.validate()
+    @assert component.invalid
+    @assert !component.valid
+    component.removeAttribute 'required'

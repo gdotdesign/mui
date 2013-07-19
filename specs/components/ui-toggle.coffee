@@ -9,7 +9,7 @@ Test.add 'Toggle',->
     component.fireEvent 'keydown', {keyCode: 38}
     @assert !component.checked
 
-  @case 'Right / Up button should increment value', ->
+  @case 'Right / Up button should check the component', ->
     component.checked = false
     component.fireEvent 'keydown', {keyCode: 39}
     @assert component.checked

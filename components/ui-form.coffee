@@ -27,8 +27,28 @@ class UI.Form extends UI.Abstract
     value = "get" if ['get','post','delete','patch', 'put'].indexOf(value.toLowerCase()) is -1
     @setAttribute 'method', value.toLowerCase()
 
+  # Whehter the form is valid
+  @get 'valid', ->
+    # BUGFIX[Opera(12)] 
+    # Opera doesn't find [invalid] elements in that has been set the same loop
+    # el.setAttribute('invalid',true)
+    # el.parentNode.querySelectorAll('[invalid]')
+    # => 0
+    for el in @querySelectorAll("*")
+      return false if el.hasAttribute('invalid')
+    return true
+
+  # Whehter the form is invalid
+  @get 'invalid', -> !@valid
+
+  # Validates all input fields inside the form
+  validate: ->
+    input.validate?() for input in @querySelectorAll('[name]')
+    @valid
+
   # Submits the form and class submit and complete events.
   submit: (callback)->
+    return false if @invalid
     event = @fireEvent 'submit'
     return if event.defaultPrevented
 

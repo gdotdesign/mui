@@ -2,6 +2,9 @@
 
 # Text Input Compontent
 class UI.Text extends UI.iInput
+  # Validators
+  validators: [UI.validators.required,UI.validators.maxlength,UI.validators.pattern]
+
   # The tagname of the component
   @TAGNAME: 'text'
 

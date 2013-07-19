@@ -8,4 +8,6 @@ ui-textarea {
 
   &:focus { @extend ui-input:focus; }
   &:empty:after { @extend ui-input:empty:after; }
+  &[invalid]{ @extend ui-input[invalid]; }
+  &[valid]{ @extend ui-input[valid]; }
 }

@@ -40,5 +40,11 @@ ui-pager {
 }
 
 /* STATES */
-body[loaded] ui-page          { animation: pager-out $transition-normal 1 both; }
-body[loaded] ui-page[active]  { animation: pager-in $transition-normal 1 both;  }
+body[loaded] ui-page {
+  animation: pager-out $transition-normal 1 both;
+  left: -100%
+}
+body[loaded] ui-page[active] {
+  animation: pager-in $transition-normal 1 both;
+  left: 0%
+}

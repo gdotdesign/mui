@@ -2,6 +2,9 @@
 
 # Number component
 class UI.Number extends UI.Text
+  # Validators
+  validators: [UI.validators.required]
+  
   # The tagname of the component
   @TAGNAME: 'number'
 

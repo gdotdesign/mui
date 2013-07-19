@@ -26,7 +26,11 @@ class UI.Abstract
 
     el.setAttribute 'tabindex', 0 if @TABABLE
     el._processed = true
+
     @::initialize?.call el
+    if @::implements
+      for cls in @::implements
+        cls::initialize.call el
     el.onAdded?() if el.parentNode
 
   # Creates the specifiec component.
@@ -35,20 +39,6 @@ class UI.Abstract
     base = document.createElement @SELECTOR()
     @wrap base
     base
-
-  # Fires an event
-  #
-  # @param [String] type - The type of the event
-  # @param [Object] data - The additional parameters to be set on the event
-  # @throw [Error] When no type is specified
-  # @return [Event] The event
-  fireEvent: (type,data)->
-    throw "No type specified" unless typeof type is 'string'
-    event = document.createEvent("HTMLEvents")
-    event.initEvent(type, true, true)
-    event[key] = value for key, value of data
-    @dispatchEvent(event)
-    event
 
   # Returns the string representation of the component
   # @return [String] tagname

@@ -1,3 +1,19 @@
+// Fireevent
+Element.prototype.fireEvent = function(type, data) {
+  var event, key, value;
+  if (typeof type !== 'string') {
+    throw "No type specified";
+  }
+  event = document.createEvent("HTMLEvents");
+  event.initEvent(type, true, true);
+  for (key in data) {
+    value = data[key];
+    event[key] = value;
+  }
+  this.dispatchEvent(event);
+  return event;
+};
+
 // Adds / Removes attribute
 Element.prototype.toggleAttribute = function(attr, value) {
   var state;
