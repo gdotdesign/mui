@@ -21,11 +21,22 @@ UI =
       message: 'Value must match the provided pattern!'
     email:
       condition: -> @required
-      validate: -> /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])/.test @value.toString()
+      validate: -> /^[a-z0-9!#$%&'"*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$/.test @value.toString()
       message: 'Must be an email address!'
+
+  _wrapPassword: (el)->
+      return if el._processed
+      el.validators ?= UI.Text::validators
+      for key, desc of UI._geather UI.iValidable::
+        continue if key is 'initialize' or key is 'constructor'
+        Object.defineProperty el, key, desc
+      UI.iValidable::initialize.call el
+      el._processed = true
 
   # Loads components (first initialization)
   load: (base = document)->
+    for el in base.querySelectorAll('input[type=password]')
+      @_wrapPassword el
     for key, value of UI
       if value.SELECTOR
         for el in base.querySelectorAll(value.SELECTOR())
@@ -47,6 +58,8 @@ UI =
   _insert: (e)->
     return unless e.target.tagName
     tagName = e.target.tagName
+    if tagName is 'INPUT' and e.target.getAttribute('type') is 'password'
+      @_wrapPassword e.target
     return unless tagName.match /^UI-/
     tag = tagName.split("-").pop().toLowerCase().replace /^\w|\s\w/g, (match) ->  match.toUpperCase()
     return unless @[tag]

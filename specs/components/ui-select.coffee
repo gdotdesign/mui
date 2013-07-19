@@ -93,15 +93,19 @@ Test.add 'Select',->
     @assert select.selectedOption.index() is 1
     select.fireEvent 'keydown', {keyCode: 40}
     @assert select.selectedOption.index() is 2
+    select.fireEvent 'keydown', {keyCode: 40}
+    @assert select.selectedOption.index() is 3
 
   @case 'Right / Up button shouldnot select anything if the last option is selected', ->
-    @assert select.selectedOption.index() is 2
+    @assert select.selectedOption.index() is 3
     select.fireEvent 'keydown', {keyCode: 40}
     select.fireEvent 'keydown', {keyCode: 39}
-    @assert select.selectedOption.index() is 2
+    @assert select.selectedOption.index() is 3
 
   @case 'Left / Down button should select previous option', ->
     select.fireEvent 'keydown', {keyCode: 37}
+    @assert select.selectedOption.index() is 2
+    select.fireEvent 'keydown', {keyCode: 38}
     @assert select.selectedOption.index() is 1
     select.fireEvent 'keydown', {keyCode: 38}
     @assert select.selectedOption.index() is 0
@@ -111,3 +115,16 @@ Test.add 'Select',->
     select.fireEvent 'keydown', {keyCode: 37}
     select.fireEvent 'keydown', {keyCode: 38}
     @assert select.selectedOption.index() is 0
+
+  @case 'Component should be valid if required and not empty value', ->
+    select.setAttribute 'required', true
+    select.validate()
+    @assert !select.invalid
+    @assert select.valid
+    
+  @case 'Component should be invalid if required and empty value', ->
+    select.select("")
+    select.validate()
+    @assert select.invalid
+    @assert !select.valid
+    select.removeAttribute 'required'
