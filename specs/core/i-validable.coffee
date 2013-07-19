@@ -30,9 +30,9 @@ Test.add 'iValidable',->
     @assert component.pattern.toString() is "/^.*$/"
 
   @case "Pattern should return regexp if attribute is present and valid", ->
-    component.setAttribute 'pattern', "https?://.+"
+    component.setAttribute 'pattern', "\\d+"
     @assert component.pattern instanceof RegExp
-    @assert component.pattern.toString() is "/^https?://.+$/"
+    @assert component.pattern.toString() is "/^\\d+$/"
 
   @case "Input shouldn't be validated if no required, maxlength, pattern and no validator is present", ->
     component.removeAttribute 'required'

@@ -28,7 +28,7 @@ class UI.Form extends UI.Abstract
     @setAttribute 'method', value.toLowerCase()
 
   # Whehter the form is valid
-  @get 'valid', -> @querySelectorAll('[invalid],:invalid').length is 0
+  @get 'valid', -> @querySelectorAll('[invalid]').length is 0
 
   # Whehter the form is invalid
   @get 'invalid', -> !@valid
