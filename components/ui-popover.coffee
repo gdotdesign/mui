@@ -1,6 +1,6 @@
 #= require ../core/i-openable
 
-# Dropdown component
+# Popover component
 class UI.Popover extends UI.iOpenable
   # The tagname of the component
   @TAGNAME: 'popover'
@@ -21,13 +21,15 @@ class UI.Popover extends UI.iOpenable
   # @private
   _close: (e)->
     return if @parentNode.hasAttribute('disabled') or @disabled
-    @close() if getParent(e.target, UI.Dropdown.SELECTOR()) isnt @ and getParent(e.target,@parentNode.tagName) isnt @parentNode
+    @close() if getParent(e.target,@parentNode.tagName) isnt @parentNode
 
   # Runs when the element is inserted into the DOM
   # @private
   onAdded: ->
     super
     @parentNode.addEventListener UI.Events.action, @_toggle.bind(@)
+    @parentNode.addEventListener 'keydown', (e)=>
+      @_toggle() if e.ctrlKey
 
   # Initializes the component
   # @private
