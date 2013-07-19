@@ -48,6 +48,6 @@ class UI.iValidable
   # Initailizes the mixin
   # @private
   initialize: ->
-    @addEventListener 'input', @validate
+    @addEventListener 'keyup', @validate
     @addEventListener 'change', @validate
     @validate()

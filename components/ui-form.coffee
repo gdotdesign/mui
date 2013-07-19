@@ -34,7 +34,8 @@ class UI.Form extends UI.Abstract
     # el.setAttribute('invalid',true)
     # el.parentNode.querySelectorAll('[invalid]')
     # => 0
-    return false if el.hasAttribute('invalid') for el in @querySelectorAll("*")
+    for el in @querySelectorAll("*")
+      return false if el.hasAttribute('invalid')
     return true
 
   # Whehter the form is invalid
@@ -47,8 +48,6 @@ class UI.Form extends UI.Abstract
 
   # Submits the form and class submit and complete events.
   submit: (callback)->
-    console.log @innerHTML
-    console.log @valid
     return false if @invalid
     event = @fireEvent 'submit'
     return if event.defaultPrevented
