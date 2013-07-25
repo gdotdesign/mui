@@ -4,6 +4,12 @@
 class UI.Toggle extends UI.iCheckable
   # The tagname of the component
   @TAGNAME: 'toggle'
+  # Child Elements
+  @MARKUP: [
+    UI.promiseElement('div',{},['ON'])
+    UI.promiseElement('div')
+    UI.promiseElement('div',{},['OFF'])
+  ]
 
   # Keydown event handler
   # @param [Event] e
@@ -21,20 +27,3 @@ class UI.Toggle extends UI.iCheckable
   initialize: ->
     super
     @addEventListener 'keydown', @_keydown
-
-  # Creates the specifiec component.
-  # @return [UI.Toggle] The component element
-  @create: ->
-    el = super
-    _on = document.createElement('div')
-    _off = document.createElement('div')
-    separator = document.createElement('div')
-
-    _on.textContent = 'ON'
-    _off.textContent = 'OFF'
-
-    el.appendChild _on
-    el.appendChild separator
-    el.appendChild _off
-
-    el

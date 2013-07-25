@@ -48,8 +48,10 @@ class UI.Context extends UI.Abstract
     @_parent = @parentNode
     @_parent.addEventListener 'contextmenu', @_open.bind(@)
 
+  # Initailizes the component
+  # @private
   initialize: ->
     document.addEventListener UI.Events.action, @_close.bind(@)
     document.addEventListener 'contextmenu', @_close.bind(@)
     document.body.appendChild(@)
-  
+

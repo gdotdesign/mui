@@ -1,5 +1,9 @@
-class Component extends UI.Abstract
-  initialize: ->
+# Backbone like view class
+class UI.View extends UI.Abstract
+
+  # Adds events from @events
+  # @private
+  _addEvents: ->
     for type,method of @events
       if type.match /\s/
         [type,selector] = type.split /\s/
@@ -9,4 +13,5 @@ class Component extends UI.Abstract
         type = UI.Events[type] if UI.Events[type]
         @addEventListener type,@[method].bind @
 
-    UI._build.call(@, @markup, @) if @markup
+  # Initializez the Component
+  initialize: -> @_addEvents()

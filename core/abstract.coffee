@@ -28,25 +28,33 @@ class UI.Abstract
     el._processed = true
 
     @::initialize?.call el
-    if @::implements
-      for cls in @::implements
-        cls::initialize.call el
+    return unless @::implements
+    cls::initialize.call el for cls in @::implements
+
 
   # Creates the specifiec component.
   # @return [UI.Abstract] The component element
   @create: (attributes)->
     base = document.createElement @SELECTOR()
-    for key, value of attributes
-      base.setAttribute key, value
+    if @MARKUP
+      UI._build.call base, @MARKUP, base
+    if attributes
+      throw "Illegal attributes" unless typeof attributes is 'object'
+      base.setAttribute key, value for key, value of attributes
     @wrap base
     base
 
-  # Returns the string representation of the component
-  # @return [String] tagname
-  toString: -> "<#{@tagName.toLowerCase()}>"
-
+  # Returns a function when its called creates a Component
+  # @param [Object] Attributes to be added to the component
+  # @param [Array] Children to be created for the component
+  # @return [Function]
   @promise: (attributes = {}, children)->
     (parent)=>
       el = @create(attributes)
       UI._build.call el, children, parent
       el
+
+  # Returns the string representation of the component
+  # @return [String] tagname
+  toString: -> "<#{@tagName.toLowerCase()}>"
+

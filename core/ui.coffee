@@ -28,6 +28,7 @@ UI =
       validate: -> /^[a-z0-9!#$%&'"*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$/.test @value.toString()
       message: 'Must be an email address!'
 
+  # Wraps password fields with methods
   _wrapPassword: (el)->
     return if el._processed
     el.validators ?= UI.Text::validators
@@ -42,6 +43,7 @@ UI =
   # Loads components (first initialization)
   load: (base = document)->
     for el in base.querySelectorAll('input[type=password]')
+      return if el._processed
       @_wrapPassword el
     for key, value of UI
       if value.SELECTOR
@@ -53,13 +55,13 @@ UI =
 
   # Initailizeses components (current and in the future)
   initialize: ->
-    document.addEventListener 'DOMNodeInsertedIntoDocument', @_insert.bind(@), true
+    document.addEventListener 'DOMNodeInserted', @_insert.bind(@), true
     window.addEventListener 'load', =>
-      UI.beforeload?()
+      UI.onBeforeLoad?()
       @load()
       setTimeout ->
         document.body.setAttribute 'loaded', true
-        UI.onload?()
+        UI.onLoad?()
       , 1000
 
   # Promises simple element
@@ -67,7 +69,7 @@ UI =
   # @param [Object] attributes
   # @param [Array] attributer
   # @return [Function]
-  promiseElement: (tag,attributes,children)->
+  promiseElement: (tag, attributes = {}, children = [])->
     (parent)->
       throw "Illegal tagname" unless typeof tag is 'string'
       throw "Illegal attributes" unless typeof attributes is 'object'

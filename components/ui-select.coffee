@@ -1,5 +1,7 @@
 #= require ../core/abstract
-#= require i-validable
+#= require ../core/i-validable
+#= require ./ui-option
+#= require ./ui-label
 
 # Select component
 class UI.Select extends UI.Abstract
@@ -13,8 +15,16 @@ class UI.Select extends UI.Abstract
   @TAGNAME: 'select'
   # Whether the component can receive focus
   @TABABLE: true
+  # Child Elements
+  @MARKUP: [
+    UI.Label.promise()
+    UI.Dropdown.promise()
+  ]
 
+  # @property [UI.Dropdown] The dropdown element
   @get 'dropdown', -> @querySelector(UI.Dropdown.SELECTOR())
+
+  # @property [UI.Label] The label element
   @get 'label', -> @querySelector(UI.Label.SELECTOR())
 
   # @property [String] The current value of the component

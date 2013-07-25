@@ -11,6 +11,12 @@ window.XMLHttpRequest = class XMLHttpRequest
 
 # Test "framework"
 Test =
+  spyOn: (object,method)->
+    oldMethod = object[method]
+    object[method] = (args...) ->
+      object[method].calls+++
+      oldMethod.apply object, args
+    object[method].calls = 0
   tests: {}
   assert: (condition)->
     Test.results.total++
@@ -142,112 +148,109 @@ hljs.tabReplace = '    '
 hljs.initHighlightingOnLoad()
 
 window.addEventListener 'load', ->
-  Test.run()
+  setTimeout =>
+    window.startElementCount = 0
+    for el in document.querySelectorAll("*")
+      startElementCount++ if el.tagName.match /ui-/i
+    Test.run()
 
-  # Show action - method - data on submit
-  form = document.querySelector('ui-form')
-  form.addEventListener 'submit', (e)->
-    e.preventDefault()
-    data = "#{@method.toUpperCase()}::#{@action} -> #{JSON.stringify(@data)}"
-    alert(data)
+    # Show action - method - data on submit
+    form = document.querySelector('ui-form')
+    form.addEventListener 'submit', (e)->
+      e.preventDefault()
+      data = "#{@method.toUpperCase()}::#{@action} -> #{JSON.stringify(@data)}"
+      alert(data)
 
-  # Trim ends for code highlight
-  for code in document.querySelectorAll('code')
-    code.innerHTML = code.innerHTML.trim()
+    # Trim ends for code highlight
+    for code in document.querySelectorAll('code')
+      code.innerHTML = code.innerHTML.trim()
 
-  document.querySelector('.container').style.display = "block"
-  @pager = document.querySelector(UI.Pager.SELECTOR())
+    document.querySelector('.container').style.display = "block"
+    @pager = document.querySelector(UI.Pager.SELECTOR())
 
-  change = ->
-    target = @location.hash[1..]
-    return unless target
-    @pager.change target
-    document.querySelector('[target].active').classList.remove 'active'
-    document.querySelector("[target=#{target}]").classList.add 'active'
+    change = ->
+      target = @location.hash[1..]
+      return unless target
+      @pager.change target
+      document.querySelector('[target].active').classList.remove 'active'
+      document.querySelector("[target=#{target}]").classList.add 'active'
 
-  document.addEventListener 'focus', (e)->
-    pg = getParent(e.target,UI.Page.SELECTOR())
-    return unless pg
-    window.location.hash = pg.getAttribute('name')
-  ,true
+    document.addEventListener 'focus', (e)->
+      pg = getParent(e.target,UI.Page.SELECTOR())
+      return unless pg
+      window.location.hash = pg.getAttribute('name')
+    ,true
 
-  @addEventListener 'hashchange', ->
+    @addEventListener 'hashchange', ->
+      change()
+
     change()
 
-  change()
+    document.addEventListener 'click', (e)->
+      return unless e.target.hasAttribute('target')
+      @location.hash = e.target.getAttribute('target')
 
-  document.addEventListener 'click', (e)->
-    return unless e.target.hasAttribute('target')
-    @location.hash = e.target.getAttribute('target')
-
-  for name, controls of Controls
-    do (name, controls) ->
-      p = document.querySelector("ui-page[name=#{name}]")
-      page = document.querySelector("ui-page[name=#{name}] section")
-      dl = document.createElement('dl')
-      code = document.createElement('code')
-      code.classList.add 'html'
-      p.appendChild dl
-      if controls.target
-        element = controls.target()
-        delete controls.target
-      else
-        element = page.querySelector("ui-#{name}")
-      for key, value of controls
-        do (key, value) ->
-          dt = document.createElement 'dt'
-          label = UI.Label.create()
-          label.textContent = key
-          dt.appendChild label
-          dd = document.createElement 'dd'
-          if value instanceof Function
-            btn = UI.Button.create()
-            btn.label = key
-            btn.type = "info"
-            btn.addEventListener UI.Events.action, (e)->
-              e.stopPropagation()
-              element[key]()
-            dd.appendChild btn
-          else if typeof value is 'boolean'
-            toggle = UI.Toggle.create()
-            toggle.value = element[key] = value
-            element.addEventListener 'change', ->
-              toggle.value = element[key]
-            toggle.addEventListener 'change', ->
-              element[key] = toggle.value
-            dd.appendChild toggle
-          else if typeof value is 'string' or typeof value is 'number'
-            input = UI.Text.create()
-            input.value = value
-            element[key] = value
-            if key is 'value'
-              element.addEventListener 'input', ->
-                input.value = element[key]
-              element.addEventListener 'change', ->
-                input.value = element[key]
-            input.addEventListener 'input', ->
-              element[key] = input.value
-            dd.appendChild input
-          else if value.length
-            select = UI.Select.create()
+    for name, controls of Controls
+      do (name, controls) ->
+        p = document.querySelector("ui-page[name=#{name}]")
+        page = document.querySelector("ui-page[name=#{name}] section")
+        dl = document.createElement('dl')
+        code = document.createElement('code')
+        code.classList.add 'html'
+        p.appendChild dl
+        if controls.target
+          element = controls.target()
+          delete controls.target
+        else
+          element = page.querySelector("ui-#{name}")
+        for key, value of controls
+          do (key, value) ->
+            dt = document.createElement 'dt'
             label = UI.Label.create()
-            dropdown = UI.Dropdown.create()
-            select.appendChild label
-            select.appendChild dropdown
-            for item in value
-              option = UI.Option.create()
-              option.setAttribute 'value', item
-              option.textContent = item
-              select.dropdown.appendChild option
-            select.addEventListener 'change', ->
-              element[key] = select.value
-            if key is 'activePage'
+            label.textContent = key
+            dt.appendChild label
+            dd = document.createElement 'dd'
+            if value instanceof Function
+              btn = UI.Button.create()
+              btn.label = key
+              btn.type = "info"
+              btn.addEventListener UI.Events.action, (e)->
+                e.stopPropagation()
+                element[key]()
+              dd.appendChild btn
+            else if typeof value is 'boolean'
+              toggle = UI.Toggle.create()
+              toggle.value = element[key] = value
               element.addEventListener 'change', ->
-                select.value = element[key].getAttribute('name')
-            if key is 'value'
-              element.addEventListener 'change', ->
-                select.value = element[key]
-            dd.appendChild select
-          dl.appendChild dt
-          dl.appendChild dd
-
+                toggle.value = element[key]
+              toggle.addEventListener 'change', ->
+                element[key] = toggle.value
+              dd.appendChild toggle
+            else if typeof value is 'string' or typeof value is 'number'
+              input = UI.Text.create()
+              input.value = value
+              element[key] = value
+              if key is 'value'
+                element.addEventListener 'input', ->
+                  input.value = element[key]
+                element.addEventListener 'change', ->
+                  input.value = element[key]
+              input.addEventListener 'input', ->
+                element[key] = input.value
+              dd.appendChild input
+            else if value.length
+              select = UI.Select.create()
+              for item in value
+                select.dropdown.appendChild UI.Option.promise({value: item}, [item])()
+              select.addEventListener 'change', ->
+                element[key] = select.value
+              if key is 'activePage'
+                element.addEventListener 'change', ->
+                  select.value = element[key].getAttribute('name')
+              if key is 'value'
+                element.addEventListener 'change', ->
+                  select.value = element[key]
+              dd.appendChild select
+            dl.appendChild dt
+            dl.appendChild dd
+  , 1000
