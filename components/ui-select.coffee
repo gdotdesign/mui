@@ -111,13 +111,13 @@ class UI.Select extends UI.Abstract
     else
       selected = @querySelector(UI.Option.SELECTOR()+"[value='#{value}']") or null
 
+    return if @selectedOption is selected
+
     unless selected
       @label?.textContent = ""
       @selectedOption.selected = false if @selectedOption
       @fireEvent 'change'
       return
-
-    return if @selectedOption is selected
 
     @selectedOption?.selected = false
     selected.selected = true

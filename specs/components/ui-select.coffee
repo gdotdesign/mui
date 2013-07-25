@@ -50,7 +50,7 @@ Test.add 'Select',->
   @case "When a child option is actioned it should close the dropdown", ->
     select.dropdown.open()
     @assert select.dropdown.isOpen
-    document.querySelector('ui-select ui-option:nth-child(1)').action()
+    select.fireEvent 'blur'
     @assert !select.dropdown.isOpen
 
   @case "Label should be the selectedOptions textContent", ->
@@ -121,7 +121,7 @@ Test.add 'Select',->
     select.validate()
     @assert !select.invalid
     @assert select.valid
-    
+
   @case 'Component should be invalid if required and empty value', ->
     select.select("")
     select.validate()

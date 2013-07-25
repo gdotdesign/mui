@@ -137,7 +137,7 @@ Controls =
     close: ->
     toggle: ->
     disabled: false
-    
+
 hljs.tabReplace = '    '
 hljs.initHighlightingOnLoad()
 
@@ -230,8 +230,15 @@ window.addEventListener 'load', ->
             dd.appendChild input
           else if value.length
             select = UI.Select.create()
+            label = UI.Label.create()
+            dropdown = UI.Dropdown.create()
+            select.appendChild label
+            select.appendChild dropdown
             for item in value
-              select.dropdown.appendChild UI.Option.create(item)
+              option = UI.Option.create()
+              option.setAttribute 'value', item
+              option.textContent = item
+              select.dropdown.appendChild option
             select.addEventListener 'change', ->
               element[key] = select.value
             if key is 'activePage'
