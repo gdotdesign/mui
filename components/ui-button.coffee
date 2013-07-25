@@ -29,7 +29,9 @@ class UI.Button extends UI.Abstract
   # @param [Event] e
   # @private
   _keydown: (e)->
-    @fireEvent UI.Events.action if e.keyCode is 13
+    if e.keyCode is 13
+      e.preventDefault()
+      @fireEvent UI.Events.action 
 
   # Initializes the component
   # @private

@@ -29,15 +29,15 @@ UI =
       message: 'Must be an email address!'
 
   _wrapPassword: (el)->
-      return if el._processed
-      el.validators ?= UI.Text::validators
-      for key, desc of UI._geather UI.iValidable::
-        continue if key is 'initialize' or key is 'constructor'
-        originDesc = Object.getOwnPropertyDescriptor(el,key)
-        continue if originDesc and not originDesc.configurable
-        Object.defineProperty el, key, desc
-      UI.iValidable::initialize.call el
-      el._processed = true
+    return if el._processed
+    el.validators ?= UI.Text::validators
+    for key, desc of UI._geather UI.iValidable::
+      continue if key is 'initialize' or key is 'constructor'
+      originDesc = Object.getOwnPropertyDescriptor(el,key)
+      continue if originDesc and not originDesc.configurable
+      Object.defineProperty el, key, desc
+    UI.iValidable::initialize.call el
+    el._processed = true
 
   # Loads components (first initialization)
   load: (base = document)->
@@ -49,15 +49,52 @@ UI =
           continue if el._processed
           @load(el)
           value.wrap el
-
-    setTimeout ->
-      document.body.setAttribute 'loaded', true
-    , 1000
+          el.onAdded?()
 
   # Initailizeses components (current and in the future)
   initialize: ->
-    document.addEventListener 'DOMNodeInserted', @_insert.bind @
-    window.addEventListener 'load', => @load()
+    document.addEventListener 'DOMNodeInsertedIntoDocument', @_insert.bind(@), true
+    window.addEventListener 'load', =>
+      UI.beforeload?()
+      @load()
+      setTimeout ->
+        document.body.setAttribute 'loaded', true
+        UI.onload?()
+      , 1000
+
+  # Promises simple element
+  # @param [String] tag
+  # @param [Object] attributes
+  # @param [Array] attributer
+  # @return [Function]
+  promiseElement: (tag,attributes,children)->
+    (parent)->
+      throw "Illegal tagname" unless typeof tag is 'string'
+      throw "Illegal attributes" unless typeof attributes is 'object'
+      el = document.createElement(tag)
+      for key, value of attributes
+        el.setAttribute key, value
+      if children
+        throw "Illegal children" unless children instanceof Array
+        UI._build.call el, children, parent
+      el
+
+  # Builds elements
+  # @param [Array] children
+  # @param [Element] parent
+  _build: (children,parent)->
+    return unless children
+    for promise in children
+      if typeof promise is 'string'
+        node = document.createTextNode(promise)
+        @appendChild node
+      else if promise instanceof Function
+        @appendChild promise(parent)
+      else
+        for key, prom of promise
+          el = prom(parent)
+          @appendChild el
+          parent[key] = el
 
   # Runs when a node is inserted into the document
   # @private

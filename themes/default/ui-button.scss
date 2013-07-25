@@ -33,18 +33,18 @@ ui-button {
 
   /* TYPES */
   &[type=info]          { background-color: $info-color;          }
-  &[type=info]:hover    { background-color: $info-color-hover;    }
+  &[type=info]:not([disabled]):hover    { background-color: $info-color-hover;    }
 
   &[type=success]       { background-color: $success-color;       }
-  &[type=success]:hover { background-color: $success-color-hover; }
+  &[type=success]:not([disabled]):hover { background-color: $success-color-hover; }
 
   &[type=warning]       { background-color: $warning-color;       }
-  &[type=warning]:hover { background-color: $warning-color-hover; }
+  &[type=warning]:not([disabled]):hover { background-color: $warning-color-hover; }
 
   &[type=danger]        { background-color: $danger-color;        }
-  &[type=danger]:hover  { background-color: $danger-color-hover;  }
+  &[type=danger]:not([disabled]):hover  { background-color: $danger-color-hover;  }
 
-  &[type=inverse]:hover { background-color: $inverse-color-hover; }
+  &[type=inverse]:not([disabled]):hover { background-color: $inverse-color-hover; }
   &[type=inverse] {
     text-shadow: 0 1px 1px rgba(255,255,255,0.9);
     background-color: $inverse-color;

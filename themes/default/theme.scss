@@ -55,6 +55,7 @@ $inverse-color: #ECF0F1;
 /* TRANSITIONS */
 $transition-normal: 320ms;
 $transition-short: 160ms;
+$transition-long: 500ms;
 
 /* SHADOWS */
 $focus-shadow: 0 0 10px $warning-color-hover;
@@ -71,7 +72,7 @@ $shadow-flat: 0 0 10px rgba(0,0,0,0.5);
 $shadow: 0 2px 10px rgba(0,0,0,0.2);
 
 body {
-  font-family: Lato;
+  font-family: Lato, sans-serif;
 
   * {
     -webkit-tap-highlight-color: transparent;

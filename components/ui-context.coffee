@@ -27,7 +27,7 @@ class UI.Context extends UI.Abstract
   # @param [Number] top The top position of the menu
   open: (left, top)->
     if !left or !top
-      {left, top} = @parent.getBoundingClientRect()
+      {left, top} = @parentNode.getBoundingClientRect()
     @style.left = left+"px"
     @style.top = top+"px"
     @setAttribute 'open', true
@@ -39,12 +39,17 @@ class UI.Context extends UI.Abstract
   # Runs when the element is inserted into the DOM
   # @private
   onAdded: ->
-    return if @_added
-    @_added = true
-    @parent = @parentNode
+    @$close ?= @_close.bind(@)
+    @$open ?= @_open.bind(@)
 
+    if @_parent
+      @_parent.removeEventListener 'contextmenu', @$close
+
+    @_parent = @parentNode
+    @_parent.addEventListener 'contextmenu', @_open.bind(@)
+
+  initialize: ->
     document.addEventListener UI.Events.action, @_close.bind(@)
     document.addEventListener 'contextmenu', @_close.bind(@)
     document.body.appendChild(@)
-    
-    @parent.addEventListener 'contextmenu', @_open.bind(@)
+  

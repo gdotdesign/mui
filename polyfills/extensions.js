@@ -150,3 +150,15 @@ Number.prototype.clampRange = function(min, max) {
 Element.prototype.index = function(){
   return Array.prototype.slice.call(this.parentNode.children).indexOf(this)
 }
+
+Object.defineProperty(Node.prototype, 'delegateEventListener', {
+  value: function(event, selector, listener, useCapture) {
+    return this.addEventListener(event, function(e) {
+      var target;
+      target = e.relatedTarget || e.target;
+      if (target.matchesSelector(selector)) {
+        return listener(e);
+      }
+    }, true);
+  }
+});

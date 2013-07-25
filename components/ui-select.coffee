@@ -14,6 +14,9 @@ class UI.Select extends UI.Abstract
   # Whether the component can receive focus
   @TABABLE: true
 
+  @get 'dropdown', -> @querySelector(UI.Dropdown.SELECTOR())
+  @get 'label', -> @querySelector(UI.Label.SELECTOR())
+
   # @property [String] The current value of the component
   @set 'value', (value)-> @select value
   @get 'value', ->
@@ -43,8 +46,10 @@ class UI.Select extends UI.Abstract
   _select: (e)->
     return if @disabled
     return unless e.target.matchesSelector(UI.Option.SELECTOR())
+    e.stopImmediatePropagation()
+    e.stopPropagation()
     @select e.target
-    @dropdown.close()
+    @blur()
 
   # Blur event handler
   # @private
@@ -73,18 +78,9 @@ class UI.Select extends UI.Abstract
         e.preventDefault()
         @select parent.children[(++index).clamp(0,parent.children.length-1)]
 
-  # Initializez to component
+  # Initializes to component
   # @private
   initialize: ->
-    @dropdown = @querySelector(UI.Dropdown.SELECTOR())
-    @label = @querySelector(UI.Label.SELECTOR())
-
-    unless @dropdown
-      @dropdown = UI.Dropdown.create()
-      @insertBefore @dropdown, @firstChild
-      @dropdown.onAdded()
-    @insertBefore( (@label = UI.Label.create()), @firstChild) unless @label
-
     @name = @getAttribute('name')
 
     @addEventListener 'DOMNodeRemoved', @_nodeRemoved
@@ -109,7 +105,6 @@ class UI.Select extends UI.Abstract
   # Select option
   # @param [UI.Option / String] The option element or value to be selected
   select: (value)->
-
     if value instanceof HTMLElement
       # TODO - Child node check
       selected = value

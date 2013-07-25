@@ -31,15 +31,22 @@ class UI.Abstract
     if @::implements
       for cls in @::implements
         cls::initialize.call el
-    el.onAdded?() if el.parentNode
 
   # Creates the specifiec component.
   # @return [UI.Abstract] The component element
-  @create: ->
+  @create: (attributes)->
     base = document.createElement @SELECTOR()
+    for key, value of attributes
+      base.setAttribute key, value
     @wrap base
     base
 
   # Returns the string representation of the component
   # @return [String] tagname
   toString: -> "<#{@tagName.toLowerCase()}>"
+
+  @promise: (attributes = {}, children)->
+    (parent)=>
+      el = @create(attributes)
+      UI._build.call el, children, parent
+      el

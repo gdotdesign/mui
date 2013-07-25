@@ -5,6 +5,7 @@
 # Start site / spec server -> mui -s, mui --server
 # Run specs                -> mui -t, mui --test
 # Generate documentation   -> mui -d, mui --doc
+# Build release            -> mui -b, mui --build
 
 nconf = require 'nconf'
 nconf.argv
