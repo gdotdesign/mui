@@ -156,6 +156,24 @@
         <dd class='desc'>
           <p>The method  for the form (get,post,put,delete,patch)</p>
         </dd>
+        <dtvalid'-property'>
+          <span class='signature'>
+            (?) <strong>'valid'</strong>
+          </span>
+          <span class='note readonly title'>Readonly</span>
+        </dt>
+        <dd class='desc'>
+          <p>Whehter the form is valid</p>
+        </dd>
+        <dtinvalid'-property'>
+          <span class='signature'>
+            (?) <strong>'invalid'</strong>
+          </span>
+          <span class='note readonly title'>Readonly</span>
+        </dt>
+        <dd class='desc'>
+          <p>Whehter the form is invalid</p>
+        </dd>
       </dl>
       <h3 class='inherited'>
         Properties inherited from
@@ -183,6 +201,16 @@
       <ul class='summary'>
   <li>
     <span class='signature'>
+      <a href='#validate-instance'>
+        - (void) <strong>validate</strong>()
+      </a>
+    </span>
+    <span class='desc'>
+      Validates all input fields inside the form
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
       <a href='#submit-instance'>
         - (void) <strong>submit</strong>(callback)
       </a>
@@ -203,11 +231,21 @@
                 <a href='../../classes/UI/Abstract.html#SELECTOR-class'>.SELECTOR</a>,
                 <a href='../../classes/UI/Abstract.html#wrap-class'>.wrap</a>,
                 <a href='../../classes/UI/Abstract.html#create-class'>.create</a>,
-                <a href='../../classes/UI/Abstract.html#fireEvent-instance'>#fireEvent</a>,
+                <a href='../../classes/UI/Abstract.html#promise-class'>.promise</a>,
         <a href='../../classes/UI/Abstract.html#toString-instance'>#toString</a>
       </p>
       <h2>Instance Method Details</h2>
       <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='validate-instance'>
+      - (void) <strong>validate</strong>()
+    </p>
+    <div class='docstring'>
+  <p>Validates all input fields inside the form</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
   <div class='method_details'>
     <p class='signature' id='submit-instance'>
       - (void) <strong>submit</strong>(callback)
@@ -222,7 +260,7 @@
     </div>
     <div id='footer'>
   Generated on
-  Fri Jul 12 2013 14:42:54 GMT+0200 (CEST)
+  Thu Jul 25 2013 13:40:03 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v1.7.0
