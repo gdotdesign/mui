@@ -59,6 +59,16 @@ if(!HTMLElement.prototype.action){
   };
 }
 
+Function.prototype.once = function(){
+  var fn = this;
+  var called = false;
+  return function(){
+    if(called) return
+    called = true
+    fn()
+  }
+}
+
 // Class setters / getters
 Object.defineProperties(Function.prototype, {
   property: {
@@ -162,3 +172,23 @@ Object.defineProperty(Node.prototype, 'delegateEventListener', {
     }, true);
   }
 });
+
+elm = document.createElement('div')
+window.animationSupport = false
+var animationstring = 'animation',
+    keyframeprefix = '',
+    domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
+    pfx  = '';
+
+if( elm.style.animationName ) { window.animationSupport = true; }
+if( window.animationSupport === false ) {
+  for( var i = 0; i < domPrefixes.length; i++ ) {
+    if( elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
+      pfx = domPrefixes[ i ];
+      animationstring = pfx + 'Animation';
+      keyframeprefix = '-' + pfx.toLowerCase() + '-';
+      window.animationSupport = true;
+      break;
+    }
+  }
+}

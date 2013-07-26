@@ -21,6 +21,7 @@
 #= depend_on ./ui-form
 #= depend_on ./ui-context
 #= depend_on ./ui-popover
+#= depend_on ./ui-notification
 
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
@@ -110,3 +111,4 @@ body {
 @import "ui-form.scss";
 @import "ui-context.scss";
 @import "ui-popover.scss";
+@import "ui-notification";
