@@ -39,19 +39,18 @@ class UI.Context extends UI.Abstract
   # Runs when the element is inserted into the DOM
   # @private
   onAdded: ->
-    @$close ?= @_close.bind(@)
-    @$open ?= @_open.bind(@)
-
-    if @_parent
-      @_parent.removeEventListener 'contextmenu', @$close
-
-    @_parent = @parentNode
-    @_parent.addEventListener 'contextmenu', @_open.bind(@)
+    return if @added
+    @added = true
+    @_parentNode = @parentNode
+    @parentNode.addEventListener 'contextmenu', @$open
 
   # Initailizes the component
   # @private
   initialize: ->
-    document.addEventListener UI.Events.action, @_close.bind(@)
-    document.addEventListener 'contextmenu', @_close.bind(@)
+    @$close = @_close.bind(@)
+    @$open = @_open.bind(@)
+    @onAdded() if @parentNode
+    document.addEventListener UI.Events.action, @$close
+    document.addEventListener 'contextmenu', @$close
     document.body.appendChild(@)
 
