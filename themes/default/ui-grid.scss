@@ -19,6 +19,7 @@ ui-grid {
 
   /* CHILDREN */
   ui-cell {
+    font-size: 16px;
     min-height: $grid-cell-min-height;
     padding: $grid-cell-padding;
   }

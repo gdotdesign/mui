@@ -54,3 +54,27 @@ Test.add 'Range', ->
   @case 'Setting value bigger then maximum should set it to maximum', ->
     component.value = 300
     @assert component.value is 100
+
+  @case 'Left / Down button should decrement value', ->
+    component.fireEvent 'keydown', {keyCode: 37}
+    @assert component.value is 98
+    component.fireEvent 'keydown', {keyCode: 38}
+    @assert component.value is 96
+
+  @case 'Right / Up button should increment value', ->
+    component.fireEvent 'keydown', {keyCode: 39}
+    @assert component.value is 98
+    component.fireEvent 'keydown', {keyCode: 40}
+    @assert component.value is 100
+
+  @case 'Left / Down button should decrement value (shift)', ->
+    component.fireEvent 'keydown', {keyCode: 37, shiftKey: true}
+    @assert component.value is 80
+    component.fireEvent 'keydown', {keyCode: 38, shiftKey: true}
+    @assert component.value is 60
+
+  @case 'Right / Up button should increment value  (shift)', ->
+    component.fireEvent 'keydown', {keyCode: 39, shiftKey: true}
+    @assert component.value is 80
+    component.fireEvent 'keydown', {keyCode: 40, shiftKey: true}
+    @assert component.value is 100

@@ -125,6 +125,16 @@
       <ul class='summary'>
   <li>
     <span class='signature'>
+      <a href='#_wrapPassword-mixin'>
+        ? (void) <strong>_wrapPassword</strong>(el)
+      </a>
+    </span>
+    <span class='desc'>
+      Wraps password fields with methods
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
       <a href='#load-mixin'>
         ? (void) <strong>load</strong>(base = document)
       </a>
@@ -141,6 +151,26 @@
     </span>
     <span class='desc'>
       Initailizeses components (current and in the future)
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#promiseElement-mixin'>
+        ? (Function) <strong>promiseElement</strong>(tag, attributes = {}, children = [])
+      </a>
+    </span>
+    <span class='desc'>
+      Promises simple element
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#_build-mixin'>
+        ? (void) <strong>_build</strong>(children, parent)
+      </a>
+    </span>
+    <span class='desc'>
+      Builds elements
     </span>
   </li>
   <li>
@@ -169,6 +199,16 @@
       <h2>Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
+    <p class='signature' id='_wrapPassword-mixin'>
+      ? (void) <strong>_wrapPassword</strong>(el)
+    </p>
+    <div class='docstring'>
+  <p>Wraps password fields with methods</p>
+</div>
+<div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
     <p class='signature' id='load-mixin'>
       ? (void) <strong>load</strong>(base = document)
     </p>
@@ -186,6 +226,67 @@
   <p>Initailizeses components (current and in the future)</p>
 </div>
 <div class='tags'>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='promiseElement-mixin'>
+      ? (Function) <strong>promiseElement</strong>(tag, attributes = {}, children = [])
+    </p>
+    <div class='docstring'>
+  <p>Promises simple element</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>tag</span>
+      <span class='type'>
+        (<tt>String</tt>)
+      </span>
+    </li>
+    <li>
+      <span class='name'>attributes</span>
+      <span class='type'>
+        (<tt>Object</tt>)
+      </span>
+    </li>
+    <li>
+      <span class='name'>attributer</span>
+      <span class='type'>
+        (<tt>Array</tt>)
+      </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span><tt>Function</tt></li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='_build-mixin'>
+      ? (void) <strong>_build</strong>(children, parent)
+    </p>
+    <div class='docstring'>
+  <p>Builds elements</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>children</span>
+      <span class='type'>
+        (<tt>Array</tt>)
+      </span>
+    </li>
+    <li>
+      <span class='name'>parent</span>
+      <span class='type'>
+        (<tt>Element</tt>)
+      </span>
+    </li>
+  </ul>
 </div>
   </div>
   <div class='method_details'>
@@ -214,11 +315,11 @@
     </div>
     <div id='footer'>
   Generated on
-  Sun Jul 07 2013 14:56:59 GMT+0200 (CEST)
+  Thu Jul 25 2013 13:40:03 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v1.7.0
-  (Node.js v0.10.12).
+  (Node.js v0.10.13).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;

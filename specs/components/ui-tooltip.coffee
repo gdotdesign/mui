@@ -30,3 +30,10 @@ Test.add 'Tooltip',->
     fireMouseEvent tooltip.parentNode, UI.Events.enter
     @assert !tooltip.isOpen
     tooltip.disabled = false
+
+  @case "Alt should toggle the component", ->
+    @assert !tooltip.isOpen
+    tooltip.fireEvent 'keydown', {altKey: true}
+    @assert tooltip.isOpen
+    tooltip.fireEvent 'keydown', {altKey: true}
+    @assert !tooltip.isOpen

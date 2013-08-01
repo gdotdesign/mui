@@ -138,6 +138,7 @@
                 <a href='../../classes/UI/iInput.html'>UI.iInput</a>,
                 <a href='../../classes/UI/iOpenable.html'>UI.iOpenable</a>,
                 <a href='../../classes/UI/Button.html'>UI.Button</a>,
+                <a href='../../classes/UI/Context.html'>UI.Context</a>,
                 <a href='../../classes/UI/Form.html'>UI.Form</a>,
                 <a href='../../classes/UI/Cell.html'>UI.Cell</a>,
                 <a href='../../classes/UI/Placeholder.html'>UI.Placeholder</a>,
@@ -148,7 +149,8 @@
                 <a href='../../classes/UI/Page.html'>UI.Page</a>,
                 <a href='../../classes/UI/Pager.html'>UI.Pager</a>,
                 <a href='../../classes/UI/Range.html'>UI.Range</a>,
-        <a href='../../classes/UI/Select.html'>UI.Select</a>
+                <a href='../../classes/UI/Select.html'>UI.Select</a>,
+        <a href='../../classes/UI/View.html'>UI.View</a>
       </p>
       <h2>Property Summary</h2>
       <dl class='properties'>
@@ -187,26 +189,26 @@
   <li>
     <span class='signature'>
       <a href='#create-class'>
-        + (UI.Abstract) <strong>create</strong>()
+        + (UI.Abstract) <strong>create</strong>(attributes)
       </a>
     </span>
     <span class='desc'>
       Creates the specifiec component.
     </span>
   </li>
-</ul>
-      <h2>Instance Method Summary</h2>
-      <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#fireEvent-instance'>
-        - (Event) <strong>fireEvent</strong>(type, data)
+      <a href='#promise-class'>
+        + (Function) <strong>promise</strong>(attributes = {}, children)
       </a>
     </span>
     <span class='desc'>
-      Fires an event
+      Returns a function when its called creates a Component
     </span>
   </li>
+</ul>
+      <h2>Instance Method Summary</h2>
+      <ul class='summary'>
   <li>
     <span class='signature'>
       <a href='#toString-instance'>
@@ -264,7 +266,7 @@ Calls initialize method and onAdded if the element is in the DOM.</p>
   </div>
   <div class='method_details'>
     <p class='signature' id='create-class'>
-      + (UI.Abstract) <strong>create</strong>()
+      + (UI.Abstract) <strong>create</strong>(attributes)
     </p>
     <div class='docstring'>
   <p>Creates the specifiec component.</p>
@@ -281,60 +283,43 @@ Calls initialize method and onAdded if the element is in the DOM.</p>
   </ul>
 </div>
   </div>
-</div>
-      <h2>Instance Method Details</h2>
-      <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='fireEvent-instance'>
-      - (Event) <strong>fireEvent</strong>(type, data)
+    <p class='signature' id='promise-class'>
+      + (Function) <strong>promise</strong>(attributes = {}, children)
     </p>
     <div class='docstring'>
-  <p>Fires an event</p>
+  <p>Returns a function when its called creates a Component</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
   <ul class='param'>
     <li>
-      <span class='name'>type</span>
-      <span class='type'>
-        (<tt>String</tt>)
-      </span>
-      &mdash;
-      <span class='desc'><ul>The type of the event
-</ul>
-</span>
-    </li>
-    <li>
-      <span class='name'>data</span>
+      <span class='name'>Attributes</span>
       <span class='type'>
         (<tt>Object</tt>)
       </span>
       &mdash;
-      <span class='desc'><ul>The additional parameters to be set on the event
-</ul>
-</span>
+      <span class='desc'>to be added to the component</span>
     </li>
-  </ul>
-  <h3>Throws:</h3>
-  <ul class='throw'>
     <li>
-      <span class='type'></span>
-      (<tt>Error</tt>)
+      <span class='name'>Children</span>
+      <span class='type'>
+        (<tt>Array</tt>)
+      </span>
       &mdash;
-      <span class='desc'>When no type is specified</span>
+      <span class='desc'>to be created for the component</span>
     </li>
   </ul>
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span>
-      (<tt>Event</tt>)
-      &mdash;
-      <span class='desc'>The event</span>
-    </li>
+      <span class='type'></span><tt>Function</tt></li>
   </ul>
 </div>
   </div>
+</div>
+      <h2>Instance Method Details</h2>
+      <div class='methods'>
   <div class='method_details'>
     <p class='signature' id='toString-instance'>
       - (String) <strong>toString</strong>()
@@ -358,11 +343,11 @@ Calls initialize method and onAdded if the element is in the DOM.</p>
     </div>
     <div id='footer'>
   Generated on
-  Sun Jul 07 2013 14:56:59 GMT+0200 (CEST)
+  Thu Jul 25 2013 13:40:03 GMT+0200 (CEST)
   by
   <a href='https://github.com/netzpirat/codo' title='CoffeeScript API documentation generator'>Codo</a>
   v1.7.0
-  (Node.js v0.10.12).
+  (Node.js v0.10.13).
   &#10034;
   Press Ctrl-h to see the keyboard shortcuts
   &#10034;

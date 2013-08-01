@@ -36,6 +36,15 @@ ui-input, input[type=password] {
     content: attr(placeholder);
     color: $input-placeholder-color;
   }
+  &[invalid]{
+    box-shadow: 0 0 5px rgba($danger-color-hover,0.7) inset, 0 0 0 1px rgba(#fff,0.6), 0 0 10px rgba($danger-color-hover,0.7);
+    border-color: $danger-color-hover;
+  }
+  &[valid]{
+    box-shadow: 0 0 5px rgba($success-color-hover,0.7) inset, 0 0 0 1px rgba(#fff,0.6), 0 0 10px rgba($success-color-hover,0.7);
+    border-color: $success-color-hover;
+  }
+
   &[type=password] {
     line-height: 17px;
     margin: 0;

@@ -1,3 +1,19 @@
+// Fireevent
+Element.prototype.fireEvent = function(type, data) {
+  var event, key, value;
+  if (typeof type !== 'string') {
+    throw "No type specified";
+  }
+  event = document.createEvent("HTMLEvents");
+  event.initEvent(type, true, true);
+  for (key in data) {
+    value = data[key];
+    event[key] = value;
+  }
+  this.dispatchEvent(event);
+  return event;
+};
+
 // Adds / Removes attribute
 Element.prototype.toggleAttribute = function(attr, value) {
   var state;
@@ -41,6 +57,16 @@ if(!HTMLElement.prototype.action){
       this.click()
     }
   };
+}
+
+Function.prototype.once = function(){
+  var fn = this;
+  var called = false;
+  return function(){
+    if(called) return
+    called = true
+    fn()
+  }
 }
 
 // Class setters / getters
@@ -130,3 +156,39 @@ Number.prototype.clampRange = function(min, max) {
     return val;
   }
 };
+
+Element.prototype.index = function(){
+  return Array.prototype.slice.call(this.parentNode.children).indexOf(this)
+}
+
+Object.defineProperty(Node.prototype, 'delegateEventListener', {
+  value: function(event, selector, listener, useCapture) {
+    return this.addEventListener(event, function(e) {
+      var target;
+      target = e.relatedTarget || e.target;
+      if (target.matchesSelector(selector)) {
+        return listener(e);
+      }
+    }, true);
+  }
+});
+
+elm = document.createElement('div')
+window.animationSupport = false
+var animationstring = 'animation',
+    keyframeprefix = '',
+    domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
+    pfx  = '';
+
+if( elm.style.animationName ) { window.animationSupport = true; }
+if( window.animationSupport === false ) {
+  for( var i = 0; i < domPrefixes.length; i++ ) {
+    if( elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
+      pfx = domPrefixes[ i ];
+      animationstring = pfx + 'Animation';
+      keyframeprefix = '-' + pfx.toLowerCase() + '-';
+      window.animationSupport = true;
+      break;
+    }
+  }
+}
