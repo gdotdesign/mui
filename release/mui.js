@@ -17,6 +17,188 @@ Function.prototype.bind = Function.prototype.bind || function(to){
 };
 
 
+/***  polyfills/class-list  ***/
+
+/*
+ * classList.js: Cross-browser full element.classList implementation.
+ * 2012-11-15
+ *
+ * By Eli Grey, http://eligrey.com
+ * Public Domain.
+ * NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
+ */
+
+/*global self, document, DOMException */
+
+/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js*/
+
+
+if (typeof document !== "undefined" && !("classList" in document.documentElement)) {
+
+(function (view) {
+
+"use strict";
+
+if (!('HTMLElement' in view) && !('Element' in view)) return;
+
+var
+	  classListProp = "classList"
+	, protoProp = "prototype"
+	, elemCtrProto = (view.HTMLElement || view.Element)[protoProp]
+	, objCtr = Object
+	, strTrim = String[protoProp].trim || function () {
+		return this.replace(/^\s+|\s+$/g, "");
+	}
+	, arrIndexOf = Array[protoProp].indexOf || function (item) {
+		var
+			  i = 0
+			, len = this.length
+		;
+		for (; i < len; i++) {
+			if (i in this && this[i] === item) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	// Vendors: please allow content code to instantiate DOMExceptions
+	, DOMEx = function (type, message) {
+		this.name = type;
+		this.code = DOMException[type];
+		this.message = message;
+	}
+	, checkTokenAndGetIndex = function (classList, token) {
+		if (token === "") {
+			throw new DOMEx(
+				  "SYNTAX_ERR"
+				, "An invalid or illegal string was specified"
+			);
+		}
+		if (/\s/.test(token)) {
+			throw new DOMEx(
+				  "INVALID_CHARACTER_ERR"
+				, "String contains an invalid character"
+			);
+		}
+		return arrIndexOf.call(classList, token);
+	}
+	, ClassList = function (elem) {
+		var
+			  trimmedClasses = strTrim.call(elem.className)
+			, classes = trimmedClasses ? trimmedClasses.split(/\s+/) : []
+			, i = 0
+			, len = classes.length
+		;
+		for (; i < len; i++) {
+			this.push(classes[i]);
+		}
+		this._updateClassName = function () {
+			elem.className = this.toString();
+		};
+	}
+	, classListProto = ClassList[protoProp] = []
+	, classListGetter = function () {
+		return new ClassList(this);
+	}
+;
+// Most DOMException implementations don't allow calling DOMException's toString()
+// on non-DOMExceptions. Error's toString() is sufficient here.
+DOMEx[protoProp] = Error[protoProp];
+classListProto.item = function (i) {
+	return this[i] || null;
+};
+classListProto.contains = function (token) {
+	token += "";
+	return checkTokenAndGetIndex(this, token) !== -1;
+};
+classListProto.add = function () {
+	var
+		  tokens = arguments
+		, i = 0
+		, l = tokens.length
+		, token
+		, updated = false
+	;
+	do {
+		token = tokens[i] + "";
+		if (checkTokenAndGetIndex(this, token) === -1) {
+			this.push(token);
+			updated = true;
+		}
+	}
+	while (++i < l);
+
+	if (updated) {
+		this._updateClassName();
+	}
+};
+classListProto.remove = function () {
+	var
+		  tokens = arguments
+		, i = 0
+		, l = tokens.length
+		, token
+		, updated = false
+	;
+	do {
+		token = tokens[i] + "";
+		var index = checkTokenAndGetIndex(this, token);
+		if (index !== -1) {
+			this.splice(index, 1);
+			updated = true;
+		}
+	}
+	while (++i < l);
+
+	if (updated) {
+		this._updateClassName();
+	}
+};
+classListProto.toggle = function (token, forse) {
+	token += "";
+
+	var
+		  result = this.contains(token)
+		, method = result ?
+			forse !== true && "remove"
+		:
+			forse !== false && "add"
+	;
+
+	if (method) {
+		this[method](token);
+	}
+
+	return !result;
+};
+classListProto.toString = function () {
+	return this.join(" ");
+};
+
+if (objCtr.defineProperty) {
+	var classListPropDesc = {
+		  get: classListGetter
+		, enumerable: true
+		, configurable: true
+	};
+	try {
+		objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+	} catch (ex) { // IE 8 doesn't support enumerable:true
+		if (ex.number === -0x7FF5EC54) {
+			classListPropDesc.enumerable = false;
+			objCtr.defineProperty(elemCtrProto, classListProp, classListPropDesc);
+		}
+	}
+} else if (objCtr[protoProp].__defineGetter__) {
+	elemCtrProto.__defineGetter__(classListProp, classListGetter);
+}
+
+}(self));
+
+}
+;
+
+
 /***  polyfills/click  ***/
 
 if(!HTMLElement.prototype.click){
@@ -44,8 +226,24 @@ if (window.console == null) {
 
 /***  polyfills/extensions  ***/
 
-// Adds / Removes attribute
+// Fireevent
 
+Element.prototype.fireEvent = function(type, data) {
+  var event, key, value;
+  if (typeof type !== 'string') {
+    throw "No type specified";
+  }
+  event = document.createEvent("HTMLEvents");
+  event.initEvent(type, true, true);
+  for (key in data) {
+    value = data[key];
+    event[key] = value;
+  }
+  this.dispatchEvent(event);
+  return event;
+};
+
+// Adds / Removes attribute
 Element.prototype.toggleAttribute = function(attr, value) {
   var state;
 
@@ -88,6 +286,16 @@ if(!HTMLElement.prototype.action){
       this.click()
     }
   };
+}
+
+Function.prototype.once = function(){
+  var fn = this;
+  var called = false;
+  return function(){
+    if(called) return
+    called = true
+    fn()
+  }
 }
 
 // Class setters / getters
@@ -178,6 +386,43 @@ Number.prototype.clampRange = function(min, max) {
   }
 };
 
+Element.prototype.index = function(){
+  return Array.prototype.slice.call(this.parentNode.children).indexOf(this)
+}
+
+Object.defineProperty(Node.prototype, 'delegateEventListener', {
+  value: function(event, selector, listener, useCapture) {
+    return this.addEventListener(event, function(e) {
+      var target;
+      target = e.relatedTarget || e.target;
+      if (target.matchesSelector(selector)) {
+        return listener(e);
+      }
+    }, true);
+  }
+});
+
+elm = document.createElement('div')
+window.animationSupport = false
+var animationstring = 'animation',
+    keyframeprefix = '',
+    domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
+    pfx  = '';
+
+if( elm.style.animationName ) { window.animationSupport = true; }
+if( window.animationSupport === false ) {
+  for( var i = 0; i < domPrefixes.length; i++ ) {
+    if( elm.style[ domPrefixes[i] + 'AnimationName' ] !== undefined ) {
+      pfx = domPrefixes[ i ];
+      animationstring = pfx + 'Animation';
+      keyframeprefix = '-' + pfx.toLowerCase() + '-';
+      window.animationSupport = true;
+      break;
+    }
+  }
+}
+;
+
 
 /***  polyfills/matches-selector  ***/
 
@@ -189,7 +434,7 @@ this.Element && function(ElementPrototype) {
   ElementPrototype.webkitMatchesSelector ||
   function (selector) {
     var node = this, nodes = (node.parentNode || node.document).querySelectorAll(selector), i = -1;
-    while (nodes[++i] && nodes[i] != node);
+    while (nodes[++i] && nodes[i] != node){};
     return !!nodes[i];
   };
 }(Element.prototype);
@@ -244,36 +489,185 @@ var UI;
 UI = {
   verbose: false,
   namespace: 'ui',
-  version: '0.1.0-RC1',
+  version: '0.2.0-RC1',
+  validators: {
+    required: {
+      condition: function() {
+        return this.required;
+      },
+      validate: function() {
+        return !!this.value;
+      },
+      message: 'This field is required!'
+    },
+    maxlength: {
+      condition: function() {
+        return this.maxlength !== Infinity;
+      },
+      validate: function() {
+        return this.maxlength >= this.value.toString().length;
+      },
+      message: function() {
+        return 'Length cannot be bigger then ' + this.maxlength + "!";
+      }
+    },
+    pattern: {
+      condition: function() {
+        if (!this.pattern) {
+          return false;
+        }
+        return this.pattern.toString() !== "/^.*$/";
+      },
+      validate: function() {
+        if (!this.pattern) {
+          return false;
+        }
+        return this.pattern.test(this.value.toString());
+      },
+      message: 'Value must match the provided pattern!'
+    },
+    email: {
+      condition: function() {
+        return this.required;
+      },
+      validate: function() {
+        return /^[a-z0-9!#$%&'"*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])$/.test(this.value.toString());
+      },
+      message: 'Must be an email address!'
+    }
+  },
+  _wrapPassword: function(el) {
+    var desc, key, originDesc, _ref;
+    if (el._processed) {
+      return;
+    }
+    if (el.validators == null) {
+      el.validators = UI.Text.prototype.validators;
+    }
+    _ref = UI._geather(UI.iValidable.prototype);
+    for (key in _ref) {
+      desc = _ref[key];
+      if (key === 'initialize' || key === 'constructor') {
+        continue;
+      }
+      originDesc = Object.getOwnPropertyDescriptor(el, key);
+      if (originDesc && !originDesc.configurable) {
+        continue;
+      }
+      Object.defineProperty(el, key, desc);
+    }
+    UI.iValidable.prototype.initialize.call(el);
+    return el._processed = true;
+  },
   load: function(base) {
-    var el, key, value, _i, _len, _ref;
+    var el, key, value, _i, _len, _ref, _results;
     if (base == null) {
       base = document;
     }
+    _ref = base.querySelectorAll('input[type=password]');
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      el = _ref[_i];
+      if (el._processed) {
+        return;
+      }
+      this._wrapPassword(el);
+    }
+    _results = [];
     for (key in UI) {
       value = UI[key];
       if (value.SELECTOR) {
-        _ref = base.querySelectorAll(value.SELECTOR());
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          el = _ref[_i];
-          if (el._processed) {
-            continue;
+        _results.push((function() {
+          var _j, _len1, _ref1, _results1;
+          _ref1 = base.querySelectorAll(value.SELECTOR());
+          _results1 = [];
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            el = _ref1[_j];
+            if (el._processed) {
+              continue;
+            }
+            this.load(el);
+            value.wrap(el);
+            _results1.push(typeof el.onAdded === "function" ? el.onAdded() : void 0);
           }
-          this.load(el);
-          value.wrap(el);
-        }
+          return _results1;
+        }).call(this));
+      } else {
+        _results.push(void 0);
       }
     }
-    return setTimeout(function() {
-      return document.body.setAttribute('loaded', true);
-    }, 1000);
+    return _results;
   },
   initialize: function() {
     var _this = this;
-    document.addEventListener('DOMNodeInserted', this._insert.bind(this));
+    document.addEventListener('DOMNodeInserted', this._insert.bind(this), true);
     return window.addEventListener('load', function() {
-      return _this.load();
+      if (typeof UI.onBeforeLoad === "function") {
+        UI.onBeforeLoad();
+      }
+      _this.load();
+      return setTimeout(function() {
+        document.body.setAttribute('loaded', true);
+        return typeof UI.onLoad === "function" ? UI.onLoad() : void 0;
+      }, 1000);
     });
+  },
+  promiseElement: function(tag, attributes, children) {
+    if (attributes == null) {
+      attributes = {};
+    }
+    if (children == null) {
+      children = [];
+    }
+    return function(parent) {
+      var el, key, value;
+      if (typeof tag !== 'string') {
+        throw "Illegal tagname";
+      }
+      if (typeof attributes !== 'object') {
+        throw "Illegal attributes";
+      }
+      el = document.createElement(tag);
+      for (key in attributes) {
+        value = attributes[key];
+        el.setAttribute(key, value);
+      }
+      if (children) {
+        if (!(children instanceof Array)) {
+          throw "Illegal children";
+        }
+        UI._build.call(el, children, parent);
+      }
+      return el;
+    };
+  },
+  _build: function(children, parent) {
+    var el, key, node, prom, promise, _i, _len, _results;
+    if (!children) {
+      return;
+    }
+    _results = [];
+    for (_i = 0, _len = children.length; _i < _len; _i++) {
+      promise = children[_i];
+      if (typeof promise === 'string') {
+        node = document.createTextNode(promise);
+        _results.push(this.appendChild(node));
+      } else if (promise instanceof Function) {
+        _results.push(this.appendChild(promise(parent)));
+      } else {
+        _results.push((function() {
+          var _results1;
+          _results1 = [];
+          for (key in promise) {
+            prom = promise[key];
+            el = prom(parent);
+            this.appendChild(el);
+            _results1.push(parent[key] = el);
+          }
+          return _results1;
+        }).call(this));
+      }
+    }
+    return _results;
   },
   _insert: function(e) {
     var tag, tagName, _base;
@@ -281,6 +675,9 @@ UI = {
       return;
     }
     tagName = e.target.tagName;
+    if (tagName === 'INPUT' && e.target.getAttribute('type') === 'password') {
+      this._wrapPassword(e.target);
+    }
     if (!tagName.match(/^UI-/)) {
       return;
     }
@@ -297,17 +694,31 @@ UI = {
     }
   },
   _geather: function(obj) {
-    var desc, key, proto, ret, _i, _len, _ref, _ref1;
+    var d, desc, k, key, object, proto, ret, _i, _j, _len, _len1, _ref, _ref1, _ref2, _ref3;
     ret = {};
     _ref = Object.keys(obj);
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       key = _ref[_i];
-      ret[key] = Object.getOwnPropertyDescriptor(obj, key);
+      if (key === 'implements') {
+        _ref1 = obj[key];
+        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+          object = _ref1[_j];
+          _ref2 = this._geather(object.prototype);
+          for (k in _ref2) {
+            d = _ref2[k];
+            if (ret[k] == null) {
+              ret[k] = d;
+            }
+          }
+        }
+      } else {
+        ret[key] = Object.getOwnPropertyDescriptor(obj, key);
+      }
     }
     if ((proto = Object.getPrototypeOf(obj)) !== Object.prototype) {
-      _ref1 = this._geather(proto);
-      for (key in _ref1) {
-        desc = _ref1[key];
+      _ref3 = this._geather(proto);
+      for (key in _ref3) {
+        desc = _ref3[key];
         if (ret[key] == null) {
           ret[key] = desc;
         }
@@ -369,7 +780,7 @@ UI.Abstract = (function() {
   };
 
   Abstract.wrap = function(el) {
-    var desc, key, _ref, _ref1;
+    var cls, desc, key, _i, _len, _ref, _ref1, _ref2, _results;
     _ref = UI._geather(this.prototype);
     for (key in _ref) {
       desc = _ref[key];
@@ -378,35 +789,55 @@ UI.Abstract = (function() {
       }
       Object.defineProperty(el, key, desc);
     }
+    if (this.TABABLE) {
+      el.setAttribute('tabindex', 0);
+    }
     el._processed = true;
     if ((_ref1 = this.prototype.initialize) != null) {
       _ref1.call(el);
     }
-    if (el.parentNode) {
-      return typeof el.onAdded === "function" ? el.onAdded() : void 0;
+    if (!this.prototype["implements"]) {
+      return;
     }
+    _ref2 = this.prototype["implements"];
+    _results = [];
+    for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+      cls = _ref2[_i];
+      _results.push(cls.prototype.initialize.call(el));
+    }
+    return _results;
   };
 
-  Abstract.create = function() {
-    var base;
+  Abstract.create = function(attributes) {
+    var base, key, value;
     base = document.createElement(this.SELECTOR());
+    if (this.MARKUP) {
+      UI._build.call(base, this.MARKUP, base);
+    }
+    if (attributes) {
+      if (typeof attributes !== 'object') {
+        throw "Illegal attributes";
+      }
+      for (key in attributes) {
+        value = attributes[key];
+        base.setAttribute(key, value);
+      }
+    }
     this.wrap(base);
     return base;
   };
 
-  Abstract.prototype.fireEvent = function(type, data) {
-    var event, key, value;
-    if (typeof type !== 'string') {
-      throw "No type specified";
+  Abstract.promise = function(attributes, children) {
+    var _this = this;
+    if (attributes == null) {
+      attributes = {};
     }
-    event = document.createEvent("HTMLEvents");
-    event.initEvent(type, true, true);
-    for (key in data) {
-      value = data[key];
-      event[key] = value;
-    }
-    this.dispatchEvent(event);
-    return event;
+    return function(parent) {
+      var el;
+      el = _this.create(attributes);
+      UI._build.call(el, children, parent);
+      return el;
+    };
   };
 
   Abstract.prototype.toString = function() {
@@ -433,6 +864,8 @@ UI.Button = (function(_super) {
   }
 
   Button.TAGNAME = 'button';
+
+  Button.TABABLE = true;
 
   Button.get('label', function() {
     return this.textContent;
@@ -461,13 +894,100 @@ UI.Button = (function(_super) {
     return e.stopPropagation();
   };
 
+  Button.prototype._keydown = function(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      return this.fireEvent(UI.Events.action);
+    }
+  };
+
   Button.prototype.initialize = function() {
-    return this.addEventListener(UI.Events.action, this._cancel);
+    this.addEventListener(UI.Events.action, this._cancel);
+    return this.addEventListener('keydown', this._keydown);
   };
 
   return Button;
 
 })(UI.Abstract);
+
+
+/***  core/i-validable  ***/
+
+UI.iValidable = (function() {
+  function iValidable() {}
+
+  iValidable.get('required', function() {
+    return this.hasAttribute('required');
+  });
+
+  iValidable.get('maxlength', function() {
+    return parseInt(this.getAttribute('maxlength')) || Infinity;
+  });
+
+  iValidable.get('valid', function() {
+    return this.hasAttribute('valid');
+  });
+
+  iValidable.get('invalid', function() {
+    return this.hasAttribute('invalid');
+  });
+
+  iValidable.get('pattern', function() {
+    var pattern;
+    pattern = this.getAttribute('pattern') || ".*";
+    try {
+      return new RegExp("^" + pattern + "$");
+    } catch (_error) {
+      return /^.*$/;
+    }
+  });
+
+  iValidable.prototype.validate = function() {
+    var shouldValidate, validator, _i, _j, _len, _len1, _ref, _ref1;
+    this.toggleAttribute('invalid', false);
+    this.toggleAttribute('valid', false);
+    shouldValidate = false;
+    _ref = this.validators;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      validator = _ref[_i];
+      if (validator.condition.call(this)) {
+        shouldValidate = true;
+        break;
+      }
+    }
+    if (!shouldValidate) {
+      return void 0;
+    }
+    _ref1 = this.validators;
+    for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+      validator = _ref1[_j];
+      if (!validator.condition.call(this)) {
+        continue;
+      }
+      if (!validator.validate.call(this)) {
+        this.toggleAttribute('invalid', true);
+        this.fireEvent('validate', {
+          valid: false
+        });
+        return false;
+      }
+    }
+    this.toggleAttribute('valid', true);
+    this.fireEvent('validate', {
+      valid: true
+    });
+    return true;
+  };
+
+  iValidable.prototype.initialize = function() {
+    this.addEventListener('keyup', this.validate);
+    this.addEventListener('change', this.validate);
+    return this.validate();
+  };
+
+  return iValidable;
+
+})();
 
 
 /***  core/i-checkable  ***/
@@ -483,6 +1003,12 @@ UI.iCheckable = (function(_super) {
     _ref = iCheckable.__super__.constructor.apply(this, arguments);
     return _ref;
   }
+
+  iCheckable.prototype["implements"] = [UI.iValidable];
+
+  iCheckable.prototype.validators = [UI.validators.required];
+
+  iCheckable.TABABLE = true;
 
   iCheckable.get('value', function() {
     return this.hasAttribute('checked');
@@ -516,7 +1042,12 @@ UI.iCheckable = (function(_super) {
   };
 
   iCheckable.prototype.initialize = function() {
-    return this.addEventListener(UI.Events.action, this._toggle);
+    this.addEventListener(UI.Events.action, this._toggle);
+    return this.addEventListener('keydown', function(e) {
+      if (e.keyCode === 13) {
+        return this._toggle();
+      }
+    });
   };
 
   return iCheckable;
@@ -559,12 +1090,19 @@ UI.iInput = (function(_super) {
     return _ref;
   }
 
+  iInput.prototype["implements"] = [UI.iValidable];
+
   iInput.get('value', function() {
     return this.textContent;
   });
 
   iInput.set('value', function(value) {
-    return this.textContent = value;
+    var lastValue;
+    lastValue = this.textContent;
+    this.textContent = value;
+    if (lastValue !== value) {
+      return this.fireEvent('change');
+    }
   });
 
   iInput.get('placeholder', function() {
@@ -598,7 +1136,7 @@ UI.iInput = (function(_super) {
 
   iInput.prototype.initialize = function() {
     this.setAttribute('contenteditable', true);
-    return this.addEventListener(UI.Events.blur, this.cleanup.bind(this));
+    return this.addEventListener(UI.Events.blur, this.cleanup);
   };
 
   return iInput;
@@ -619,6 +1157,8 @@ UI.Text = (function(_super) {
     _ref = Text.__super__.constructor.apply(this, arguments);
     return _ref;
   }
+
+  Text.prototype.validators = [UI.validators.required, UI.validators.maxlength, UI.validators.pattern];
 
   Text.TAGNAME = 'text';
 
@@ -952,8 +1492,8 @@ picker = (function() {
     document.body.appendChild(this.el);
     document.addEventListener(UI.Events.action, function(e) {
       picker = getParent(e.target, 'picker');
-      if (!picker) {
-        return _this.hide();
+      if (picker) {
+        return e.preventDefault();
       }
     });
     this.circleCanvas = document.createElement('canvas');
@@ -1140,9 +1680,7 @@ UI.Color = (function(_super) {
   Color.set('value', function(value) {
     var c, last;
     last = this.value;
-    if (document.querySelector(':focus') !== this) {
-      this.textContent = value.replace("#", '');
-    } else {
+    if (document.querySelector(':focus') === this) {
       ColorPicker.fromColor(value, false);
     }
     try {
@@ -1150,10 +1688,38 @@ UI.Color = (function(_super) {
       this.style.backgroundColor = c.hex;
       this.style.color = c.lightness < 50 ? "#fff" : "#000";
       if (this.value !== last) {
-        return this.fireEvent('change');
+        this.fireEvent('change');
       }
+      return this.textContent = value.replace("#", '');
     } catch (_error) {}
   });
+
+  Color.prototype._focus = function(e) {
+    e.stopPropagation();
+    if (this.disabled) {
+      return;
+    }
+    return ColorPicker.show(this);
+  };
+
+  Color.prototype._keypress = function(e) {
+    if ([39, 37, 8, 46, 9].indexOf(e.keyCode) !== -1) {
+      return;
+    }
+    if (!/^[0-9A-Za-z]$/.test(String.fromCharCode(e.charCode))) {
+      return e.preventDefault();
+    }
+    return this.value = this.textContent;
+  };
+
+  Color.prototype._keyup = function(e) {
+    return this.value = this.textContent;
+  };
+
+  Color.prototype._blur = function() {
+    ColorPicker.hide();
+    return this.value = this.textContent;
+  };
 
   Color.prototype.initialize = function() {
     if (window.ColorPicker == null) {
@@ -1161,34 +1727,93 @@ UI.Color = (function(_super) {
     }
     this.setAttribute('contenteditable', true);
     this.setAttribute('spellcheck', false);
-    this.addEventListener(UI.Events.action, function(e) {
-      e.stopPropagation();
-      if (this.disabled) {
-        return;
-      }
-      return ColorPicker.show(this);
-    });
-    this.addEventListener(UI.Events.keypress, function(e) {
-      if ([39, 37, 8, 46].indexOf(e.keyCode) !== -1) {
-        return;
-      }
-      if (!/^[0-9A-Za-z]$/.test(String.fromCharCode(e.charCode))) {
-        return e.preventDefault();
-      }
-      return this.value = this.textContent;
-    });
-    this.addEventListener(UI.Events.keyup, function(e) {
-      return this.value = this.textContent;
-    });
-    this.addEventListener(UI.Events.blur, function() {
-      return this.value = this.textContent;
-    });
+    this.addEventListener('focus', this._focus);
+    this.addEventListener(UI.Events.keypress, this._keypress);
+    this.addEventListener(UI.Events.keyup, this._keyup);
+    this.addEventListener(UI.Events.blur, this._blur);
     return this.value = this.getAttribute('value') || '#fff';
   };
 
   return Color;
 
 })(UI.Text);
+
+
+/***  components/ui-context  ***/
+
+var _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+UI.Context = (function(_super) {
+  __extends(Context, _super);
+
+  function Context() {
+    _ref = Context.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  Context.TAGNAME = 'context';
+
+  Context.prototype._open = function(e) {
+    var pageX, pageY;
+    if (this.disabled) {
+      return;
+    }
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    pageX = e.pageX, pageY = e.pageY;
+    return this.open(pageX, pageY);
+  };
+
+  Context.prototype._close = function(e) {
+    if (e.button === 2) {
+      return;
+    }
+    if (this.disabled) {
+      return;
+    }
+    return this.close();
+  };
+
+  Context.prototype.open = function(left, top) {
+    var _ref1;
+    if (!left || !top) {
+      _ref1 = this.parentNode.getBoundingClientRect(), left = _ref1.left, top = _ref1.top;
+    }
+    this.style.left = left + "px";
+    this.style.top = top + "px";
+    return this.setAttribute('open', true);
+  };
+
+  Context.prototype.close = function() {
+    return this.removeAttribute('open');
+  };
+
+  Context.prototype.onAdded = function() {
+    if (this.added) {
+      return;
+    }
+    this.added = true;
+    this._parentNode = this.parentNode;
+    return this.parentNode.addEventListener('contextmenu', this.$open);
+  };
+
+  Context.prototype.initialize = function() {
+    this.$close = this._close.bind(this);
+    this.$open = this._open.bind(this);
+    if (this.parentNode) {
+      this.onAdded();
+    }
+    document.addEventListener(UI.Events.action, this.$close);
+    document.addEventListener('contextmenu', this.$close);
+    return document.body.appendChild(this);
+  };
+
+  return Context;
+
+})(UI.Abstract);
 
 
 /***  core/i-openable  ***/
@@ -1280,6 +1905,13 @@ UI.Dropdown = (function(_super) {
     return this.toggle();
   };
 
+  Dropdown.prototype._open = function(e) {
+    if (this.parentNode.hasAttribute('disabled') || this.disabled) {
+      return;
+    }
+    return this.open();
+  };
+
   Dropdown.prototype._close = function(e) {
     if (this.parentNode.hasAttribute('disabled') || this.disabled) {
       return;
@@ -1291,11 +1923,26 @@ UI.Dropdown = (function(_super) {
 
   Dropdown.prototype.onAdded = function() {
     Dropdown.__super__.onAdded.apply(this, arguments);
-    return this.parentNode.addEventListener(UI.Events.action, this._toggle.bind(this));
+    if (this.$open == null) {
+      this.$open = this._open.bind(this);
+    }
+    if (this.$toggle == null) {
+      this.$toggle = this._toggle.bind(this);
+    }
+    if (this._parent) {
+      this._parent.removeEventListener(UI.Events.action, this.$open);
+      this._parent.removeEventListener(UI.Events.action, this.$toggle);
+    }
+    this._parent = this.parentNode;
+    if (this._parent.tagName.toLowerCase() === UI.Select.SELECTOR()) {
+      return this._parent.addEventListener(UI.Events.action, this.$open);
+    } else {
+      return this._parent.addEventListener(UI.Events.action, this.$toggle);
+    }
   };
 
   Dropdown.prototype.initialize = function() {
-    Dropdown.__super__.initialize.call(this, ['top', 'bottom']);
+    Dropdown.__super__.initialize.call(this, ['top', 'bottom', 'left', 'right']);
     return document.addEventListener(UI.Events.action, this._close.bind(this));
   };
 
@@ -1317,6 +1964,8 @@ UI.Email = (function(_super) {
     _ref = Email.__super__.constructor.apply(this, arguments);
     return _ref;
   }
+
+  Email.prototype.validators = UI.Text.prototype.validators.concat(UI.validators.email);
 
   Email.TAGNAME = 'email';
 
@@ -1382,9 +2031,40 @@ UI.Form = (function(_super) {
     return this.setAttribute('method', value.toLowerCase());
   });
 
+  Form.get('valid', function() {
+    var el, _i, _len, _ref1;
+    _ref1 = this.querySelectorAll("*");
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      el = _ref1[_i];
+      if (el.hasAttribute('invalid')) {
+        return false;
+      }
+    }
+    return true;
+  });
+
+  Form.get('invalid', function() {
+    return !this.valid;
+  });
+
+  Form.prototype.validate = function() {
+    var input, _i, _len, _ref1;
+    _ref1 = this.querySelectorAll('[name]');
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      input = _ref1[_i];
+      if (typeof input.validate === "function") {
+        input.validate();
+      }
+    }
+    return this.valid;
+  };
+
   Form.prototype.submit = function(callback) {
     var event, oReq,
       _this = this;
+    if (this.invalid) {
+      return false;
+    }
     event = this.fireEvent('submit');
     if (event.defaultPrevented) {
       return;
@@ -1612,6 +2292,133 @@ UI.Modal = (function(_super) {
 })(UI.Abstract);
 
 
+/***  components/ui-notification  ***/
+
+var _ref, _ref1,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+UI.Message = (function(_super) {
+  __extends(Message, _super);
+
+  function Message() {
+    _ref = Message.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  Message.TAGNAME = 'message';
+
+  Message.MARKUP = [
+    {
+      content: UI.promiseElement('div')
+    }
+  ];
+
+  return Message;
+
+})(UI.Abstract);
+
+UI.Notification = (function(_super) {
+  __extends(Notification, _super);
+
+  function Notification() {
+    _ref1 = Notification.__super__.constructor.apply(this, arguments);
+    return _ref1;
+  }
+
+  Notification.TAGNAME = 'notification';
+
+  Notification.prototype.defaultTimeout = 5000;
+
+  Notification.prototype.push = function(content, type) {
+    var message, remove, _i, _len, _ref2, _results,
+      _this = this;
+    message = UI.Message.create({
+      type: type
+    });
+    message.content.innerHTML = content;
+    this.appendChild(message);
+    remove = (function() {
+      return _this.removeChild(message);
+    }).once();
+    if (window.animationSupport) {
+      _ref2 = ['animationend', 'webkitAnimationEnd', 'oanimationend', 'MSAnimationEnd'];
+      _results = [];
+      for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+        type = _ref2[_i];
+        _results.push(message.addEventListener(type, remove));
+      }
+      return _results;
+    } else {
+      return setTimeout(remove, this.defaultTimeout);
+    }
+  };
+
+  return Notification;
+
+})(UI.Abstract);
+
+
+/***  components/ui-number  ***/
+
+var _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+UI.Number = (function(_super) {
+  __extends(Number, _super);
+
+  function Number() {
+    _ref = Number.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  Number.prototype.validators = [UI.validators.required];
+
+  Number.TAGNAME = 'number';
+
+  Number.get('value', function() {
+    var value;
+    value = parseFloat(this.textContent);
+    if (isNaN(value)) {
+      return '';
+    }
+    return value;
+  });
+
+  Number.set('value', function(value) {
+    value = parseFloat(value);
+    if (isNaN(value)) {
+      value = '';
+    }
+    return this.textContent = value;
+  });
+
+  Number.prototype._keypress = function(e) {
+    if ([39, 37, 8, 46, 9].indexOf(e.keyCode) !== -1) {
+      return;
+    }
+    if (!/^[0-9.]$/.test(String.fromCharCode(e.charCode))) {
+      return e.preventDefault();
+    }
+  };
+
+  Number.prototype._change = function() {
+    return this.fireEvent('change');
+  };
+
+  Number.prototype.initialize = function() {
+    Number.__super__.initialize.apply(this, arguments);
+    this.addEventListener('keypress', this._keypress);
+    this.addEventListener('keyup', this._change);
+    return this.addEventListener('blur', this._change);
+  };
+
+  return Number;
+
+})(UI.Text);
+
+
 /***  components/ui-option  ***/
 
 var _ref,
@@ -1635,14 +2442,6 @@ UI.Option = (function(_super) {
   Option.set('selected', function(value) {
     return this.toggleAttribute('selected', !!value);
   });
-
-  Option.create = function(value) {
-    var el;
-    el = Option.__super__.constructor.create.apply(this, arguments);
-    el.setAttribute('value', value);
-    el.textContent = value;
-    return el;
-  };
 
   return Option;
 
@@ -1744,6 +2543,59 @@ UI.Pager = (function(_super) {
 })(UI.Abstract);
 
 
+/***  components/ui-popover  ***/
+
+var _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+UI.Popover = (function(_super) {
+  __extends(Popover, _super);
+
+  function Popover() {
+    _ref = Popover.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  Popover.TAGNAME = 'popover';
+
+  Popover.prototype._toggle = function() {
+    if (this.parentNode.hasAttribute('disabled') || this.disabled) {
+      return;
+    }
+    return this.toggle();
+  };
+
+  Popover.prototype._close = function(e) {
+    if (this.parentNode.hasAttribute('disabled') || this.disabled) {
+      return;
+    }
+    if (getParent(e.target, this.parentNode.tagName) !== this.parentNode) {
+      return this.close();
+    }
+  };
+
+  Popover.prototype.onAdded = function() {
+    var _this = this;
+    Popover.__super__.onAdded.apply(this, arguments);
+    this.parentNode.addEventListener(UI.Events.action, this._toggle.bind(this));
+    return this.parentNode.addEventListener('keydown', function(e) {
+      if (e.ctrlKey) {
+        return _this._toggle();
+      }
+    });
+  };
+
+  Popover.prototype.initialize = function() {
+    Popover.__super__.initialize.call(this, ['top', 'bottom', 'left', 'right']);
+    return document.addEventListener(UI.Events.action, this._close.bind(this));
+  };
+
+  return Popover;
+
+})(UI.iOpenable);
+
+
 /***  components/ui-radio  ***/
 
 var _ref,
@@ -1833,6 +2685,10 @@ Drag = (function() {
     this.base.addEventListener(UI.Events.dragStart, this.start);
   }
 
+  Drag.prototype.destroy = function() {
+    return this.base.removeEventListener(UI.Events.dragStart, this.start);
+  };
+
   Drag.prototype.reset = function() {
     this.position = this.startPosition = null;
     return this.mouseIsDown = false;
@@ -1852,7 +2708,7 @@ Drag = (function() {
       return;
     }
     this.position = this.startPosition = this.getPosition(e);
-    event = UI.Abstract.prototype.fireEvent.call(this.base, 'dragstart', {
+    event = this.base.fireEvent('dragstart', {
       _target: e.target,
       shiftKey: e.shiftKey
     });
@@ -1860,6 +2716,7 @@ Drag = (function() {
       return;
     }
     this.mouseIsDown = true;
+    e.preventDefault();
     document.addEventListener(UI.Events.dragMove, this.pos);
     document.addEventListener(UI.Events.dragEnd, this.up);
     return requestAnimationFrame(this.move);
@@ -1872,7 +2729,7 @@ Drag = (function() {
     if (!this.position) {
       return;
     }
-    return UI.Abstract.prototype.fireEvent.call(this.base, 'dragmove');
+    return this.base.fireEvent('dragmove');
   };
 
   Drag.prototype.pos = function(e) {
@@ -1881,10 +2738,11 @@ Drag = (function() {
   };
 
   Drag.prototype.up = function(e) {
+    e.preventDefault();
     this.reset();
     document.removeEventListener(UI.Events.dragMove, this.pos);
     document.removeEventListener(UI.Events.dragEnd, this.up);
-    return UI.Abstract.prototype.fireEvent.call(this.base, 'dragend');
+    return this.base.fireEvent('dragend');
   };
 
   return Drag;
@@ -1907,6 +2765,8 @@ UI.Range = (function(_super) {
   }
 
   Range.TAGNAME = 'range';
+
+  Range.TABABLE = true;
 
   Range.get('range', function() {
     return Math.abs(this.min - this.max);
@@ -1969,6 +2829,7 @@ UI.Range = (function(_super) {
 
   Range.prototype._start = function(e) {
     var knobRect, percent, rect;
+    this.focus();
     e.stopPropagation();
     rect = this.getBoundingClientRect();
     knobRect = this.knob.getBoundingClientRect();
@@ -1984,6 +2845,19 @@ UI.Range = (function(_super) {
     current = diff.x.clamp(0, this.offsetWidth);
     percent = current / this.offsetWidth;
     return this._setValue(percent);
+  };
+
+  Range.prototype._keydown = function(e) {
+    var percent;
+    percent = this.range * (e.shiftKey ? 0.1 : 0.01);
+    switch (e.keyCode) {
+      case 37:
+      case 38:
+        return this.value -= percent;
+      case 39:
+      case 40:
+        return this.value += percent;
+    }
   };
 
   Range.prototype.initialize = function() {
@@ -2006,8 +2880,9 @@ UI.Range = (function(_super) {
       this._setValue((value - this.min) / this.range);
     }
     this.drag = new Drag(this);
-    this.addEventListener('dragstart', this._start.bind(this));
-    return this.addEventListener('dragmove', this._move.bind(this));
+    this.addEventListener('dragstart', this._start);
+    this.addEventListener('dragmove', this._move);
+    return this.addEventListener('keydown', this._keydown);
   };
 
   return Range;
@@ -2029,7 +2904,23 @@ UI.Select = (function(_super) {
     return _ref;
   }
 
+  Select.prototype["implements"] = [UI.iValidable];
+
+  Select.prototype.validators = [UI.validators.required];
+
   Select.TAGNAME = 'select';
+
+  Select.TABABLE = true;
+
+  Select.MARKUP = [UI.Label.promise(), UI.Dropdown.promise()];
+
+  Select.get('dropdown', function() {
+    return this.querySelector(UI.Dropdown.SELECTOR());
+  });
+
+  Select.get('label', function() {
+    return this.querySelector(UI.Label.SELECTOR());
+  });
 
   Select.set('value', function(value) {
     return this.select(value);
@@ -2074,25 +2965,55 @@ UI.Select = (function(_super) {
     if (!e.target.matchesSelector(UI.Option.SELECTOR())) {
       return;
     }
+    e.stopImmediatePropagation();
+    e.stopPropagation();
     this.select(e.target);
-    return this.dropdown.close();
+    return this.blur();
+  };
+
+  Select.prototype._blur = function() {
+    var _ref1;
+    if (this.disabled) {
+      return;
+    }
+    return (_ref1 = this.dropdown) != null ? _ref1.close() : void 0;
+  };
+
+  Select.prototype._focus = function() {
+    var _ref1;
+    if (this.disabled) {
+      return;
+    }
+    return (_ref1 = this.dropdown) != null ? _ref1.open() : void 0;
+  };
+
+  Select.prototype._keydown = function(e) {
+    var index, parent;
+    if ([37, 38, 39, 40].indexOf(e.keyCode) === -1) {
+      return;
+    }
+    parent = this.selectedOption.parentNode;
+    index = this.selectedOption.index();
+    switch (e.keyCode) {
+      case 37:
+      case 38:
+        e.preventDefault();
+        return this.select(parent.children[(--index).clamp(0, parent.children.length - 1)]);
+      case 39:
+      case 40:
+        e.preventDefault();
+        return this.select(parent.children[(++index).clamp(0, parent.children.length - 1)]);
+    }
   };
 
   Select.prototype.initialize = function() {
-    this.dropdown = this.querySelector(UI.Dropdown.SELECTOR());
-    this.label = this.querySelector(UI.Label.SELECTOR());
-    if (!this.dropdown) {
-      this.dropdown = UI.Dropdown.create();
-      this.insertBefore(this.dropdown, this.firstChild);
-      this.dropdown.onAdded();
-    }
-    if (!this.label) {
-      this.insertBefore((this.label = UI.Label.create()), this.firstChild);
-    }
     this.name = this.getAttribute('name');
     this.addEventListener('DOMNodeRemoved', this._nodeRemoved);
     this.addEventListener('DOMNodeInserted', this._nodeAdded);
     this.addEventListener(UI.Events.action, this._select);
+    this.addEventListener('blur', this._blur);
+    this.addEventListener('focus', this._focus);
+    this.addEventListener('keydown', this._keydown);
     return this.selectDefault();
   };
 
@@ -2112,6 +3033,9 @@ UI.Select = (function(_super) {
     } else {
       selected = this.querySelector(UI.Option.SELECTOR() + ("[value='" + value + "']")) || null;
     }
+    if (this.selectedOption === selected) {
+      return;
+    }
     if (!selected) {
       if ((_ref1 = this.label) != null) {
         _ref1.textContent = "";
@@ -2120,9 +3044,6 @@ UI.Select = (function(_super) {
         this.selectedOption.selected = false;
       }
       this.fireEvent('change');
-      return;
-    }
-    if (this.selectedOption === selected) {
       return;
     }
     if ((_ref2 = this.selectedOption) != null) {
@@ -2180,6 +3101,8 @@ UI.Textarea = (function(_super) {
     return _ref;
   }
 
+  Textarea.prototype.validators = UI.Text.prototype.validators;
+
   Textarea.TAGNAME = 'textarea';
 
   return Textarea;
@@ -2203,18 +3126,25 @@ UI.Toggle = (function(_super) {
 
   Toggle.TAGNAME = 'toggle';
 
-  Toggle.create = function() {
-    var el, separator, _off, _on;
-    el = Toggle.__super__.constructor.create.apply(this, arguments);
-    _on = document.createElement('div');
-    _off = document.createElement('div');
-    separator = document.createElement('div');
-    _on.textContent = 'ON';
-    _off.textContent = 'OFF';
-    el.appendChild(_on);
-    el.appendChild(separator);
-    el.appendChild(_off);
-    return el;
+  Toggle.MARKUP = [UI.promiseElement('div', {}, ['ON']), UI.promiseElement('div'), UI.promiseElement('div', {}, ['OFF'])];
+
+  Toggle.prototype._keydown = function(e) {
+    if ([37, 38, 39, 40].indexOf(e.keyCode) === -1) {
+      return;
+    }
+    switch (e.keyCode) {
+      case 37:
+      case 38:
+        return this.checked = false;
+      case 39:
+      case 40:
+        return this.checked = true;
+    }
+  };
+
+  Toggle.prototype.initialize = function() {
+    Toggle.__super__.initialize.apply(this, arguments);
+    return this.addEventListener('keydown', this._keydown);
   };
 
   return Toggle;
@@ -2253,20 +3183,33 @@ UI.Tooltip = (function(_super) {
     if (getParent(e.target, UI.Tooltip.SELECTOR())) {
       return;
     }
-    return this.setAttribute('open', true);
+    return this.open();
   };
 
   Tooltip.prototype._leave = function() {
     if (this.parentNode.hasAttribute('disabled') || this.disabled) {
       return;
     }
-    return this.removeAttribute('open');
+    return this.close();
+  };
+
+  Tooltip.prototype._toggle = function() {
+    if (this.parentNode.hasAttribute('disabled') || this.disabled) {
+      return;
+    }
+    return this.toggle();
   };
 
   Tooltip.prototype.onAdded = function() {
+    var _this = this;
     Tooltip.__super__.onAdded.apply(this, arguments);
     this.parentNode.addEventListener(UI.Events.enter, this._enter.bind(this));
-    return this.parentNode.addEventListener(UI.Events.leave, this._leave.bind(this));
+    this.parentNode.addEventListener(UI.Events.leave, this._leave.bind(this));
+    return this.parentNode.addEventListener('keydown', function(e) {
+      if (e.altKey) {
+        return _this._toggle();
+      }
+    });
   };
 
   Tooltip.prototype.initialize = function() {
@@ -2276,6 +3219,51 @@ UI.Tooltip = (function(_super) {
   return Tooltip;
 
 })(UI.iOpenable);
+
+
+/***  components/ui-view  ***/
+
+var _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+UI.View = (function(_super) {
+  __extends(View, _super);
+
+  function View() {
+    _ref = View.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  View.prototype._addEvents = function() {
+    var method, selector, type, _ref1, _ref2, _results;
+    _ref1 = this.events;
+    _results = [];
+    for (type in _ref1) {
+      method = _ref1[type];
+      if (type.match(/\s/)) {
+        _ref2 = type.split(/\s/), type = _ref2[0], selector = _ref2[1];
+        if (UI.Events[type]) {
+          type = UI.Events[type];
+        }
+        _results.push(this.delegateEventListener(type, selector, this[method].bind(this)));
+      } else {
+        if (UI.Events[type]) {
+          type = UI.Events[type];
+        }
+        _results.push(this.addEventListener(type, this[method].bind(this)));
+      }
+    }
+    return _results;
+  };
+
+  View.prototype.initialize = function() {
+    return this._addEvents();
+  };
+
+  return View;
+
+})(UI.Abstract);
 
 
 /***  core/mui  ***/
