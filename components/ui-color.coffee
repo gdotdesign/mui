@@ -9,8 +9,8 @@ picker = class
 
     document.addEventListener UI.Events.action, (e)=>
       picker = getParent(e.target,'picker')
-      unless picker
-        @hide()
+      if picker
+        e.preventDefault()
     @circleCanvas = document.createElement 'canvas'
     @triangle = document.createElement 'triangle'
     @triangle.appendChild document.createElement 'gradient'
@@ -142,6 +142,7 @@ picker = class
 
 color = Color
 # Color component
+# TODO: Validations...
 class UI.Color extends UI.Text
   # The tagname of the component
   @TAGNAME: 'color'
@@ -150,15 +151,42 @@ class UI.Color extends UI.Text
   @get 'value', -> new color(getComputedStyle(@).backgroundColor).hex
   @set 'value', (value)->
     last = @value
-    if document.querySelector(':focus') isnt @
-      @textContent = value.replace("#",'')
-    else
+    unless document.querySelector(':focus') isnt @
       ColorPicker.fromColor value, false
     try
       c = new color(value)
       @style.backgroundColor = c.hex
       @style.color =  if c.lightness < 50 then "#fff" else "#000"
       @fireEvent 'change' if @value isnt last
+      @textContent = value.replace("#",'')
+
+  # Focus event handler
+  # @param [Event] e
+  # @private
+  _focus: (e)->
+    e.stopPropagation()
+    return if @disabled
+    ColorPicker.show @
+
+  # Keypress event handler
+  # @param [Event] e
+  # @private
+  _keypress: (e)->
+    # FIX: Enable arrow keys in Firefox
+    return if [39,37,8,46,9].indexOf(e.keyCode) isnt -1
+    return e.preventDefault() unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
+    @value = @textContent
+
+  # Keyup event handler
+  # @param [Event] e
+  # @private
+  _keyup: (e)-> @value = @textContent
+
+  # Blur event handler
+  # @private
+  _blur: ->
+    ColorPicker.hide()
+    @value = @textContent
 
   # Initializes the component
   # @private
@@ -167,18 +195,9 @@ class UI.Color extends UI.Text
     @setAttribute 'contenteditable', true
     @setAttribute 'spellcheck', false
 
-    @addEventListener UI.Events.action, (e)->
-      e.stopPropagation()
-      return if @disabled
-      ColorPicker.show @
-
-    @addEventListener UI.Events.keypress, (e)->
-      # FIX: Enable arrow keys in Firefox
-      return if [39,37,8,46].indexOf(e.keyCode) isnt -1
-      return e.preventDefault() unless /^[0-9A-Za-z]$/.test String.fromCharCode(e.charCode)
-      @value = @textContent
-
-    @addEventListener UI.Events.keyup, (e)->  @value = @textContent
-    @addEventListener UI.Events.blur, -> @value = @textContent
+    @addEventListener 'focus', @_focus
+    @addEventListener UI.Events.keypress, @_keypress
+    @addEventListener UI.Events.keyup, @_keyup
+    @addEventListener UI.Events.blur, @_blur
 
     @value = @getAttribute('value') or '#fff'

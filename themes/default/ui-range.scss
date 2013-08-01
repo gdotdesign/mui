@@ -25,6 +25,9 @@ ui-range {
     top: 0;
   }
 
+  /* STATES */
+  &:focus { box-shadow: $inset-shadow, $focus-shadow; }
+
   /* KNOB */
   & > *:first-child > *:first-child{
 

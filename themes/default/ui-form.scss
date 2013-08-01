@@ -5,6 +5,9 @@ ui-form {
   $form-background: #fff;
   $form-padding: 20px;
 
+  /* DEFAULTS */
+  display: block;
+  
   /* STYLES */
   box-shadow: 0 0 0 1px rgba(0,0,0,0.2) inset, 0 0 0 1px rgba(0,0,0,0.2);
   background: $form-background;

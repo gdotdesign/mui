@@ -12,5 +12,5 @@ before_script:
   - sleep 5s
 env:
   global:
-  - secure: ! 'FVzwH5cpVIYHTdrR3ZWw5HGkl3phOVgEbp9fLkcFrLXxCY4AVboeTydwTqVZubQ2iXeSxPu3GQ3+NYvVJJROf9KA8pIJ4+0ztfE4Ictx3anmfiJUtoVE4y+Do3aaBRarMBUvZuOVrJdXew/j6SjHN0Lbqke5Sue9DATxpMVpgbc='
-  - secure: ! 'GwbRPz1fgeQ7oWb/6Aq46q419T0INCon+lDQoBOO/359frB5HyPC5qtYzgOSEdEDsYMEpiprbmP3ZZ/oxzb5J8QDJ3ydgkw8A/5G2f0xDZNAviG1p37RccOsCUZdefMMawQUCX1s2HgDqj5GFN3guAtSY0OJqf0Ocva+JaKDnk8='
+  - secure: ! 'VK/JUNjO7SaUmX90fzyeBnBjTlRQNTQ5fmNSWhats2iOSUpaSufYWyz8ZGiHRz63uxAQpLtLsgBLxvZ7qwBtl15nRgNkarG8IOXkpOgVJJHHRi+7LE4cGzvEZ8/nbwW0X/mEmllT8PT5EptHtehtP9DibRpFEKuy24AOfegLZNY='
+  - secure: ! 'HFZLyTEXv5r3dRO1iaFkDjXmyVbqn96jtMvH8it2G7wbeHhaOs25AgMreIFa5neJS8ntHUMwaL/4A833JGPvNfDwZnbEShusPnqrv3n8IPvu8jPtb9kxRiuuXLJvVgXV71uCDHBIGRZt+sOhdUwtJ6M3dzwJBniC+WloPz6TUpM='

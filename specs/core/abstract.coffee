@@ -26,3 +26,18 @@ Test.add 'Abstract',->
       if key isnt 'initialize' and key isnt 'constructor'
         @assert Object.getOwnPropertyDescriptor el3, key
     document.body.removeChild el3
+
+  @case "Create should throw error for non object attribute", ->
+    x = true
+    try
+      UI.Toggle.create('error')
+      x = false
+    catch e
+    @assert x
+
+  @case "Promise should retrun a function that creates a component", ->
+    fn = UI.Toggle.promise()
+    @assert fn instanceof Function
+    el = fn()
+    @assert el instanceof Element
+    @assert el.tagName is 'UI-TOGGLE'

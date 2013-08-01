@@ -24,31 +24,37 @@ class UI.Abstract
       continue if key is 'initialize' or key is 'constructor'
       Object.defineProperty el, key, desc
 
+    el.setAttribute 'tabindex', 0 if @TABABLE
     el._processed = true
+
     @::initialize?.call el
-    el.onAdded?() if el.parentNode
+    return unless @::implements
+    cls::initialize.call el for cls in @::implements
+
 
   # Creates the specifiec component.
   # @return [UI.Abstract] The component element
-  @create: ->
+  @create: (attributes)->
     base = document.createElement @SELECTOR()
+    if @MARKUP
+      UI._build.call base, @MARKUP, base
+    if attributes
+      throw "Illegal attributes" unless typeof attributes is 'object'
+      base.setAttribute key, value for key, value of attributes
     @wrap base
     base
 
-  # Fires an event
-  #
-  # @param [String] type - The type of the event
-  # @param [Object] data - The additional parameters to be set on the event
-  # @throw [Error] When no type is specified
-  # @return [Event] The event
-  fireEvent: (type,data)->
-    throw "No type specified" unless typeof type is 'string'
-    event = document.createEvent("HTMLEvents")
-    event.initEvent(type, true, true)
-    event[key] = value for key, value of data
-    @dispatchEvent(event)
-    event
+  # Returns a function when its called creates a Component
+  # @param [Object] Attributes to be added to the component
+  # @param [Array] Children to be created for the component
+  # @return [Function]
+  @promise: (attributes = {}, children)->
+    (parent)=>
+      el = @create(attributes)
+      UI._build.call el, children, parent
+      el
 
   # Returns the string representation of the component
   # @return [String] tagname
   toString: -> "<#{@tagName.toLowerCase()}>"
+

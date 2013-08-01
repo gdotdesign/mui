@@ -17,6 +17,10 @@ class Drag
     @reset()
     @base.addEventListener UI.Events.dragStart, @start
 
+  # Destroys the instance - remove event listener
+  destroy: ->
+    @base.removeEventListener UI.Events.dragStart, @start
+
   # Resets internal variables
   # @private
   reset: ->
@@ -41,11 +45,11 @@ class Drag
 
     @position = @startPosition = @getPosition(e)
 
-    event = UI.Abstract::fireEvent.call @base, 'dragstart', {_target: e.target, shiftKey: e.shiftKey}
+    event = @base.fireEvent 'dragstart', {_target: e.target, shiftKey: e.shiftKey}
     return if event.stopped
 
     @mouseIsDown = true
-
+    e.preventDefault()
     document.addEventListener UI.Events.dragMove, @pos
     document.addEventListener UI.Events.dragEnd, @up
 
@@ -56,7 +60,7 @@ class Drag
   move: =>
     requestAnimationFrame @move if @mouseIsDown
     return unless @position
-    UI.Abstract::fireEvent.call @base, 'dragmove'
+    @base.fireEvent 'dragmove'
 
   # Sets curent position from event
   # @param [e] Event
@@ -68,7 +72,8 @@ class Drag
   # Complete event handler
   # @private
   up: (e)=>
+    e.preventDefault()
     @reset()
     document.removeEventListener UI.Events.dragMove, @pos
     document.removeEventListener UI.Events.dragEnd, @up
-    UI.Abstract::fireEvent.call @base, 'dragend'
+    @base.fireEvent 'dragend'

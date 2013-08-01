@@ -16,6 +16,12 @@ class UI.Dropdown extends UI.iOpenable
     return if @parentNode.hasAttribute('disabled') or @disabled
     @toggle()
 
+  # Action event handler
+  # @private
+  _open: (e)->
+    return if @parentNode.hasAttribute('disabled') or @disabled
+    @open()
+
   # Action event handler for document
   # @private
   _close: (e)->
@@ -26,10 +32,22 @@ class UI.Dropdown extends UI.iOpenable
   # @private
   onAdded: ->
     super
-    @parentNode.addEventListener UI.Events.action, @_toggle.bind(@)
+
+    @$open ?= @_open.bind(@)
+    @$toggle ?= @_toggle.bind(@)
+
+    if @_parent
+      @_parent.removeEventListener UI.Events.action, @$open
+      @_parent.removeEventListener UI.Events.action, @$toggle
+
+    @_parent = @parentNode
+    if @_parent.tagName.toLowerCase() is UI.Select.SELECTOR()
+      @_parent.addEventListener UI.Events.action, @$open
+    else
+      @_parent.addEventListener UI.Events.action, @$toggle
 
   # Initializes the component
   # @private
   initialize: ->
-    super ['top','bottom']
+    super ['top','bottom','left','right']
     document.addEventListener UI.Events.action, @_close.bind(@)

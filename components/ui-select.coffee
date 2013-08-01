@@ -1,9 +1,31 @@
 #= require ../core/abstract
+#= require ../core/i-validable
+#= require ./ui-option
+#= require ./ui-label
 
 # Select component
 class UI.Select extends UI.Abstract
+  # Mixin implementations
+  implements: [UI.iValidable]
+
+  # Validators
+  validators: [UI.validators.required]
+
   # The tagname of the component
   @TAGNAME: 'select'
+  # Whether the component can receive focus
+  @TABABLE: true
+  # Child Elements
+  @MARKUP: [
+    UI.Label.promise()
+    UI.Dropdown.promise()
+  ]
+
+  # @property [UI.Dropdown] The dropdown element
+  @get 'dropdown', -> @querySelector(UI.Dropdown.SELECTOR())
+
+  # @property [UI.Label] The label element
+  @get 'label', -> @querySelector(UI.Label.SELECTOR())
 
   # @property [String] The current value of the component
   @set 'value', (value)-> @select value
@@ -34,28 +56,52 @@ class UI.Select extends UI.Abstract
   _select: (e)->
     return if @disabled
     return unless e.target.matchesSelector(UI.Option.SELECTOR())
+    e.stopImmediatePropagation()
+    e.stopPropagation()
     @select e.target
-    @dropdown.close()
+    @blur()
 
-  # Initializez to component
+  # Blur event handler
+  # @private
+  _blur: ->
+    return if @disabled
+    @dropdown?.close()
+
+  # Focus event handler
+  # @private
+  _focus: ->
+    return if @disabled
+    @dropdown?.open()
+
+  # Keydown event handler
+  # @param [Event] e
+  # @private
+  _keydown: (e)->
+    return if [37,38,39,40].indexOf(e.keyCode) is -1
+    parent = @selectedOption.parentNode
+    index = @selectedOption.index()
+    switch e.keyCode
+      when 37, 38 # LEFT
+        e.preventDefault()
+        @select parent.children[(--index).clamp(0,parent.children.length-1)]
+      when 39, 40 # RIGHT
+        e.preventDefault()
+        @select parent.children[(++index).clamp(0,parent.children.length-1)]
+
+  # Initializes to component
   # @private
   initialize: ->
-    @dropdown = @querySelector(UI.Dropdown.SELECTOR())
-    @label = @querySelector(UI.Label.SELECTOR())
-
-    unless @dropdown
-      @dropdown = UI.Dropdown.create()
-      @insertBefore @dropdown, @firstChild
-      @dropdown.onAdded()
-    @insertBefore( (@label = UI.Label.create()), @firstChild) unless @label
-
     @name = @getAttribute('name')
 
     @addEventListener 'DOMNodeRemoved', @_nodeRemoved
     @addEventListener 'DOMNodeInserted', @_nodeAdded
     @addEventListener UI.Events.action, @_select
+    @addEventListener 'blur', @_blur
+    @addEventListener 'focus', @_focus
+    @addEventListener 'keydown', @_keydown
 
     @selectDefault()
+
 
   # Select option by default algorithm:
   #
@@ -69,20 +115,19 @@ class UI.Select extends UI.Abstract
   # Select option
   # @param [UI.Option / String] The option element or value to be selected
   select: (value)->
-
     if value instanceof HTMLElement
       # TODO - Child node check
       selected = value
     else
       selected = @querySelector(UI.Option.SELECTOR()+"[value='#{value}']") or null
 
+    return if @selectedOption is selected
+
     unless selected
       @label?.textContent = ""
       @selectedOption.selected = false if @selectedOption
       @fireEvent 'change'
       return
-
-    return if @selectedOption is selected
 
     @selectedOption?.selected = false
     selected.selected = true

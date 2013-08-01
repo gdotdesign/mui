@@ -14,13 +14,19 @@ class UI.Tooltip extends UI.iOpenable
   _enter: (e)->
     return if @parentNode.hasAttribute('disabled') or @disabled
     return if getParent(e.target, UI.Tooltip.SELECTOR())
-    @setAttribute('open',true)
+    @open()
 
   # Leave event hanlder
   # @private
   _leave: ->
     return if @parentNode.hasAttribute('disabled') or @disabled
-    @removeAttribute('open')
+    @close()
+
+  # Keydown event hanlder
+  # @private
+  _toggle: ->
+    return if @parentNode.hasAttribute('disabled') or @disabled
+    @toggle()
 
   # Runs when the element is inserted into the DOM
   # @private
@@ -28,6 +34,8 @@ class UI.Tooltip extends UI.iOpenable
     super
     @parentNode.addEventListener UI.Events.enter, @_enter.bind(@)
     @parentNode.addEventListener UI.Events.leave, @_leave.bind(@)
+    @parentNode.addEventListener 'keydown', (e)=>
+      @_toggle() if e.altKey
 
   # Initializes the component
   # @private

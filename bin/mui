@@ -5,6 +5,7 @@
 # Start site / spec server -> mui -s, mui --server
 # Run specs                -> mui -t, mui --test
 # Generate documentation   -> mui -d, mui --doc
+# Build release            -> mui -b, mui --build
 
 nconf = require 'nconf'
 nconf.argv
@@ -131,10 +132,11 @@ else if nconf.get('test')
           if version
             opts.version = version
           browser.init(opts).then(->
-            browser.get(TEST_URL).delay 3000
+            browser.get(TEST_URL).delay 4000
           ).then(->
             browser.eval "window.results"
           ).then((results) ->
+            console.log JSON.stringify(results)
             unless results
               passed = false
               failed = 1

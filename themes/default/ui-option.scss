@@ -16,4 +16,11 @@ ui-option {
 
   /* STATES */
   &:hover { background: rgba(255,255,255,0.1); }
+
+  &[selected] {
+    background-color: $color;
+    color: $background-color;
+    box-shadow: $plastic-shadow;
+    background-image: $gradient;
+  }
 }

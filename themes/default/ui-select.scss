@@ -22,6 +22,7 @@ ui-select {
   /* STATES */
   &:not([disabled]){ cursor: pointer; }
   &:not([disabled]):hover { background-color: $background-color-hover; }
+  &:focus{ box-shadow: $plastic-shadow-focus; }
 
   /* TOGGLE ICON */
   &:after {

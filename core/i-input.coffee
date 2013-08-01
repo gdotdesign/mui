@@ -1,12 +1,19 @@
 #= require abstract
+#= require i-validable
 
 # Input base Class
 # @abstract
 class UI.iInput extends UI.Abstract
+  # Mixin implementations
+  implements: [UI.iValidable]
 
   # @property [String] value The value of the component
   @get 'value', ->  @textContent
-  @set 'value', (value)-> @textContent = value
+  @set 'value', (value)->
+    lastValue = @textContent
+    @textContent = value
+    if lastValue isnt value
+      @fireEvent 'change'
 
   # @property [String] value The placeholder of the component
   @get 'placeholder', ->  @getAttribute('placeholder')
@@ -31,4 +38,4 @@ class UI.iInput extends UI.Abstract
   # @private
   initialize: ->
     @setAttribute 'contenteditable', true
-    @addEventListener UI.Events.blur, @cleanup.bind(@)
+    @addEventListener UI.Events.blur, @cleanup
