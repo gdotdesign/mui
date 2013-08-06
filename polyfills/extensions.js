@@ -76,7 +76,8 @@ Object.defineProperties(Function.prototype, {
       descriptor.configurable = true;
       descriptor.enumerable = true;
       return Object.defineProperty(this.prototype, property, descriptor);
-    }
+    },
+    configurable: true
   },
   get: {
     value: function(property, fn) {
@@ -90,7 +91,8 @@ Object.defineProperties(Function.prototype, {
         };
       }
       return this.property(property, descriptor);
-    }
+    },
+    configurable: true
   },
   set: {
     value: function(property, fn) {
@@ -104,7 +106,8 @@ Object.defineProperties(Function.prototype, {
         };
       }
       return this.property(property, descriptor);
-    }
+    },
+    configurable: true
   }
 });
 

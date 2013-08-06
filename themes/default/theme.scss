@@ -112,3 +112,44 @@ body {
 @import "ui-context.scss";
 @import "ui-popover.scss";
 @import "ui-notification";
+
+
+@keyframes list-add {
+  0% {
+    max-height: 0;
+    opacity: 0
+  }
+  100% {
+    max-height: 60px;
+    opacity: 1
+  }
+}
+@keyframes list-remove {
+  0% {
+    max-height: 60px;
+    opacity: 1
+  }
+  100% {
+    max-height: 0;
+    opacity: 0
+  }
+}
+
+ui-list {
+  display: block;
+  width: 300px;
+  ui-option {
+    background-color: red;
+    color: inherit
+  }
+  > * {
+    animation: list-add 1ms 1 both;
+  }
+}
+
+body[loaded] ui-list > * {
+  animation: list-add 500ms 1 both;
+  &[removed] {
+    animation: list-remove 500ms 1 both;
+  }
+}
